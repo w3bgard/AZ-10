@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="description" content="AZ10 - Persian Hip-Hop Rating Platform">
+    <title>AZ10 | Persian Hip-Hop Rating Platform</title>
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../src/styles/base/variables.css">
+    <link rel="stylesheet" href="../src/styles/base/reset.css">
+    <link rel="stylesheet" href="../src/styles/base/typography.css">
+    <link rel="stylesheet" href="../src/styles/base/global.css">
+
+    <!-- Component Styles -->
+    <link rel="stylesheet" href="../src/styles/components/panel/panel.css">
+    <link rel="stylesheet" href="../src/styles/components/content/content.css">
+    <link rel="stylesheet" href="../src/components/shared/TrackCard/track-card.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Side Panel -->
+    <aside class="side-panel">
+        <div class="nav-container"></div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Track Sections -->
+        <section class="content-section new-releases">
+
+            <!-- Mainstream Releases -->
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">Selected Mainstream Tracks</h2>
+                    <p class="section-subtitle">MVP / Test Version</p>
+                </div>
+                <div class="section-guide">
+                    <h3>Choose your preferred Artist to enhance your track discovery experience...</h3>
+                </div>
+
+                <!-- Artist Selection Section -->
+                <div class="artist-selection">
+                    <div class="artist-list">
+                        <button class="artist-item">Dorcci</button>
+                        <button class="artist-item">Poori</button>
+                        <button class="artist-item">Hiphopologist</button>
+                        <!-- More artists can be added dynamically -->
+                    </div>
+                </div>
+                
+                <div class="track-slider" id="mainstreamSlider">
+                    <!-- ترک‌ها اینجا با JavaScript اضافه میشن -->
+                    <div class="loading-placeholder">Loading tracks...</div>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+    <!-- Error Messages -->
+    <div id="errorContainer" class="error-container" style="display: none;">
+        <p class="error-message"></p>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Core Scripts -->
+    <script defer src="../src/js/core/components.js"></script>
+    <script type="module" src="../src/components/shared/TrackCard/track-card.js"></script>
+    <script type="module" src="../src/js/index.js"></script>
+</body>
+</html>

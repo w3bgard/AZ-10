@@ -1,0 +1,304 @@
+/* Track Container */
+.track-content {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg-color);
+}
+
+.track-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    /* margin-top: var(--space-lg); */
+    padding: var(--space-xl);
+    position: relative;
+}
+
+/* Cover Column */
+.track-cover-column {
+    position: sticky;
+    top: var(--space-xl);
+    height: min-content;
+    will-change: transform;
+}
+
+.track-cover {
+    aspect-ratio: 1;
+    /* border-radius: var(--radius-xl); */
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-elevation-medium);
+}
+
+.track-cover:hover {
+    transform: scale(1.02);
+}
+
+.track-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Info Column */
+.track-info-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    padding-bottom: var(--space-3xl); /* فضای اضافی برای اسکرول */
+}
+
+/* Track Header */
+.track-header {
+    margin-bottom: var(--space-xl);
+}
+
+.track-label {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--surface-hover);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+}
+
+.track-title {
+    font-size: var(--font-size-xxl);
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+}
+
+.artist-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.artist-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.artist-name {
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+}
+
+/* Track Actions */
+.track-actions {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-xl);
+    /* border-radius: 6px; */
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.rate-btn {
+    /* background-color: rgba(255, 81, 0, 0.296); */
+    /* background-color: var(--color-primary); */
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    color: var(--color-primary);
+}
+
+.rate-btn:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.share-btn {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+}
+
+.share-btn:hover {
+    background-color: var(--surface-color);
+}
+
+/* Track Details */
+.track-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.detail-group {
+    padding: var(--space-lg);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    /* border-radius: var(--track-card-radius); */
+}
+
+.detail-group h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    margin-bottom: var(--space-md);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.detail-value {
+    font-weight: 500;
+}
+
+/* Streaming Platforms */
+.streaming-platforms {
+    margin-top: var(--space-xl);
+}
+
+.streaming-platforms h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    margin-bottom: var(--space-lg);
+}
+
+.platform-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-md);
+}
+
+.platform-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: all var(--transition-fast);
+}
+
+.platform-link:hover {
+    background: var(--surface-color);
+    transform: translateY(-2px);
+}
+
+.platform-link i {
+    font-size: var(--font-size-lg);
+}
+
+/* Modal */
+.image-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+}
+
+.image-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .track-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+
+    .track-cover-column {
+        position: relative;
+        top: 0;
+        max-width: 225px;
+        margin: 0 auto;
+    }
+
+    .track-cover {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .track-container {
+        padding: var(--space-md);
+    }
+
+    .track-title {
+        font-size: var(--font-size-xl);
+    }
+
+    .track-actions {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .platform-links {
+        grid-template-columns: 1fr;
+    }
+}

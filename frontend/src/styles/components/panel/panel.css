@@ -1,0 +1,408 @@
+/* Panel Component Styles
+ * Version: 2.0.0
+ * ------------------- */
+
+/* CSS Reset & Base Styles */
+.side-panel *,
+.side-panel *::before,
+.side-panel *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.skip-to-main {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    z-index: 1000;
+    padding: var(--space-md);
+    background: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    transition: top 0.3s;
+}
+
+.skip-to-main:focus {
+    top: 0;
+}
+
+/* Panel Container */
+.side-panel {
+    --panel-shadow: 0 4px 12px rgb(18, 18, 18);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--panel-width);
+    height: 100vh;
+    display: grid;
+    /* background-color: rgb(0, 0, 0); */
+    grid-template-rows: auto 1fr auto;
+    border-right: 1px solid var(--border-color);
+    border-top-right-radius: 300px;
+    /* border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px; */
+    z-index: var(--z-panel);
+    transition: transform var(--transition-normal), 
+                width var(--transition-normal),
+                background-color var(--transition-normal);
+    will-change: transform, width;
+    overscroll-behavior: contain;
+}
+
+/* Panel Header */
+.panel-header {
+    padding: var(--space-md);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.brand-title {
+    color: var(--text-color);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    /* padding-top: var(--font-size-sm); */
+    padding-left: var(--space-sm);
+}
+
+.brand-tag {
+    /* padding-left: var(--space-sm); */
+    padding-top: var(--space-xs);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    opacity: .7;
+}
+
+/* Logo Styles */
+.logo-section {
+    position: fixed;
+    top: var(--space-xl);
+    left: 240px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    z-index: calc(var(--z-panel) - 1); /* یک لایه پایین‌تر از پنل */
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+/* .logo-link:hover {
+    transform: scale(1.1);
+} */
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Settings Buttons */
+.settings-group {
+    display: flex;
+    gap: var(--space-xs);
+    padding-top: var(--space-md);
+}
+
+.settings-button {
+    --button-size: 32px;
+    width: var(--button-size);
+    height: var(--button-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    background: var(--surface-color);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.settings-button:hover {
+    color: var(--color-primary);
+}
+
+.settings-button:active {
+    transform: translateY(0);
+}
+
+/* Navigation */
+.panel-nav {
+    padding: var(--space-md);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+    /* background: rgba(0, 0, 0, 0.8); */
+    /* border-bottom: 2px solid rgba(180, 180, 180, 0.5); */
+    /* border-top-right-radius: 1000px; */
+}
+
+.panel-nav::-webkit-scrollbar {
+    width: 4px;
+}
+
+.panel-nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.panel-nav::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: var(--radius-full);
+}
+
+/* Navigation List */
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding-top: 30px;
+}
+
+/* Navigation Items */
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.nav-link i {
+    width: 20px;
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+}
+
+.nav-link:hover i {
+    color: var(--color-primary);
+}
+
+.nav-text {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+/* Submenu */
+.nav-submenu {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin-left: var(--submenu-indent);
+    transition: max-height var(--transition-normal),
+                opacity var(--transition-normal);
+}
+
+.nav-item.active .nav-submenu {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.submenu-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.submenu-item:hover {
+    background: var(--surface-hover);
+    color: var(--text-color);
+}
+
+.submenu-item i {
+    width: 16px;
+    font-size: var(--font-size-sm);
+}
+
+.tabligh {
+    font-size: 14px;
+    padding-top: var(--space-md);
+}
+
+/* Footer */
+.panel-footer {
+    padding: var(--space-md);
+}
+
+/* Social Section */
+.social-section {
+    margin-bottom: var(--space-sm);
+    text-align: center;
+}
+
+.social-title {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-sm);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+}
+
+.social-icon {
+    --icon-size: 32px;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+}
+
+.social-icon:hover i {
+    color: var(--color-primary) !important;
+    transform: translateY(-2px);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Footer Info */
+.panel-footer {
+    margin-top: var(--space-3xl);
+}
+
+.footer-info {
+    text-align: center;
+}
+
+.copyright {
+    margin-bottom: var(--space-xs);
+}
+
+.copyright p {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+}
+
+.footer-taglines {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--mobile-nav-height);
+    padding: var(--space-sm);
+    background: var(--surface-color);
+    backdrop-filter: blur(var(--blur-strength));
+    -webkit-backdrop-filter: blur(var(--blur-strength));
+    border-top: 1px solid var(--border-color);
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+    z-index: var(--z-mobile-nav);
+}
+
+.mobile-nav .nav-item {
+    color: var(--text-color);
+    font-size: var(--font-size-lg);
+    padding: var(--space-xs);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.mobile-nav .nav-item:hover {
+    color: var(--color-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .side-panel {
+        --panel-width: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .side-panel {
+        transform: translateX(-100%);
+        transition: transform var(--transition-normal);
+    }
+
+    .side-panel.active {
+        transform: translateX(0);
+    }
+
+    .mobile-nav {
+        display: flex;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+
+    .logo-section {
+        display: none; /* مخفی کردن در موبایل */
+    }
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] .logo-img {
+    filter: brightness(1);
+}
+
+[data-theme="light"] .logo-img {
+    filter: brightness(0);
+}
+
+/* RTL Support */
+[dir="rtl"] .side-panel {
+    left: auto;
+    right: 0;
+    border-right: none;
+    border-left: 1px solid var(--border-color);
+}
+
+[dir="rtl"] .nav-submenu {
+    margin-left: 0;
+    margin-right: var(--submenu-indent);
+}
+
+/* Print Styles */
+@media print {
+    .side-panel,
+    .mobile-nav {
+        display: none;
+    }
+}

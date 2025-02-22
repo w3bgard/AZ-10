@@ -1,0 +1,244 @@
+/* content.css
+ * Version: 3.0.0
+ * Description: Main content area and section layouts
+ * ------------------------------------------------- */
+
+/* Main Content Area */
+.main-content {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--page-background);
+    transition: all var(--transition-normal);
+    overflow-x: hidden; /* جلوگیری از اسکرول افقی ناخواسته */
+}
+
+/* Content Section */
+.content-section {
+    padding: var(--space-xl) var(--container-padding);
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+}
+
+/* Section Headers */
+.section-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-guide {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-lg);
+}
+
+.artist-selection {
+    margin-top: var(--space-xl);
+    text-align: center;
+}
+
+.artist-selection h3 {
+    font-size: var(--font-size-lg);
+    color: var(--text-color);
+    margin-bottom: var(--space-sm);
+}
+
+.artist-list {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.artist-item {
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--text-color);
+    border-radius: var(--radius-md);
+    border: none;
+    font-size: var(--font-size-md);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.artist-item:hover {
+    /* background-color: var(--color-primary); */
+    border-bottom: 1px solid var(--color-primary);
+    /* box-shadow: 0 0 4px rgba(200, 200, 200, 0.3); */
+}
+
+.section-title {
+    color: var(--text-color);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.2;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: var(--font-size-md);
+    line-height: 1.4;
+}
+
+/* View All Button */
+.view-all-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-left: auto;
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.view-all-btn:hover {
+    color: var(--color-primary);
+    transform: translateX(2px);
+}
+
+.view-all-btn i {
+    font-size: 12px;
+    transition: transform var(--transition-fast);
+}
+
+.view-all-btn:hover i {
+    transform: translateX(2px);
+}
+
+/* Section Content */
+.section-content {
+    position: relative;
+    margin-bottom: var(--space-2xl);
+}
+
+/* Track Slider Container
+   برای جلوگیری از نصف‌شدن کارت‌ها در صفحه‌های کوچک:
+   از auto-fill + minmax(250px, 1fr) استفاده می‌کنیم.
+   با این کار، اگر فضای کافی برای قرارگرفتن چند ستون وجود داشته باشد،
+   ستون‌ها پر می‌شوند؛ در غیر این صورت، کارت به ردیف بعد می‌رود. */
+.track-slider {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: var(--space-xl);
+    overflow-x: hidden;
+    /* اگر می‌خواهید این بخش اسکرول داخلی نداشته باشد و کل صفحه اسکرول شود:
+       overflow-y: visible; */
+    margin-bottom: var(--space-lg);
+    padding: var(--space-md);
+}
+
+/* Loading States */
+.loading-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 200px;
+    background: var(--surface-color);
+    color: var(--text-secondary);
+    font-size: var(--font-size-md);
+    border-radius: var(--radius-md);
+}
+
+/* Error States */
+.error-container {
+    padding: var(--space-lg);
+    margin: var(--space-md) 0;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-color);
+}
+
+.error-message {
+    color: var(--color-primary);
+    font-size: var(--font-size-md);
+}
+
+/* New Wave Section */
+.new-wave {
+    margin-top: var(--space-2xl);
+}
+
+/* Community Section */
+.community-content {
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+/* Responsive Design */
+
+/* 
+   اگر بخواهید در برخی رزولوشن‌ها تعداد ستون‌ها تغییر کند،
+   می‌توانید با media query مقدار grid-template-columns را تغییر دهید.
+   در حال حاضر، auto-fill خودش در هر عرضی واکنش‌گراست.
+*/
+
+@media (max-width: 1280px) {
+    .content-section {
+        padding: var(--space-lg) var(--container-padding);
+    }
+}
+
+@media (max-width: 1024px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .view-all-btn {
+        margin-left: 0;
+        margin-top: var(--space-sm);
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding-right: var(--container-padding); 
+    }
+    .content-section {
+        padding: var(--space-lg) var(--container-padding-mobile);
+    }
+    .section-title {
+        font-size: var(--font-size-lg);
+    }
+    .subtitle {
+        font-size: var(--font-size-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .content-section {
+        padding: var(--space-md) var(--container-padding-mobile);
+    }
+    .section-header {
+        margin-bottom: var(--space-lg);
+    }
+}
+
+/* RTL Support */
+[dir="rtl"] .view-all-btn i {
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .view-all-btn:hover i {
+    transform: scaleX(-1) translateX(-2px);
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .loading-placeholder {
+    background: var(--surface-color);
+}
+
+/* Print Styles */
+@media print {
+    .track-slider {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-lg);
+    }
+    .view-all-btn {
+        display: none;
+    }
+}

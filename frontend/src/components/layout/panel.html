@@ -1,0 +1,165 @@
+<!-- Main Panel Component -->
+<aside class="side-panel" id="mainPanel" aria-label="Main Navigation Panel">
+    <!-- Panel Header Section -->
+    <header class="panel-header">
+        
+        <!-- Settings Group -->
+        <div class="settings-group" role="group" aria-label="Theme Settings">
+            <button 
+                class="settings-button theme-toggle" 
+                id="themeToggle" 
+                aria-label="Toggle Theme"
+                role="switch"
+                aria-checked="true"
+            >
+                <i class="fas fa-moon dark-icon" aria-hidden="true"></i>
+                <i class="fas fa-sun light-icon" aria-hidden="true"></i>
+                <!-- <span class="button-text" data-text-dark="Dark" data-text-light="Light">Dark</span> -->
+            </button>
+        </div>
+
+        <!-- Language Toggle -->
+        <div class="settings-group" role="group" aria-label="Language Settings">
+            <button 
+                class="settings-button lang-toggle" 
+                id="langToggle"
+                aria-label="Toggle Language"
+            >
+                <span class="button-text">EN</span>
+            </button>
+        </div>
+
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="panel-nav" role="navigation">
+
+        <h1 class="brand-title">AZ10</h1>
+        <p class="brand-tag">/æz dæh/</p>
+        <!-- <p class="brand-tag">Review / Rate<br>Music / Persian HipHop</p> -->
+        
+        <ul class="nav-list">
+
+            <!-- Discover Section -->
+            <li class="nav-item">
+                <a href="/" class="nav-link" data-section="new-drops" aria-expanded="false">
+                    <i class="fa-solid fa-headphones-simple" aria-hidden="true"></i>
+                    <span class="nav-text" data-translate="new-drops">New Drops</span>
+                </a>
+            </li>
+
+            <!-- Charts Section -->
+            <li class="nav-item">
+                <a href="/charts" class="nav-link" data-section="charts" aria-expanded="false">
+                    <i class="fa-solid fa-chart-simple" aria-hidden="true"></i>
+                    <span class="nav-text" data-translate="charts">Charts</span>
+                </a>
+            </li>
+
+            <!-- Community Section -->
+            <li class="nav-item">
+                <a href="/community" class="nav-link" data-section="community" aria-expanded="false">
+                    <i class="fa-solid fa-fingerprint" aria-hidden="true"></i>
+                    <span class="nav-text" data-translate="community">Profile</span>
+                </a>
+            </li>
+
+            <!-- Blog Section -->
+            <li class="nav-item">
+                <a href="/blog" class="nav-link" data-section="blog" aria-expanded="false">
+                    <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
+                    <span class="nav-text" data-translate="blog">Blog</span>
+                </a>
+            </li>
+
+            <!-- More Section (Mobile Only) -->
+            <li class="nav-item mobile-only">
+                <a href="#" class="nav-link" data-section="more" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
+                    <span class="nav-text" data-translate="more">More</span>
+                </a>
+            </li>
+
+            <!-- <p class="tabligh">تبلیغات پذیرا باشیــــــــــــــم</p> -->
+
+        </ul>
+    </nav>
+
+    <!-- Panel Footer -->
+    <footer class="panel-footer">
+        <!-- Social Media Links -->
+        <div class="social-section" role="complementary" aria-label="Social Media Links">
+            <h2 class="social-title">Connect With Us</h2>
+            <div class="social-links">
+                <a href="https://instagram.com/az10__music" 
+                   class="social-icon" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   aria-label="Follow us on Instagram">
+                    <i class="fa-brands fa-instagram fa-sm" aria-hidden="true"></i>
+                </a>
+                <a href="https://x.com/az10_music" 
+                   class="social-icon" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   aria-label="Follow us on X">
+                    <i class="fa-brands fa-x-twitter fa-sm" aria-hidden="true"></i>
+                </a>
+                <a href="https://t.me/az10_music" 
+                   class="social-icon" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   aria-label="Join our Telegram">
+                    <i class="fa-brands fa-telegram fa-sm" aria-hidden="true"></i>
+                </a>
+                <a href="https://youtube.com/@az10-music" 
+                   class="social-icon" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   aria-label="Subscribe on YouTube">
+                    <i class="fa-brands fa-youtube fa-sm" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer Information -->
+        <div class="footer-info">
+            <div class="copyright">
+                <p>&copy; <time datetime="2025">2025</time> AZ10</p>
+                <p>All rights reserved</p>
+            </div>
+            <div class="footer-taglines">
+                <p>By The Community / For The Community</p>
+                <p aria-hidden="true">AI-Driven / Version 1.00 </p>
+            </div>
+        </div>
+    </footer>
+</aside>
+
+<!-- Mobile Navigation Bar -->
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
+    <a href="/" class="nav-item" aria-label="Discover">
+        <i class="fa-solid fa-headphones-simple" aria-hidden="true"></i>
+    </a>
+    <a href="/reviews" class="nav-item" aria-label="Reviews">
+        <i class="fa-solid fa-chart-simple" aria-hidden="true"></i>
+    </a>
+    <a href="/artists" class="nav-item" aria-label="Artists">
+        <i class="fa-solid fa-users" aria-hidden="true"></i>
+    </a>
+    <a href="/blog" class="nav-item" aria-label="Blog">
+        <i class="fa-solid fa-bolt-lightning" aria-hidden="true"></i>
+    </a>
+    <button 
+        class="nav-item settings-toggle" 
+        id="mobileSettings"
+        aria-label="Open Settings Menu"
+        aria-expanded="false"
+        aria-controls="mainPanel"
+    >
+        <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
+</nav>
+
+<!-- Skip to Main Content Link (Accessibility) -->
+<a href="#main-content" class="skip-to-main sr-only">Skip to main content</a>

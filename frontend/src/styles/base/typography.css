@@ -1,0 +1,77 @@
+/* --------------------
+ * تعریف فونت یکان بخ
+ * ------------------- */
+
+/* یکان بخ نازک */
+@font-face {
+    font-family: 'YekanBakh';
+    src: url('/fonts/YekanBakh-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* یکان بخ معمولی */
+@font-face {
+    font-family: 'YekanBakh';
+    src: url('/fonts/YekanBakh-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* یکان بخ متوسط */
+@font-face {
+    font-family: 'YekanBakh';
+    src: url('/fonts/YekanBakh-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* یکان بخ ضخیم */
+@font-face {
+    font-family: 'YekanBakh';
+    src: url('/fonts/YekanBakh-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* یکان بخ سیاه */
+@font-face {
+    font-family: 'YekanBakh';
+    src: url('/fonts/YekanBakh-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* تعریف کلاس‌های کمکی */
+.font-thin {
+    font-weight: 100;
+}
+
+.font-regular {
+    font-weight: 400;
+}
+
+.font-medium {
+    font-weight: 600;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.font-black {
+    font-weight: 900;
+}
+
+/* تنظیمات متن فارسی */
+.farsi {
+    font-family: 'YekanBakh', sans-serif;
+    font-feature-settings: "kern" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
