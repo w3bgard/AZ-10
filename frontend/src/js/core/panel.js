@@ -1,3 +1,4 @@
+// panel.js
 /**
  * Panel Component Controller
  * Version: 2.0.0

@@ -7,7 +7,8 @@
 .main-content {
     width: 100%;
     min-height: 100vh;
-    background-color: var(--page-background);
+    /* background-color: var(--page-background); */
+    background-color: rgb(10, 10, 10);
     transition: all var(--transition-normal);
     overflow-x: hidden; /* جلوگیری از اسکرول افقی ناخواسته */
 }

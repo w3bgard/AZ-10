@@ -1,35 +1,5 @@
 <!-- Main Panel Component -->
 <aside class="side-panel" id="mainPanel" aria-label="Main Navigation Panel">
-    <!-- Panel Header Section -->
-    <header class="panel-header">
-        
-        <!-- Settings Group -->
-        <div class="settings-group" role="group" aria-label="Theme Settings">
-            <button 
-                class="settings-button theme-toggle" 
-                id="themeToggle" 
-                aria-label="Toggle Theme"
-                role="switch"
-                aria-checked="true"
-            >
-                <i class="fas fa-moon dark-icon" aria-hidden="true"></i>
-                <i class="fas fa-sun light-icon" aria-hidden="true"></i>
-                <!-- <span class="button-text" data-text-dark="Dark" data-text-light="Light">Dark</span> -->
-            </button>
-        </div>
-
-        <!-- Language Toggle -->
-        <div class="settings-group" role="group" aria-label="Language Settings">
-            <button 
-                class="settings-button lang-toggle" 
-                id="langToggle"
-                aria-label="Toggle Language"
-            >
-                <span class="button-text">EN</span>
-            </button>
-        </div>
-
-    </header>
 
     <!-- Main Navigation -->
     <nav class="panel-nav" role="navigation">
@@ -39,54 +9,63 @@
         <!-- <p class="brand-tag">Review / Rate<br>Music / Persian HipHop</p> -->
         
         <ul class="nav-list">
-
-            <!-- Discover Section -->
+        
+            <!-- All Available Tracks Section -->
             <li class="nav-item">
-                <a href="/" class="nav-link" data-section="new-drops" aria-expanded="false">
-                    <i class="fa-solid fa-headphones-simple" aria-hidden="true"></i>
-                    <span class="nav-text" data-translate="new-drops">New Drops</span>
+                <a href="#" class="nav-link" data-section="all-tracks" aria-expanded="false">
+                    <span class="nav-text" data-translate="all-tracks">| All Available Tracks |</span>
                 </a>
             </li>
 
-            <!-- Charts Section -->
+            <!-- Title to indicate users can filter tracks by artist -->
+            <li class="nav-guide">
+                <p class="nav-text">Filter tracks by Artists</p>
+            </li>
+        
+            <!-- Artists List -->
             <li class="nav-item">
-                <a href="/charts" class="nav-link" data-section="charts" aria-expanded="false">
-                    <i class="fa-solid fa-chart-simple" aria-hidden="true"></i>
-                    <span class="nav-text" data-translate="charts">Charts</span>
+                <a href="#" class="nav-link artist-select" data-artist="Dorcci">
+                    <span class="nav-text" data-translate="dorcci">Dorcci</span>
                 </a>
             </li>
-
-            <!-- Community Section -->
             <li class="nav-item">
-                <a href="/community" class="nav-link" data-section="community" aria-expanded="false">
-                    <i class="fa-solid fa-fingerprint" aria-hidden="true"></i>
-                    <span class="nav-text" data-translate="community">Profile</span>
+                <a href="#" class="nav-link artist-select" data-artist="Poori">
+                    <span class="nav-text" data-translate="poori">Poori</span>
                 </a>
             </li>
-
-            <!-- Blog Section -->
             <li class="nav-item">
-                <a href="/blog" class="nav-link" data-section="blog" aria-expanded="false">
-                    <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
-                    <span class="nav-text" data-translate="blog">Blog</span>
+                <a href="#" class="nav-link artist-select" data-artist="Hiphopologist">
+                    <span class="nav-text" data-translate="hiphopologist">Hiphopologist</span>
                 </a>
             </li>
-
-            <!-- More Section (Mobile Only) -->
-            <li class="nav-item mobile-only">
-                <a href="#" class="nav-link" data-section="more" aria-expanded="false">
-                    <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
-                    <span class="nav-text" data-translate="more">More</span>
+            <li class="nav-item">
+                <a href="#" class="nav-link artist-select" data-artist="Hiphopologist">
+                    <span class="nav-text" data-translate="hiphopologist">Hiphopologist</span>
                 </a>
             </li>
-
-            <!-- <p class="tabligh">تبلیغات پذیرا باشیــــــــــــــم</p> -->
-
         </ul>
+        
+        
     </nav>
 
     <!-- Panel Footer -->
     <footer class="panel-footer">
+
+        <!-- Settings Group -->
+        <div class="settings-group">
+            <div class="settings-button lang-toggle">
+                <button class="settings-button" id="langToggle" aria-label="Toggle Language">
+                    <span class="button-text">EN</span>
+                </button>
+            </div>
+            
+            <div class="settings-button theme-toggle">
+                <button class="settings-button" id="themeToggle" aria-label="Toggle Theme" role="switch" aria-checked="true">
+                    <i class="fa-solid fa-paint-roller"></i>
+                </button>
+            </div>
+        </div>
+
         <!-- Social Media Links -->
         <div class="social-section" role="complementary" aria-label="Social Media Links">
             <h2 class="social-title">Connect With Us</h2>

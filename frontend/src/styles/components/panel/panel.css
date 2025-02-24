@@ -41,7 +41,6 @@
 
 /* Panel Container */
 .side-panel {
-    --panel-shadow: 0 4px 12px rgb(18, 18, 18);
     position: fixed;
     top: 0;
     left: 0;
@@ -49,49 +48,37 @@
     height: 100vh;
     display: grid;
     /* background-color: rgb(0, 0, 0); */
+    box-shadow: 10px 30px 20px rgba(0, 0, 0, 0.8);
     grid-template-rows: auto 1fr auto;
-    border-right: 1px solid var(--border-color);
-    border-top-right-radius: 300px;
-    /* border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px; */
+    /* border-right: 1px solid var(--border-color); */
+    border-top-right-radius: 250px;
     z-index: var(--z-panel);
-    transition: transform var(--transition-normal), 
-                width var(--transition-normal),
-                background-color var(--transition-normal);
+    transition: transform var(--transition-normal), width var(--transition-normal), background-color var(--transition-normal);
     will-change: transform, width;
     overscroll-behavior: contain;
-}
-
-/* Panel Header */
-.panel-header {
-    padding: var(--space-md);
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: var(--space-sm);
 }
 
 .brand-title {
     color: var(--text-color);
     font-size: var(--font-size-xl);
     font-weight: 700;
-    /* padding-top: var(--font-size-sm); */
-    padding-left: var(--space-sm);
+    padding-top: 50px;
+    padding-left: 80px;
 }
 
 .brand-tag {
-    /* padding-left: var(--space-sm); */
-    padding-top: var(--space-xs);
+    padding-top: var(--space-sm);
+    padding-left: 70px;
     color: var(--text-secondary);
-    font-size: var(--font-size-sm);
-    opacity: .7;
+    font-size: var(--font-size-md);
+    opacity: .8;
 }
 
 /* Logo Styles */
 .logo-section {
     position: fixed;
-    top: var(--space-xl);
-    left: 240px;
+    top: 35px;
+    left: 200px;
     display: flex;
     align-items: center;
     gap: var(--space-sm);
@@ -104,55 +91,14 @@
     gap: var(--space-sm);
 }
 
-/* .logo-link:hover {
-    transform: scale(1.1);
-} */
-
 .logo-img {
     width: 50px;
     height: 50px;
 }
 
-/* Settings Buttons */
-.settings-group {
-    display: flex;
-    gap: var(--space-xs);
-    padding-top: var(--space-md);
-}
-
-.settings-button {
-    --button-size: 32px;
-    width: var(--button-size);
-    height: var(--button-size);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    background: var(--surface-color);
-    color: var(--text-secondary);
-    font-size: var(--font-size-sm);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-}
-
-.settings-button:hover {
-    color: var(--color-primary);
-}
-
-.settings-button:active {
-    transform: translateY(0);
-}
-
 /* Navigation */
 .panel-nav {
-    padding: var(--space-md);
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-color) transparent;
-    /* background: rgba(0, 0, 0, 0.8); */
-    /* border-bottom: 2px solid rgba(180, 180, 180, 0.5); */
-    /* border-top-right-radius: 1000px; */
+    padding: var(--space-lg);
 }
 
 .panel-nav::-webkit-scrollbar {
@@ -172,13 +118,28 @@
 .nav-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
-    padding-top: 30px;
+    /* gap: var(--space-sm); */
+    padding-top: var(--space-xl);
+    padding-left: var(--space-lg);
+}
+
+.nav-guide p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    padding-top: var(--space-md);
+    padding-left: var(--space-sm);
+    padding-bottom: var(--space-sm);
+    opacity: 0.5;
 }
 
 /* Navigation Items */
 .nav-item {
     position: relative;
+}
+
+.nav-item .active {
+    background-color: #4CAF50;
+    color: white;
 }
 
 .nav-link {
@@ -192,67 +153,45 @@
     transition: all var(--transition-fast);
 }
 
-.nav-link i {
-    width: 20px;
-    font-size: var(--font-size-md);
-    color: var(--text-secondary);
-    transition: color var(--transition-fast);
-}
-
-.nav-link:hover i {
-    color: var(--color-primary);
-}
-
 .nav-text {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
     font-weight: 500;
-}
-
-/* Submenu */
-.nav-submenu {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    margin-left: var(--submenu-indent);
-    transition: max-height var(--transition-normal),
-                opacity var(--transition-normal);
-}
-
-.nav-item.active .nav-submenu {
-    max-height: 200px;
-    opacity: 1;
-}
-
-.submenu-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-xs) var(--space-sm);
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: var(--font-size-sm);
-    border-radius: var(--radius-sm);
-    transition: all var(--transition-fast);
-}
-
-.submenu-item:hover {
-    background: var(--surface-hover);
-    color: var(--text-color);
-}
-
-.submenu-item i {
-    width: 16px;
-    font-size: var(--font-size-sm);
-}
-
-.tabligh {
-    font-size: 14px;
-    padding-top: var(--space-md);
 }
 
 /* Footer */
 .panel-footer {
+    position: absolute; /* باعث می‌شود فوتر در پایین صفحه قرار بگیرد */
+    bottom: 0;
+    width: 100%; /* عرض فوتر را 100% صفحه قرار می‌دهد */
     padding: var(--space-md);
+}
+
+/* Settings Buttons */
+.settings-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-md);
+}
+
+.settings-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--text-secondary);
+    border-radius: var(--radius-full);
+    transition: color var(--transition-fast),
+                transform var(--transition-fast);
+    cursor: pointer;
+}
+
+.settings-button:hover {
+    color: var(--color-primary);
+}
+
+.settings-button:active {
+    transform: translateY(0);
 }
 
 /* Social Section */
@@ -288,16 +227,12 @@
 }
 
 .social-icon:hover i {
-    color: var(--color-primary) !important;
-    transform: translateY(-2px);
-    transition: color 0.3s ease, transform 0.3s ease;
+    color: var(--color-primary);
+    /* transform: translateY(-2px);
+    transition: color 0.3s ease, transform 0.3s ease; */
 }
 
 /* Footer Info */
-.panel-footer {
-    margin-top: var(--space-3xl);
-}
-
 .footer-info {
     text-align: center;
 }

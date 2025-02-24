@@ -5,12 +5,18 @@
 
 class ComponentsManager {
     constructor() {
+        // Path to components
         this.basePath = '../src/components/layout/';
+
+        // Components references
         this.components = {
             panel: null,
             logo: null,
-            mobileNav: null
+            mobileNav: null,
         };
+
+        // Initialize core elements
+        this.settingsToggle = null;
     }
 
     /**
@@ -18,10 +24,18 @@ class ComponentsManager {
      */
     async init() {
         try {
+            // Load panel component
             await this.loadPanel();
+
+            // Add logo to page
             this.addLogoToPage();
+
+            // Initialize panel controller (for mobile and settings)
             this.initializePanelController();
+
+            // Set up event listeners
             this.setupEventListeners();
+
         } catch (error) {
             console.error('Error initializing components:', error);
         }
@@ -34,8 +48,8 @@ class ComponentsManager {
         try {
             const panelResponse = await fetch(`${this.basePath}panel.html`);
             const panelHtml = await panelResponse.text();
+
             const navContainer = document.querySelector('.nav-container');
-            
             if (navContainer) {
                 navContainer.innerHTML = panelHtml;
                 this.components.panel = document.getElementById('mainPanel');
@@ -66,13 +80,13 @@ class ComponentsManager {
     }
 
     /**
-     * Initialize panel controller
+     * Initialize panel controller (handles panel, mobile navigation)
      */
     initializePanelController() {
         if (this.components.panel) {
             this.components.mobileNav = document.getElementById('mobileNav');
             this.settingsToggle = document.querySelector('.settings-toggle');
-            
+
             if (this.settingsToggle) {
                 this.settingsToggle.addEventListener('click', () => {
                     this.togglePanel();
@@ -87,8 +101,8 @@ class ComponentsManager {
     togglePanel() {
         if (this.components.panel) {
             this.components.panel.classList.toggle('expanded');
-            
-            // Handle body scroll
+
+            // Handle body overflow
             if (this.components.panel.classList.contains('expanded')) {
                 document.body.style.overflow = 'hidden';
             } else {
@@ -98,24 +112,24 @@ class ComponentsManager {
     }
 
     /**
-     * Setup event listeners
+     * Setup event listeners for various interactions
      */
     setupEventListeners() {
-        // Close panel on outside click (mobile)
+        // Close panel when clicked outside (mobile)
         document.addEventListener('click', (e) => {
             if (this.shouldClosePanelOnClick(e)) {
                 this.closePanel();
             }
         });
 
-        // Handle escape key
+        // Close panel on 'Escape' key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.closePanel();
             }
         });
 
-        // Handle resize events
+        // Handle window resizing
         let resizeTimeout;
         window.addEventListener('resize', () => {
             if (resizeTimeout) {
@@ -126,7 +140,7 @@ class ComponentsManager {
             }, 250);
         });
 
-        // Handle network status
+        // Handle network status changes (offline/online)
         window.addEventListener('offline', () => {
             console.warn('Network connection lost. Some components may not load correctly.');
         });
@@ -137,7 +151,7 @@ class ComponentsManager {
     }
 
     /**
-     * Check if panel should close on click
+     * Check if panel should close on click (outside the panel)
      */
     shouldClosePanelOnClick(event) {
         return (
@@ -149,7 +163,7 @@ class ComponentsManager {
     }
 
     /**
-     * Close panel
+     * Close the panel (for mobile view)
      */
     closePanel() {
         if (this.components.panel) {
@@ -159,7 +173,7 @@ class ComponentsManager {
     }
 
     /**
-     * Handle window resize
+     * Handle window resizing
      */
     handleResize() {
         const isMobile = window.innerWidth <= 768;
@@ -167,20 +181,20 @@ class ComponentsManager {
             this.closePanel();
         }
 
-        // Update logo visibility
+        // Update logo visibility based on screen size
         if (this.components.logo) {
             this.components.logo.style.display = isMobile ? 'none' : 'flex';
         }
     }
 }
 
-// Initialize components when DOM is ready
+// Initialize components when the DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     window.componentsManager = new ComponentsManager();
     window.componentsManager.init();
 });
 
-// Export for module usage if needed
+// Export ComponentsManager for module usage if needed
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = ComponentsManager;
 }
