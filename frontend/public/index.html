@@ -1,51 +1,70 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="description" content="AZ10 - Persian Hip-Hop Rating Platform">
-    <title>AZ10 | Persian Hip-Hop Rating Platform</title>
+    <title>AZ10 | Persian Hip-Hop Ratings</title>
 
-    <!-- Base Styles -->
+    <!-- Styles -->
     <link rel="stylesheet" href="../src/styles/base/variables.css">
     <link rel="stylesheet" href="../src/styles/base/reset.css">
-    <link rel="stylesheet" href="../src/styles/base/typography.css">
     <link rel="stylesheet" href="../src/styles/base/global.css">
-
-    <!-- Component Styles -->
-    <link rel="stylesheet" href="../src/styles/components/panel/panel.css">
-    <link rel="stylesheet" href="../src/styles/components/content/content.css">
-    <link rel="stylesheet" href="../src/components/shared/TrackCard/track-card.css">
+    <link rel="stylesheet" href="../src/styles/components/panel.css">
+    <link rel="stylesheet" href="../src/styles/components/content.css">
+    <link rel="stylesheet" href="../src/styles/components/track-card.css">
+    <link rel="stylesheet" href="../src/styles/components/lightbox.css">
+    <link rel="stylesheet" href="../src/styles/pages/track/track-content.css">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body>
+
+<body class="home-page">
     <!-- Side Panel -->
     <aside class="side-panel">
-        <div class="nav-container"></div>
+        <!-- Will be loaded via components.js -->
     </aside>
+
+    <!-- nav-container -->
+    <div class="nav-container">
+        <!-- Will be loaded via components.js -->
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Track Sections -->
-        <section class="content-section new-releases">
 
-            <!-- Mainstream Releases -->
-            <div class="section-content">
-                <div class="section-header">
-                    <h2 class="section-title">Selected Mainstream Tracks</h2>
-                    <p class="section-subtitle">MVP / Test Version</p>
-                </div>
+        <!-- Mainstream Tracks Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Mainstream Tracks</h2>
+                <p class="subtitle">Top releases from well-known artists</p>
+            </div>
 
+            <div class="track-slider-container">
                 <div class="track-slider" id="mainstreamSlider">
                     <!-- ترک‌ها اینجا با JavaScript اضافه میشن -->
                     <div class="loading-placeholder">Loading tracks...</div>
                 </div>
             </div>
-            
+        </section>
+
+        <!-- New Wave Tracks Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">New Wave</h2>
+                <p class="subtitle">Fresh releases from emerging artists</p>
+            </div>
+
+            <div class="track-slider-container">
+                <div class="track-slider" id="newWaveSlider">
+                    <!-- ترک‌ها اینجا با JavaScript اضافه میشن -->
+                    <div class="loading-placeholder">Loading tracks...</div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -59,12 +78,24 @@
         <div class="spinner"></div>
     </div>
 
+    <!-- Image Lightbox Modal - گسترش یافته با جزئیات کامل -->
+    <div id="imageLightbox" class="image-lightbox">
+        <div class="lightbox-content">
+            <!-- Content will be dynamically filled by JavaScript -->
+        </div>
+    </div>
+
     <!-- Core Scripts -->
     <script defer src="../src/js/core/components.js"></script>
-    <script defer src="../src/js/core/panel.js"></script>
     <script defer src="../src/js/core/theme.js"></script>
     <script defer src="../src/js/core/navigation.js"></script>
+    <script defer src="../src/js/core/lightbox.js"></script>
+
+    <!-- Track Card Component -->
     <script type="module" src="../src/components/shared/TrackCard/track-card.js"></script>
+
+    <!-- Main App Script -->
     <script type="module" src="../src/js/index.js"></script>
 </body>
+
 </html>

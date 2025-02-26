@@ -20,9 +20,10 @@ import TrackCard from '../components/shared/TrackCard/track-card.js'; // مسی�
  * Steps:
  *   1. Display the loading state.
  *   2. Fetch track data from the JSON source.
- *   3. Separate tracks into categories (mainstream and newWave).
- *   4. Populate the respective slider containers with track cards.
- *   5. Hide the loading state.
+ *   3. Sort tracks by release date (newest first).
+ *   4. Separate tracks into categories (mainstream and newWave).
+ *   5. Populate the respective slider containers with track cards.
+ *   6. Hide the loading state.
  */
 async function loadTracks() {
     try {
@@ -35,9 +36,14 @@ async function loadTracks() {
         }
         const data = await response.json();
 
+        // Sort tracks by release date (newest first)
+        const sortedTracks = data.tracks.sort((a, b) => {
+            return new Date(b.basicInfo.releaseDate) - new Date(a.basicInfo.releaseDate);
+        });
+
         // Separate tracks by category
-        const mainstreamTracks = data.tracks.filter(track => track.basicInfo.category === 'mainstream');
-        const newWaveTracks = data.tracks.filter(track => track.basicInfo.category === 'newWave');
+        const mainstreamTracks = sortedTracks.filter(track => track.basicInfo.category === 'mainstream');
+        const newWaveTracks = sortedTracks.filter(track => track.basicInfo.category === 'newWave');
 
         // Load tracks into sliders
         loadTracksIntoSlider('mainstreamSlider', mainstreamTracks);

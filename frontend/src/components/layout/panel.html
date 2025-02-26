@@ -5,47 +5,66 @@
     <nav class="panel-nav" role="navigation">
 
         <h1 class="brand-title">AZ10</h1>
-        <p class="brand-tag">/æz dæh/</p>
-        <!-- <p class="brand-tag">Review / Rate<br>Music / Persian HipHop</p> -->
-        
+        <p class="brand-tag">/از ده/ /æz dæh/</p>
+
         <ul class="nav-list">
-        
-            <!-- All Available Tracks Section -->
+            <!-- Discover Section - Active for MVP (Landing Page) -->
             <li class="nav-item">
-                <a href="#" class="nav-link" data-section="all-tracks" aria-expanded="false">
-                    <span class="nav-text" data-translate="all-tracks">| All Available Tracks |</span>
+                <a href="/" class="nav-link" aria-expanded="false">
+                    <i class="fa-solid fa-headphones-simple" aria-hidden="true"></i>
+                    <span class="nav-text" data-translate="discover">Discover</span>
                 </a>
             </li>
 
-            <!-- Title to indicate users can filter tracks by artist -->
-            <li class="nav-guide">
-                <p class="nav-text">Filter tracks by Artists</p>
-            </li>
-        
-            <!-- Artists List -->
+            <!-- Artists Section - Active for MVP -->
             <li class="nav-item">
-                <a href="#" class="nav-link artist-select" data-artist="Dorcci">
-                    <span class="nav-text" data-translate="dorcci">Dorcci</span>
+                <a href="/artists" class="nav-link" aria-expanded="false">
+                    <i class="fa-solid fa-users" aria-hidden="true"></i>
+                    <span class="nav-text" data-translate="artists">Artists</span>
                 </a>
             </li>
+
+            <!-- Charts Section - Disabled -->
             <li class="nav-item">
-                <a href="#" class="nav-link artist-select" data-artist="Poori">
-                    <span class="nav-text" data-translate="poori">Poori</span>
+                <a href="#" class="nav-link disabled" aria-expanded="false" aria-disabled="true">
+                    <i class="fa-solid fa-chart-simple" aria-hidden="true"></i>
+                    <span class="nav-text" data-translate="charts">Charts</span>
+                    <span class="coming-soon-badge" data-translate="coming_soon">Coming Soon</span>
                 </a>
             </li>
+
+            <!-- Blog Section - Disabled -->
             <li class="nav-item">
-                <a href="#" class="nav-link artist-select" data-artist="Hiphopologist">
-                    <span class="nav-text" data-translate="hiphopologist">Hiphopologist</span>
+                <a href="#" class="nav-link disabled" aria-expanded="false" aria-disabled="true">
+                    <i class="fa-solid fa-bolt-lightning" aria-hidden="true"></i>
+                    <span class="nav-text" data-translate="blog">Blog</span>
+                    <span class="coming-soon-badge" data-translate="coming_soon">Coming Soon</span>
                 </a>
             </li>
+
+            <!-- More Section - Disabled -->
             <li class="nav-item">
-                <a href="#" class="nav-link artist-select" data-artist="Hiphopologist">
-                    <span class="nav-text" data-translate="hiphopologist">Hiphopologist</span>
+                <a href="#" class="nav-link disabled" aria-expanded="false" aria-disabled="true">
+                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                    <span class="nav-text" data-translate="more">More</span>
+                    <span class="coming-soon-badge" data-translate="coming_soon">Coming Soon</span>
                 </a>
             </li>
         </ul>
-        
-        
+
+        <!-- Auth Buttons -->
+         
+        <div class="auth-buttons">
+            <a href="/signup" class="auth-btn signup-btn">
+                <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+                <span data-translate="signup">Sign Up</span>
+            </a>
+            <a href="/signin" class="auth-btn signin-btn">
+                <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+                <span data-translate="signin">Sign In</span>
+            </a>
+        </div>
+
     </nav>
 
     <!-- Panel Footer -->
@@ -58,9 +77,10 @@
                     <span class="button-text">EN</span>
                 </button>
             </div>
-            
+
             <div class="settings-button theme-toggle">
-                <button class="settings-button" id="themeToggle" aria-label="Toggle Theme" role="switch" aria-checked="true">
+                <button class="settings-button" id="themeToggle" aria-label="Toggle Theme" role="switch"
+                    aria-checked="true">
                     <i class="fa-solid fa-paint-roller"></i>
                 </button>
             </div>
@@ -70,32 +90,20 @@
         <div class="social-section" role="complementary" aria-label="Social Media Links">
             <h2 class="social-title">Connect With Us</h2>
             <div class="social-links">
-                <a href="https://instagram.com/az10__music" 
-                   class="social-icon" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   aria-label="Follow us on Instagram">
+                <a href="https://instagram.com/az10__music" class="social-icon" target="_blank"
+                    rel="noopener noreferrer" aria-label="Follow us on Instagram">
                     <i class="fa-brands fa-instagram fa-sm" aria-hidden="true"></i>
                 </a>
-                <a href="https://x.com/az10_music" 
-                   class="social-icon" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   aria-label="Follow us on X">
+                <a href="https://x.com/az10_music" class="social-icon" target="_blank" rel="noopener noreferrer"
+                    aria-label="Follow us on X">
                     <i class="fa-brands fa-x-twitter fa-sm" aria-hidden="true"></i>
                 </a>
-                <a href="https://t.me/az10_music" 
-                   class="social-icon" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   aria-label="Join our Telegram">
+                <a href="https://t.me/az10_music" class="social-icon" target="_blank" rel="noopener noreferrer"
+                    aria-label="Join our Telegram">
                     <i class="fa-brands fa-telegram fa-sm" aria-hidden="true"></i>
                 </a>
-                <a href="https://youtube.com/@az10-music" 
-                   class="social-icon" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   aria-label="Subscribe on YouTube">
+                <a href="https://youtube.com/@az10-music" class="social-icon" target="_blank" rel="noopener noreferrer"
+                    aria-label="Subscribe on YouTube">
                     <i class="fa-brands fa-youtube fa-sm" aria-hidden="true"></i>
                 </a>
             </div>
@@ -109,7 +117,7 @@
             </div>
             <div class="footer-taglines">
                 <p>By The Community / For The Community</p>
-                <p aria-hidden="true">AI-Driven / Version 1.00 </p>
+                <p aria-hidden="true">AI-Driven / MVP / Test Version </p>
             </div>
         </div>
     </footer>
@@ -120,22 +128,17 @@
     <a href="/" class="nav-item" aria-label="Discover">
         <i class="fa-solid fa-headphones-simple" aria-hidden="true"></i>
     </a>
-    <a href="/reviews" class="nav-item" aria-label="Reviews">
-        <i class="fa-solid fa-chart-simple" aria-hidden="true"></i>
-    </a>
     <a href="/artists" class="nav-item" aria-label="Artists">
         <i class="fa-solid fa-users" aria-hidden="true"></i>
     </a>
-    <a href="/blog" class="nav-item" aria-label="Blog">
+    <span class="nav-item disabled" aria-label="Charts" aria-disabled="true">
+        <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+    </span>
+    <span class="nav-item disabled" aria-label="Blog" aria-disabled="true">
         <i class="fa-solid fa-bolt-lightning" aria-hidden="true"></i>
-    </a>
-    <button 
-        class="nav-item settings-toggle" 
-        id="mobileSettings"
-        aria-label="Open Settings Menu"
-        aria-expanded="false"
-        aria-controls="mainPanel"
-    >
+    </span>
+    <button class="nav-item settings-toggle" id="mobileSettings" aria-label="Open Settings Menu" aria-expanded="false"
+        aria-controls="mainPanel">
         <i class="fas fa-bars" aria-hidden="true"></i>
     </button>
 </nav>

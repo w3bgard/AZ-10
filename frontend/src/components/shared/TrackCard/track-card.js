@@ -1,7 +1,7 @@
 /**
  * Track Card Component
- * Version: 4.0.0
- * Description: Shows a card for each track, including rating submission with an input field and result display.
+ * Version: 5.0.0
+ * Description: Shows a card for each track with artist, producer and release date information.
  */
 
 class TrackCard {
@@ -43,14 +43,13 @@ class TrackCard {
                 duration: data.metadata?.duration || '',
                 explicit: data.metadata?.explicit || false
             },
-            productionCredits: data.productionCredits || {}
+            productionCredits: data.productionCredits || {},
+            streamingLinks: data.streamingLinks || {}
         };
     }
 
     /**
-     * ساختار اصلی HTML کارت ترک
-     * - تاریخ فقط به صورت میلادی نمایش داده می‌شود
-     * - یک بخش جدید زیر اطلاعات ترک برای ثبت امتیاز + نمایش نتیجه اضافه شده است
+     * ساختار اصلی HTML کارت ترک با افکت هاور سی‌دی
      */
     createCard() {
         const card = document.createElement('div');
@@ -59,54 +58,27 @@ class TrackCard {
 
         // تاریخ میلادی
         const releaseDate = this.formatDate(this.data.basicInfo.releaseDate);
+        
+        // امتیاز از 10
+        const rating = this.data.stats.communityRating ? 
+            this.data.stats.communityRating.toFixed(1) : 'N/A';
 
         // ساختار HTML
         card.innerHTML = `
             <div class="card-image">
                 <img src="${this.data.media.coverArt}" alt="${this.data.basicInfo.title}" loading="lazy">
                 <div class="card-overlay">
-                    ${this.createRatingBadge()} 
-                    ${this.createDurationBadge()}
-                    ${this.data.media.hasVideo ? this.createVideoBadge() : ''}
+                    ${this.data.media.hasVideo ? '<div class="video-badge"><i class="fas fa-play-circle"></i></div>' : ''}
+                    <div class="track-rating">${rating}<span style="font-size:16px">/10</span></div>
+                    ${this.data.metadata.duration ? `<div class="duration-badge">${this.data.metadata.duration}</div>` : ''}
                 </div>
             </div>
             <div class="card-info">
-                <div class="track-main-info">
-                    <h3 class="track-title">${this.data.basicInfo.title}</h3>
-                    <div class="artist-info">
-                        <span class="artist-name">${this.data.basicInfo.artist}</span>
-                        ${
-                            this.data.basicInfo.albumTitle
-                                ? `<span class="album-name">from "${this.data.basicInfo.albumTitle}"</span>`
-                                : ''
-                        }
-                    </div>
-                </div>
-
-                <!-- تاریخ فقط میلادی -->
-                <div class="track-details">
-                    ${this.createTrackMetadata()}
-                </div>
-
-                <!-- بخش ثبت امتیاز و نمایش نتیجه -->
-                <div class="rating-section">
-                    <div class="rating-input-container">
-                        <input 
-                            type="number" 
-                            class="rating-input" 
-                            placeholder="" 
-                            min="0" 
-                            max="10" 
-                            step="0.1"
-                        />
-                        <button class="rate-submit-btn">Rate</button>
-                    </div>
-                    <div class="rating-result">
-                        Overall >> 
-                        <span class="rating-value">${this.data.stats.communityRating.toFixed(1)}</span>
-                        /10
-                        (<span class="rating-votes">${this.formatNumber(this.data.stats.numberOfVotes)}</span> votes)
-                    </div>
+                <h3 class="track-title">${this.data.basicInfo.title}</h3>
+                <div class="artist-name">${this.data.basicInfo.artist}</div>
+                <div class="producer-info">Prod. by ${this.createProducerInfo()}</div>
+                <div class="release-date">
+                    <i class="fa fa-calendar"></i> ${releaseDate}
                 </div>
             </div>
         `;
@@ -115,74 +87,11 @@ class TrackCard {
     }
 
     /**
-     * ساخت نشانگر امتیاز در اورلی (rating-badge)
-     * این بخش در بالای کاور ترک نمایش داده می‌شود.
+     * ایجاد اطلاعات تولیدکننده موسیقی
      */
-    createRatingBadge() {
-        const rating = this.data.stats.communityRating.toFixed(1);
-        return `
-            <div class="rating-badge">
-                <span class="rating-score">${rating}</span>
-                <span class="rating-max">/10</span>
-            </div>
-        `;
-    }
-
-    /**
-     * نشانگر مدت زمان ترک (در صورت وجود)
-     */
-    createDurationBadge() {
-        if (!this.data.metadata.duration) return '';
-        return `
-            <div class="duration-badge">
-                <span>${this.data.metadata.duration}</span>
-            </div>
-        `;
-    }
-
-    /**
-     * نشانگر ویدیو
-     */
-    createVideoBadge() {
-        return `
-            <div class="video-badge">
-                <i class="fas fa-video"></i>
-            </div>
-        `;
-    }
-
-    /**
-     * اطلاعات تولید (تهیه‌کننده، etc.)
-     */
-    createTrackMetadata() {
-        const producer = this.data.productionCredits?.music?.beatProducer;
-        if (!producer) return '';
-        return `
-            <div class="metadata-section">
-                <div class="producer-info">
-                    <span>Prod. by ${producer}</span>
-                </div>
-            </div>
-        `;
-    }
-
-    /**
-     * آمار (تعداد رای، New Wave badge و غیره)
-     */
-    createStatsSection() {
-        return `
-            <div class="stats-section">
-                <div class="votes-count">
-                    <i class="far fa-star"></i>
-                    <span>${this.formatNumber(this.data.stats.numberOfVotes)} votes</span>
-                </div>
-                ${
-                    this.data.basicInfo.category === 'newWave'
-                        ? '<span class="new-wave-badge">New Wave</span>'
-                        : ''
-                }
-            </div>
-        `;
+    createProducerInfo() {
+        const musicProducer = this.data.productionCredits?.music?.beatProducer;
+        return musicProducer || 'Unknown';
     }
 
     /**
@@ -199,140 +108,163 @@ class TrackCard {
     }
 
     /**
-     * فرمت‌بندی اعداد (مثلاً 1500 => 1.5K)
-     */
-    formatNumber(num) {
-        if (num >= 1000000) {
-            return (num / 1000000).toFixed(1) + 'M';
-        } else if (num >= 1000) {
-            return (num / 1000).toFixed(1) + 'K';
-        }
-        return num.toString();
-    }
-
-    /**
-     * راه‌اندازی رویدادها
-     * - کلیک روی کارت => هدایت به صفحهٔ جزئیات ترک
-     * - هاور موس => نمایش/مخفی‌کردن امتیاز
-     * - لود عکس => افزودن کلاس
-     * - تنظیمات موبایل هاور
-     * - رویداد کلیک برای دکمه ثبت امتیاز
+     * تنظیم event listeners برای کارت
      */
     setupEventListeners() {
-        // کلیک روی کل کارت برای هدایت به صفحه جزئیات
-        this.element.addEventListener('click', () => {
-            window.location.href = `/track/${this.createSlug()}`;
+        // کلیک روی هر قسمت کارت - نمایش در lightbox
+        this.element.addEventListener('click', (event) => {
+            event.preventDefault();
+            this.openLightbox();
         });
+    }
 
-        // بارگذاری عکس
-        const image = this.element.querySelector('img');
-        image.addEventListener('load', () => {
-            image.classList.add('loaded');
+    /**
+     * باز کردن lightbox برای نمایش تصویر و جزئیات ترک
+     */
+    openLightbox() {
+        const lightbox = document.getElementById('imageLightbox');
+        if (!lightbox) return;
+        
+        // Rebuild lightbox content
+        const lightboxContent = lightbox.querySelector('.lightbox-content');
+        
+        // Format rating
+        const rating = this.data.stats.communityRating ? 
+            this.data.stats.communityRating.toFixed(1) : 'N/A';
+        const votes = this.data.stats.numberOfVotes || 0;
+        
+        lightboxContent.innerHTML = `
+            <div class="lightbox-image-container">
+                <img id="lightboxImage" class="lightbox-image" src="${this.data.media.coverArt}" alt="${this.data.basicInfo.title}">
+            </div>
+            
+            <div class="lightbox-details">
+                <div class="lightbox-header">
+                    <div class="title-section">
+                        <h2 class="lightbox-track-title">${this.data.basicInfo.title}</h2>
+                        <p class="lightbox-artist-name">${this.data.basicInfo.artist}</p>
+                        
+                        <div class="lightbox-rating">
+                            <div class="lightbox-rating-score">${rating}</div>
+                            <div class="rating-meta">
+                                <span>/10</span>
+                                <span>(${votes} ${votes === 1 ? 'vote' : 'votes'})</span>
+                            </div>
+                        </div>
+                        
+                        <div class="lightbox-action-buttons">
+                            <button class="lightbox-action-btn primary rate-track-btn">
+                                <i class="fas fa-star"></i> Rate
+                            </button>
+                            <button class="lightbox-action-btn share-track-btn">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Listen On Section - Moved to top right as requested -->
+                    <div class="lightbox-streaming-top">
+                        <a href="#" class="lightbox-platform">
+                            <i class="fab fa-spotify"></i> Spotify
+                        </a>
+                        <a href="#" class="lightbox-platform">
+                            <i class="fab fa-apple"></i> Apple Music
+                        </a>
+                        <a href="#" class="lightbox-platform">
+                            <i class="fab fa-youtube"></i> YouTube
+                        </a>
+                        <a href="#" class="lightbox-platform">
+                            <i class="fab fa-soundcloud"></i> SoundCloud
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- SoundCloud Player - Moved to right side at top -->
+                <div class="soundcloud-player-container">
+                    <iframe id="soundcloudPlayer" width="100%" height="120" scrolling="no" frameborder="no" allow="autoplay" 
+                        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1651111520&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false">
+                    </iframe>
+                </div>
+                
+                <div class="lightbox-content-scroll">
+                    <div class="lightbox-section track-info-section">
+                        <h3>Track Info</h3>
+                        <div class="lightbox-track-details">
+                            <span class="detail-label">Release Date</span>
+                            <span class="detail-value">${this.formatDate(this.data.basicInfo.releaseDate)}</span>
+                            
+                            <span class="detail-label">Track Type</span>
+                            <span class="detail-value">${this.data.basicInfo.trackType}</span>
+                            
+                            ${this.data.basicInfo.albumTitle ? `
+                            <span class="detail-label">Album</span>
+                            <span class="detail-value">${this.data.basicInfo.albumTitle}</span>
+                            ` : ''}
+                            
+                            ${this.data.basicInfo.label ? `
+                            <span class="detail-label">Label</span>
+                            <span class="detail-value">${this.data.basicInfo.label}</span>
+                            ` : ''}
+                            
+                            ${this.data.metadata.duration ? `
+                            <span class="detail-label">Duration</span>
+                            <span class="detail-value">${this.data.metadata.duration}</span>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="lightbox-section">
+                        <h3>Credits</h3>
+                        <div class="lightbox-track-details">
+                            <span class="detail-label">Producer</span>
+                            <span class="detail-value">${this.createProducerInfo()}</span>
+                            
+                            ${this.data.productionCredits?.mixing ? `
+                            <span class="detail-label">Mixing</span>
+                            <span class="detail-value">${this.data.productionCredits.mixing}</span>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    ${this.data.lyrics ? `
+                    <div class="lightbox-section">
+                        <h3>Lyrics</h3>
+                        <div class="lyrics-container">
+                            ${this.data.lyrics.replace(/\n/g, '<br>')}
+                        </div>
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+            <button class="lightbox-close">&times;</button>
+        `;
+        
+        // Add event listeners
+        const closeButton = lightboxContent.querySelector('.lightbox-close');
+        closeButton.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
         });
-
-        // هاور موس (نمایش اطلاعات امتیاز در overlay)
-        const coverImage = this.element.querySelector('.card-image');
-        coverImage.addEventListener('mouseenter', () => this.showRatingInfo());
-        coverImage.addEventListener('mouseleave', () => this.hideRatingInfo());
-
-        // هاور در موبایل
-        this.setupMobileHover();
-
-        // رویداد کلیک دکمه ثبت امتیاز
-        const submitBtn = this.element.querySelector('.rate-submit-btn');
-        if (submitBtn) {
-            submitBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.handleRatingSubmission();
+        
+        // Rating event
+        const rateButton = lightboxContent.querySelector('.rate-track-btn');
+        if (rateButton) {
+            rateButton.addEventListener('click', () => {
+                this.showRatingDialog();
             });
         }
+        
+        // Display lightbox
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
     }
 
     /**
-     * هاور موس برای نشانگر امتیاز
+     * نمایش دیالوگ امتیازدهی
      */
-    showRatingInfo() {
-        const ratingBadge = this.element.querySelector('.rating-badge');
-        if (ratingBadge) ratingBadge.classList.add('hover');
-    }
-
-    hideRatingInfo() {
-        const ratingBadge = this.element.querySelector('.rating-badge');
-        if (ratingBadge) ratingBadge.classList.remove('hover');
-    }
-
-    /**
-     * هاور موبایل: لمس روی کارت => اضافه‌کردن کلاس hover
-     */
-    setupMobileHover() {
-        if ('ontouchstart' in window) {
-            this.element.addEventListener('touchstart', () => {
-                this.element.classList.add('hover');
-            });
-            document.addEventListener('touchstart', (ev) => {
-                if (!this.element.contains(ev.target)) {
-                    this.element.classList.remove('hover');
-                }
-            });
-        }
-    }
-
-    /**
-     * مدیریت ثبت امتیاز:
-     * ۱) خواندن مقدار از فیلد input
-     * ۲) بررسی صحت عدد (۰ تا ۱۰)
-     * ۳) محاسبه میانگین جدید
-     * ۴) به‌روزرسانی کارت و ذخیره در localStorage
-     */
-    handleRatingSubmission() {
-        // آیا کاربر قبلاً امتیاز داده؟
-        const ratedTracks = JSON.parse(localStorage.getItem('ratedTracks')) || {};
-        if (ratedTracks[this.data.id]) {
-            alert('شما قبلاً به این ترک امتیاز داده‌اید!');
-            return;
-        }
-
-        // دریافت مقدار عددی از اینپوت
-        const inputField = this.element.querySelector('.rating-input');
-        if (!inputField) return;
-
-        const ratingValue = parseFloat(inputField.value);
-        if (isNaN(ratingValue) || ratingValue < 0 || ratingValue > 10) {
-            alert('عدد واردشده معتبر نیست. لطفاً بین 0 تا 10 وارد کنید.');
-            return;
-        }
-
-        // محاسبهٔ امتیاز جدید
-        const currentVotes = this.data.stats.numberOfVotes || 0;
-        const currentTotal = this.data.stats.communityRating * currentVotes;
-        const newVoteCount = currentVotes + 1;
-        const newAverage = (currentTotal + ratingValue) / newVoteCount;
-
-        // بروزرسانی داده‌های ترک
-        this.data.stats.communityRating = newAverage;
-        this.data.stats.numberOfVotes = newVoteCount;
-
-        // نمایش نتیجه در بخش .rating-result
-        const ratingValueSpan = this.element.querySelector('.rating-value');
-        const ratingVotesSpan = this.element.querySelector('.rating-votes');
-        if (ratingValueSpan) {
-            ratingValueSpan.textContent = newAverage.toFixed(1);
-        }
-        if (ratingVotesSpan) {
-            ratingVotesSpan.textContent = this.formatNumber(newVoteCount);
-        }
-
-        // بروزرسانی نشانگر بالای کاور (rating-badge)
-        const ratingBadge = this.element.querySelector('.rating-badge .rating-score');
-        if (ratingBadge) {
-            ratingBadge.textContent = newAverage.toFixed(1);
-        }
-
-        // ذخیره امتیاز در localStorage
-        ratedTracks[this.data.id] = ratingValue;
-        localStorage.setItem('ratedTracks', JSON.stringify(ratedTracks));
-
-        alert('امتیاز شما با موفقیت ثبت شد!');
+    showRatingDialog() {
+        // کد مربوط به نمایش دیالوگ امتیازدهی
+        alert('این قابلیت در نسخه بعدی اضافه خواهد شد');
     }
 
     /**
@@ -343,6 +275,42 @@ class TrackCard {
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '');
+    }
+
+    /**
+     * Get SoundCloud artist ID for embedding
+     * If not specified in track data, use a placeholder
+     */
+    getSoundCloudArtistId() {
+        return this.data.streamingLinks?.soundcloud?.artistId || 
+               this.createArtistSlug(this.data.basicInfo.artist);
+    }
+
+    /**
+     * Get SoundCloud track ID for embedding
+     * If not specified in track data, use track title
+     */
+    getSoundCloudTrackId() {
+        return this.data.streamingLinks?.soundcloud?.trackId || 
+               this.createTrackSlug(this.data.basicInfo.title);
+    }
+
+    /**
+     * Create a URL-friendly slug from artist name
+     */
+    createArtistSlug(artistName) {
+        return artistName.toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '');
+    }
+
+    /**
+     * Create a URL-friendly slug from track title
+     */
+    createTrackSlug(trackTitle) {
+        return trackTitle.toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '');
     }
 }
 

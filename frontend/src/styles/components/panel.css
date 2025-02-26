@@ -1,5 +1,5 @@
 /* Panel Component Styles
- * Version: 2.0.0
+ * Version: 3.0.0
  * ------------------- */
 
 /* CSS Reset & Base Styles */
@@ -48,7 +48,7 @@
     height: 100vh;
     display: grid;
     /* background-color: rgb(0, 0, 0); */
-    box-shadow: 10px 30px 20px rgba(0, 0, 0, 0.8);
+    box-shadow: 1px 40px 20px rgb(0, 0, 0);
     grid-template-rows: auto 1fr auto;
     /* border-right: 1px solid var(--border-color); */
     border-top-right-radius: 250px;
@@ -58,6 +58,7 @@
     overscroll-behavior: contain;
 }
 
+/* Brand */
 .brand-title {
     color: var(--text-color);
     font-size: var(--font-size-xl);
@@ -68,10 +69,16 @@
 
 .brand-tag {
     padding-top: var(--space-sm);
-    padding-left: 70px;
+    padding-left: 50px;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
-    font-size: var(--font-size-md);
-    opacity: .8;
+    letter-spacing: 1px;
+    /* text-transform: uppercase; */
+    transition: color var(--transition-normal);
+}
+
+.brand-tag:hover {
+    color: var(--color-primary-hover);
 }
 
 /* Logo Styles */
@@ -118,9 +125,7 @@
 .nav-list {
     display: flex;
     flex-direction: column;
-    /* gap: var(--space-sm); */
     padding-top: var(--space-xl);
-    padding-left: var(--space-lg);
 }
 
 .nav-guide p {
@@ -135,10 +140,11 @@
 /* Navigation Items */
 .nav-item {
     position: relative;
+    margin-bottom: 4px;
 }
 
 .nav-item .active {
-    background-color: #4CAF50;
+    background-color: var(--color-primary);
     color: white;
 }
 
@@ -146,16 +152,90 @@
     display: flex;
     align-items: center;
     gap: var(--space-sm);
-    padding: var(--space-sm);
+    padding: 8px var(--space-sm);
     color: var(--text-color);
     text-decoration: none;
     border-radius: var(--radius-sm);
     transition: all var(--transition-fast);
 }
 
+.nav-link:hover {
+    color: var(--color-primary);
+    padding: 8px 10px;
+}
+
 .nav-text {
     font-size: var(--font-size-md);
     font-weight: 500;
+}
+
+/* Disabled nav items */
+.nav-link.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    color: var(--text-secondary);
+}
+
+.nav-link.disabled:hover {
+    background-color: transparent;
+    color: var(--text-secondary);
+    padding: 8px var(--space-sm);
+}
+
+.coming-soon-badge {
+    position: absolute;
+    right: 10px;
+    font-size: 0.7rem;
+    opacity: 0.7;
+    padding: 2px 5px;
+    border-radius: 3px;
+    background-color: var(--surface-hover);
+}
+
+/* Auth Buttons */
+.auth-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-lg);
+}
+
+.auth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    min-width: 70px;
+}
+
+.signin-btn {
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+}
+
+.signin-btn:hover {
+    color: black;
+    background-color: var(--color-primary);
+}
+
+.signup-btn {
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+}
+
+.signup-btn:hover {
+    color: black;
+    background-color: var(--color-primary);
 }
 
 /* Footer */
@@ -252,6 +332,12 @@
     opacity: 0.8;
 }
 
+.footer-taglines p:last-child {
+    color: var(--color-primary);
+    font-weight: 500;
+    margin-top: 2px;
+}
+
 /* Mobile Navigation */
 .mobile-nav {
     position: fixed;
@@ -282,10 +368,31 @@
     color: var(--color-primary);
 }
 
+/* Mobile nav disabled items */
+.mobile-nav .nav-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: var(--text-secondary);
+}
+
+.mobile-nav .nav-item.disabled:hover {
+    color: var(--text-secondary);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .side-panel {
         --panel-width: 240px;
+    }
+    
+    .brand-title {
+        padding-left: 60px;
+        font-size: var(--font-size-lg);
+    }
+    
+    .brand-tag {
+        padding-left: 50px;
+        font-size: var(--font-size-xs);
     }
 }
 
@@ -310,6 +417,11 @@
     .logo-section {
         display: none; /* مخفی کردن در موبایل */
     }
+    
+    .main-content {
+        padding-left: 0;
+        padding-bottom: var(--mobile-nav-height);
+    }
 }
 
 /* Dark Mode Overrides */
@@ -325,8 +437,35 @@
 [dir="rtl"] .side-panel {
     left: auto;
     right: 0;
-    border-right: none;
-    border-left: 1px solid var(--border-color);
+    border-top-right-radius: 0;
+    border-top-left-radius: 250px;
+    box-shadow: -10px 30px 20px rgba(0, 0, 0, 0.8);
+}
+
+[dir="rtl"] .brand-title,
+[dir="rtl"] .brand-tag {
+    padding-left: 0;
+    padding-right: 70px;
+}
+
+[dir="rtl"] .nav-list {
+    padding-left: 0;
+    padding-right: var(--space-lg);
+}
+
+[dir="rtl"] .auth-buttons {
+    padding-left: 0;
+    padding-right: var(--space-lg);
+}
+
+[dir="rtl"] .coming-soon-badge {
+    right: auto;
+    left: 10px;
+}
+
+[dir="rtl"] .nav-guide p {
+    padding-left: 0;
+    padding-right: var(--space-sm);
 }
 
 [dir="rtl"] .nav-submenu {
@@ -339,5 +478,9 @@
     .side-panel,
     .mobile-nav {
         display: none;
+    }
+    
+    .main-content {
+        padding-left: 0;
     }
 }
