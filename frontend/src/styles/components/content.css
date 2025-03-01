@@ -5,12 +5,110 @@
 
 /* Main Content Area */
 .main-content {
-    width: 100%;
+    width: calc(100% - var(--panel-width));
+    margin-left: var(--panel-width);
     min-height: 100vh;
-    /* background-color: var(--page-background); */
-    background-color: rgb(16, 16, 16);
     transition: all var(--transition-normal);
     overflow-x: hidden; /* جلوگیری از اسکرول افقی ناخواسته */
+}
+
+/* New Combined Page Info Header */
+.page-info-header {
+    width: 100%;
+    padding: 3rem 2rem;
+    background: linear-gradient(245deg, #0a0a0a, rgba(16, 16, 16, 0.95)), 
+                url('https://az-10-bucket.storage.iran.liara.space/Visual%20Identity/Backgrounds/hero-bg.jpg');
+    background-size: cover;
+    /* box-shadow: -5px 0 10px rgb(0, 0, 0); */
+    background-position: center;
+    border-top-left-radius: 150px;
+    position: relative;
+}
+
+.page-info-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.page-title-area {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.5px;
+}
+
+.page-description {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.page-stats-area {
+    margin-top: 2rem;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 85, 0, 0.3);
+}
+
+.stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 85, 0, 0.15);
+    border-radius: 10px;
+    margin-right: 1rem;
+    font-size: 1.4rem;
+    color: var(--color-primary);
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
 }
 
 /* Content Section */
@@ -112,73 +210,168 @@
     margin-bottom: var(--space-2xl);
 }
 
-/* Track Slider Container
-   برای جلوگیری از نصف‌شدن کارت‌ها در صفحه‌های کوچک:
-   از auto-fill + minmax(250px, 1fr) استفاده می‌کنیم.
-   با این کار، اگر فضای کافی برای قرارگرفتن چند ستون وجود داشته باشد،
-   ستون‌ها پر می‌شوند؛ در غیر این صورت، کارت به ردیف بعد می‌رود. */
+/* Track Slider Container - Horizontal Scrolling Gallery */
 .track-slider {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-gap: var(--space-xl);
-    overflow-x: hidden;
-    /* اگر می‌خواهید این بخش اسکرول داخلی نداشته باشد و کل صفحه اسکرول شود:
-       overflow-y: visible; */
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 25px 5px;
     margin-bottom: var(--space-lg);
-    padding: var(--space-md);
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    position: relative;
 }
 
-/* Loading States */
-.loading-placeholder {
+/* محو کردن لبه‌های اسلایدر */
+.track-slider::after,
+.track-slider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.track-slider::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--bg-color) 0%, transparent 100%);
+}
+
+.track-slider::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--bg-color) 0%, transparent 100%);
+}
+
+/* Hide scrollbar while maintaining functionality */
+.track-slider::-webkit-scrollbar {
+    height: 6px;
+}
+
+.track-slider::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.track-slider::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.track-slider::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Track card sizing for the slider */
+.track-slider .track-card {
+    flex: 0 0 auto;
+    width: 230px;
+    min-width: 230px;
+    transform: scale(0.97);
+    transition: transform 0.35s var(--transition-bounce);
+}
+
+/* افکت بزرگنمایی برای ترک فعلی */
+.track-slider .track-card:hover {
+    transform: scale(1);
+    z-index: 2;
+}
+
+/* Slider container with navigation controls */
+.track-slider-container {
+    position: relative;
+    padding: 0 40px;
+    margin-top: 20px;
+}
+
+/* Scroll button styling */
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    min-height: 200px;
-    background: var(--surface-color);
-    color: var(--text-secondary);
-    font-size: var(--font-size-md);
-    border-radius: var(--radius-md);
+    color: white;
+    cursor: pointer;
+    z-index: 5;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
-/* Error States */
-.error-container {
-    padding: var(--space-lg);
-    margin: var(--space-md) 0;
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    color: var(--text-color);
+.scroll-btn i {
+    font-size: 14px;
+    transition: transform 0.2s ease;
 }
 
-.error-message {
+.scroll-btn:hover {
+    background: rgba(255, 85, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.3);
+    opacity: 1;
+}
+
+.scroll-btn:hover i {
+    transform: scale(1.2);
+}
+
+.scroll-btn.left {
+    left: 10px;
+}
+
+.scroll-btn.right {
+    right: 10px;
+}
+
+/* بخش عنوان اسلایدر */
+.slider-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0 45px;
+}
+
+.slider-section-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(90deg, #fff, #aaa);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.slider-section-view-all {
+    font-size: var(--font-size-sm);
     color: var(--color-primary);
-    font-size: var(--font-size-md);
+    transition: all 0.2s ease;
 }
 
-/* New Wave Section */
-.new-wave {
-    margin-top: var(--space-2xl);
+.slider-section-view-all:hover {
+    opacity: 0.8;
+    transform: translateX(3px);
 }
 
-/* Community Section */
-.community-content {
-    display: grid;
-    gap: var(--space-lg);
-    margin-top: var(--space-xl);
-}
-
-/* Responsive Design */
-
-/* 
-   اگر بخواهید در برخی رزولوشن‌ها تعداد ستون‌ها تغییر کند،
-   می‌توانید با media query مقدار grid-template-columns را تغییر دهید.
-   در حال حاضر، auto-fill خودش در هر عرضی واکنش‌گراست.
-*/
-
+/* Responsive adjustments */
 @media (max-width: 1280px) {
     .content-section {
-        padding: var(--space-lg) var(--container-padding);
+        padding: var(--space-lg) var(--space-lg);
+    }
+    
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .page-title {
+        font-size: 2.2rem;
     }
 }
 
@@ -187,34 +380,86 @@
         flex-direction: column;
         align-items: flex-start;
     }
-
+    
     .view-all-btn {
         margin-left: 0;
         margin-top: var(--space-sm);
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .page-description {
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 768px) {
     .main-content {
-        padding-right: var(--container-padding); 
+        margin-left: 0;
+        width: 100%;
     }
+    
     .content-section {
-        padding: var(--space-lg) var(--container-padding-mobile);
+        padding: var(--space-md);
     }
+    
     .section-title {
-        font-size: var(--font-size-lg);
+        font-size: 24px;
     }
+    
     .subtitle {
-        font-size: var(--font-size-sm);
+        font-size: 14px;
+    }
+    
+    .page-info-header {
+        padding: 2rem 1rem;
+    }
+    
+    .page-title {
+        font-size: 1.8rem;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-box {
+        padding: 1rem;
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
     }
 }
 
 @media (max-width: 480px) {
     .content-section {
-        padding: var(--space-md) var(--container-padding-mobile);
+        padding: var(--space-sm);
     }
+    
     .section-header {
-        margin-bottom: var(--space-lg);
+        margin-bottom: var(--space-md);
+    }
+    
+    .page-info-header {
+        padding: 1.5rem 1rem;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .page-description {
+        font-size: 0.9rem;
     }
 }
 
@@ -242,4 +487,92 @@
     .view-all-btn {
         display: none;
     }
+}
+
+/* انیمیشن دکمه کلیک شده */
+.scroll-btn.button-clicked {
+    animation: buttonPulse 0.4s var(--transition-bounce);
+}
+
+@keyframes buttonPulse {
+    0% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(0.9); }
+    100% { transform: translateY(-50%) scale(1); }
+}
+
+/* انیمیشن برای ترک‌های در حال نمایش */
+.track-slider .track-card {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.3s ease;
+}
+
+.track-slider .track-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* سایه محو برای اسلایدر */
+.track-slider-container {
+    position: relative;
+    padding: 0 40px;
+    margin: 30px 0;
+}
+
+/* افکت گرد بودن محتوا در اسکرول افقی */
+.track-slider {
+    mask-image: linear-gradient(90deg, 
+        transparent 0%, 
+        black 5%, 
+        black 95%, 
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(90deg, 
+        transparent 0%, 
+        black 5%, 
+        black 95%, 
+        transparent 100%
+    );
+}
+
+/* Animation classes for stat boxes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 0 rgba(255, 85, 0, 0);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 85, 0, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 0 rgba(255, 85, 0, 0);
+    }
+}
+
+.stat-box.animated {
+    animation: fadeInUp 0.5s forwards cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.stat-box:hover .stat-icon {
+    animation: pulseGlow 1.5s infinite;
+}
+
+.stat-box:nth-child(1).animated { animation-delay: 0.1s; }
+.stat-box:nth-child(2).animated { animation-delay: 0.2s; }
+.stat-box:nth-child(3).animated { animation-delay: 0.3s; }
+.stat-box:nth-child(4).animated { animation-delay: 0.4s; }
+
+/* Add subtle hover interaction for stat values */
+.stat-box:hover .stat-value {
+    color: var(--color-primary);
+    transition: color 0.3s ease;
 }

@@ -1,15 +1,14 @@
 /**
  * Track List Management and Display
- * Version: 4.0.0
- * Description: This script handles the display of track cards and interaction with track data from JSON.
- * It utilizes the TrackCard class (from track-card.js) to build each track card, which includes
- * rating submission functionality.
+ * Version: 5.0.0
+ * Description: This script handles the display of track cards in grid/list view with view toggles.
+ * It utilizes the TrackCard class (from track-card.js) to build each track card.
  *
  * Author: AZ10 Team
  * Last Updated: February 2025
  */
 
-import TrackCard from '../components/shared/TrackCard/track-card.js'; // مسیر را مطابق ساختار پروژه تنظیم کن
+import { TrackCard } from '../components/shared/TrackCard/track-card.js';
 
 // =============================================================================
 // Main Functionality
@@ -22,7 +21,7 @@ import TrackCard from '../components/shared/TrackCard/track-card.js'; // مسی�
  *   2. Fetch track data from the JSON source.
  *   3. Sort tracks by release date (newest first).
  *   4. Separate tracks into categories (mainstream and newWave).
- *   5. Populate the respective slider containers with track cards.
+ *   5. Populate the respective track containers.
  *   6. Hide the loading state.
  */
 async function loadTracks() {
@@ -30,7 +29,7 @@ async function loadTracks() {
         showLoadingState();
 
         // Fetch track data from JSON
-        const response = await fetch('../public/data/tracks.json');
+        const response = await fetch('./data/tracks.json');
         if (!response.ok) {
             throw new Error('Error loading tracks data');
         }
@@ -45,9 +44,12 @@ async function loadTracks() {
         const mainstreamTracks = sortedTracks.filter(track => track.basicInfo.category === 'mainstream');
         const newWaveTracks = sortedTracks.filter(track => track.basicInfo.category === 'newWave');
 
-        // Load tracks into sliders
-        loadTracksIntoSlider('mainstreamSlider', mainstreamTracks);
-        loadTracksIntoSlider('newWaveSlider', newWaveTracks);
+        // Load tracks into containers
+        loadTracksIntoContainer('mainstreamTracks', mainstreamTracks);
+        loadTracksIntoContainer('newWaveTracks', newWaveTracks);
+
+        // Initialize view toggle functionality
+        initializeViewToggles();
 
         hideLoadingState();
     } catch (error) {
@@ -57,29 +59,58 @@ async function loadTracks() {
 }
 
 // =============================================================================
-// Slider Population Function
+// Track Display Functions
 // =============================================================================
 
 /**
- * loadTracksIntoSlider - Appends track cards to a slider container.
- * @param {string} sliderId - The HTML element ID of the slider.
+ * loadTracksIntoContainer - Appends track cards to a container.
+ * @param {string} containerId - The HTML element ID of the container.
  * @param {Array} tracks - Array of track objects.
- *
- * This function clears the existing content of the slider and then,
- * for each track, creates a new TrackCard instance and appends its element
- * to the slider.
  */
-function loadTracksIntoSlider(sliderId, tracks) {
-    const slider = document.getElementById(sliderId);
-    if (!slider) return;
+function loadTracksIntoContainer(containerId, tracks) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
-    // Clear previous content in the slider
-    slider.innerHTML = '';
+    // Clear previous content
+    container.innerHTML = '';
 
-    // For each track, create a TrackCard and append it to the slider
+    // For each track, create a TrackCard and append it to the container
     tracks.forEach(trackData => {
         const trackCardInstance = new TrackCard(trackData);
-        slider.appendChild(trackCardInstance.element);
+        container.appendChild(trackCardInstance.element);
+    });
+}
+
+/**
+ * initializeViewToggles - Sets up event listeners for view toggle buttons
+ */
+function initializeViewToggles() {
+    const viewToggleBtns = document.querySelectorAll('.view-toggle-btn');
+    
+    viewToggleBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Get the view type from data attribute
+            const viewType = this.getAttribute('data-view');
+            
+            // Get the parent section
+            const section = this.closest('.content-section');
+            
+            // Get the track container in this section
+            const trackContainer = section.querySelector('.tracks-grid');
+            
+            // Remove both view classes
+            trackContainer.classList.remove('view-grid', 'view-list');
+            
+            // Add the selected view class
+            trackContainer.classList.add(`view-${viewType}`);
+            
+            // Update active state on buttons
+            const toggleButtons = section.querySelectorAll('.view-toggle-btn');
+            toggleButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
     });
 }
 

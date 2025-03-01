@@ -13,6 +13,7 @@ class ComponentsManager {
             panel: null,
             logo: null,
             mobileNav: null,
+            pageInfoHeader: null
         };
 
         // Initialize core elements
@@ -32,6 +33,9 @@ class ComponentsManager {
 
             // Initialize panel controller (for mobile and settings)
             this.initializePanelController();
+
+            // Initialize page info components
+            this.initializePageInfo();
 
             // Set up event listeners
             this.setupEventListeners();
@@ -56,6 +60,50 @@ class ComponentsManager {
             }
         } catch (error) {
             console.error('Error loading panel:', error);
+        }
+    }
+
+    /**
+     * Initialize page info components
+     */
+    initializePageInfo() {
+        // Get reference to the page info header
+        this.components.pageInfoHeader = document.querySelector('.page-info-header');
+        
+        // Apply dynamic effects or animations if needed
+        if (this.components.pageInfoHeader) {
+            this.applyPageInfoEffects();
+        }
+    }
+    
+    /**
+     * Apply dynamic effects to page info header
+     */
+    applyPageInfoEffects() {
+        // Create subtle parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            if (scrollPosition <= 600) {
+                const opacity = 1 - (scrollPosition / 1000);
+                const transform = `translateY(${scrollPosition * 0.15}px)`;
+                const header = this.components.pageInfoHeader;
+                
+                if (header) {
+                    header.querySelector('.page-title-area').style.transform = transform;
+                    header.querySelector('.page-title-area').style.opacity = opacity;
+                }
+            }
+        });
+        
+        // Add hover animation classes to stat boxes
+        const statBoxes = document.querySelectorAll('.stat-box');
+        if (statBoxes.length) {
+            statBoxes.forEach((box, index) => {
+                // Staggered entrance animation classes
+                setTimeout(() => {
+                    box.classList.add('animated');
+                }, 100 * index);
+            });
         }
     }
 
@@ -197,4 +245,24 @@ document.addEventListener('DOMContentLoaded', () => {
 // Export ComponentsManager for module usage if needed
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = ComponentsManager;
+}
+
+/**
+ * Load HTML component
+ */
+async function loadComponent(id, path) {
+    try {
+        const response = await fetch(path);
+        
+        if (!response.ok) {
+            throw new Error(`Failed to load component: ${id}`);
+        }
+        
+        const element = document.getElementById(id);
+        if (element) {
+            element.innerHTML = await response.text();
+        }
+    } catch (error) {
+        console.error(`Error loading component ${id}:`, error);
+    }
 }

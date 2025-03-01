@@ -56,6 +56,49 @@
     transition: transform var(--transition-normal), width var(--transition-normal), background-color var(--transition-normal);
     will-change: transform, width;
     overscroll-behavior: contain;
+    overflow-y: auto;
+}
+
+/* Page Info Section in Sidebar */
+.page-info-section {
+    margin-top: 20px;
+    padding: 0 var(--space-md);
+}
+
+.page-info-title {
+    font-size: var(--font-size-lg);
+    color: var(--text-color);
+    margin-bottom: var(--space-xs);
+}
+
+.page-info-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.page-stats {
+    margin-top: var(--space-md);
+    padding: var(--space-sm);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-sm);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    font-size: var(--font-size-xs);
+    color: var(--text-color);
+    font-weight: 500;
 }
 
 /* Brand */
@@ -85,7 +128,7 @@
 .logo-section {
     position: fixed;
     top: 35px;
-    left: 200px;
+    left: 240px;
     display: flex;
     align-items: center;
     gap: var(--space-sm);
@@ -382,16 +425,24 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
     .side-panel {
-        --panel-width: 240px;
+        width: 280px;
     }
-    
     .brand-title {
-        padding-left: 60px;
-        font-size: var(--font-size-lg);
+        padding-left: 40px;
+    }
+    .brand-tag {
+        padding-left: 20px;
     }
     
-    .brand-tag {
-        padding-left: 50px;
+    .page-info-section {
+        padding: 0 var(--space-sm);
+    }
+    
+    .page-info-title {
+        font-size: var(--font-size-md);
+    }
+    
+    .page-info-description {
         font-size: var(--font-size-xs);
     }
 }
@@ -399,28 +450,27 @@
 @media (max-width: 768px) {
     .side-panel {
         transform: translateX(-100%);
-        transition: transform var(--transition-normal);
+        z-index: 1000;
     }
-
     .side-panel.active {
         transform: translateX(0);
     }
-
     .mobile-nav {
         display: flex;
     }
-
     .mobile-only {
         display: block;
     }
-
     .logo-section {
-        display: none; /* مخفی کردن در موبایل */
+        display: none;
+    }
+    .main-content {
+        width: 100%;
+        margin-left: 0;
     }
     
-    .main-content {
-        padding-left: 0;
-        padding-bottom: var(--mobile-nav-height);
+    .page-info-section {
+        padding: var(--space-md);
     }
 }
 

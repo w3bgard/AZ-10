@@ -16,8 +16,9 @@
     <link rel="stylesheet" href="../src/styles/components/panel.css">
     <link rel="stylesheet" href="../src/styles/components/content.css">
     <link rel="stylesheet" href="../src/styles/components/track-card.css">
-    <link rel="stylesheet" href="../src/styles/components/lightbox.css">
+    <link rel="stylesheet" href="../src/styles/components/animations.css">
     <link rel="stylesheet" href="../src/styles/pages/track/track-content.css">
+    <!-- Note: CSS Module loaded via JavaScript -->
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -37,6 +38,53 @@
     <!-- Main Content -->
     <main class="main-content">
 
+        <!-- Combined Page Info Header -->
+        <header class="page-info-header">
+            <div class="page-info-container">
+                <div class="page-title-area">
+                    <h1 class="page-title">Persian Hip-Hop Hub</h1>
+                    <p class="page-description">Your source for discovering, rating, and discussing Persian Hip-Hop
+                        music.</p>
+                </div>
+
+                <div class="page-stats-area">
+                    <div class="stats-container">
+                        <div class="stat-box">
+                            <span class="stat-icon"><i class="fa-solid fa-music"></i></span>
+                            <div class="stat-content">
+                                <span class="stat-value">47</span>
+                                <span class="stat-label">New Releases This Month</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-box">
+                            <span class="stat-icon"><i class="fa-solid fa-users"></i></span>
+                            <div class="stat-content">
+                                <span class="stat-value">12.5K</span>
+                                <span class="stat-label">Community Members</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-box">
+                            <span class="stat-icon"><i class="fa-solid fa-microphone"></i></span>
+                            <div class="stat-content">
+                                <span class="stat-value">148</span>
+                                <span class="stat-label">Featured Artists</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-box">
+                            <span class="stat-icon"><i class="fa-solid fa-headphones"></i></span>
+                            <div class="stat-content">
+                                <span class="stat-value">782</span>
+                                <span class="stat-label">Total Tracks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
         <!-- Mainstream Tracks Section -->
         <section class="content-section">
             <div class="section-header">
@@ -44,11 +92,20 @@
                 <p class="subtitle">Top releases from well-known artists</p>
             </div>
 
-            <div class="track-slider-container">
-                <div class="track-slider" id="mainstreamSlider">
-                    <!-- ترک‌ها اینجا با JavaScript اضافه میشن -->
-                    <div class="loading-placeholder">Loading tracks...</div>
+            <div class="view-options">
+                <div class="view-toggle">
+                    <button class="view-toggle-btn active" data-view="grid">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-toggle-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
                 </div>
+            </div>
+
+            <div id="mainstreamTracks" class="tracks-grid view-grid">
+                <!-- Tracks will be added here via JavaScript -->
+                <div class="loading-placeholder">Loading tracks...</div>
             </div>
         </section>
 
@@ -59,11 +116,20 @@
                 <p class="subtitle">Fresh releases from emerging artists</p>
             </div>
 
-            <div class="track-slider-container">
-                <div class="track-slider" id="newWaveSlider">
-                    <!-- ترک‌ها اینجا با JavaScript اضافه میشن -->
-                    <div class="loading-placeholder">Loading tracks...</div>
+            <div class="view-options">
+                <div class="view-toggle">
+                    <button class="view-toggle-btn active" data-view="grid">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-toggle-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
                 </div>
+            </div>
+
+            <div id="newWaveTracks" class="tracks-grid view-grid">
+                <!-- Tracks will be added here via JavaScript -->
+                <div class="loading-placeholder">Loading tracks...</div>
             </div>
         </section>
     </main>
@@ -78,18 +144,11 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- Image Lightbox Modal - گسترش یافته با جزئیات کامل -->
-    <div id="imageLightbox" class="image-lightbox">
-        <div class="lightbox-content">
-            <!-- Content will be dynamically filled by JavaScript -->
-        </div>
-    </div>
-
     <!-- Core Scripts -->
     <script defer src="../src/js/core/components.js"></script>
     <script defer src="../src/js/core/theme.js"></script>
     <script defer src="../src/js/core/navigation.js"></script>
-    <script defer src="../src/js/core/lightbox.js"></script>
+    <script defer src="../src/js/track-details.js"></script>
 
     <!-- Track Card Component -->
     <script type="module" src="../src/components/shared/TrackCard/track-card.js"></script>

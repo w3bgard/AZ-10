@@ -8,11 +8,11 @@
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <title>Track Details | AZ10</title>
 
-    <!-- Styles -->
+    <!-- CSS Files -->
     <link rel="stylesheet" href="../styles/base/variables.css">
     <link rel="stylesheet" href="../styles/base/reset.css">
     <link rel="stylesheet" href="../styles/base/global.css">
-    <link rel="stylesheet" href="../styles/components/header.css">
+    <link rel="stylesheet" href="../styles/components/panel.css">
     <link rel="stylesheet" href="../styles/components/content.css">
     <link rel="stylesheet" href="../styles/pages/track/track-content.css">
 
@@ -20,124 +20,297 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
-<body class="track-page">
+<body>
+    <div id="side-panel" class="panel"></div>
 
-    <!-- Side Panel -->
-    <aside class="side-panel">
-        <!-- Will be loaded via components.js -->
-    </aside>
+    <main id="main-content" class="content">
+        <!-- Loading State -->
+        <div id="loading-container" class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>در حال بارگذاری...</p>
+        </div>
 
-    <!-- nav-container -->
-    <div class="nav-container">
-        <!-- Will be loaded via components.js -->
-    </div>
+        <!-- Error State -->
+        <div id="error-container" class="error-container" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i>
+            <h2>خطا در بارگذاری</h2>
+            <p id="error-message" class="error-message">مشکلی در بارگذاری اطلاعات ترک رخ داده است.</p>
+        </div>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Track Content -->
-        <section class="track-content">
-            <div class="track-container">
-                <!-- ستون سمت چپ - عکس کاور -->
-                <div class="track-cover-column">
-                    <div class="track-cover">
-                        <img id="coverArt" src="" alt="Track Cover" class="cover-image">
-                    </div>
-
-                    <!-- دکمه‌های استریم در پایین کاور -->
-                    <div class="streaming-platforms mobile-hidden">
-                        <h3>Listen On</h3>
-                        <div id="platformLinks" class="platform-links">
-                            <!-- Platform links will be generated dynamically -->
-                        </div>
-                    </div>
+        <!-- Track Details Container -->
+        <div id="track-details-container" class="track-details-container" style="display: none;">
+            <div class="track-header">
+                <div class="track-cover">
+                    <img id="track-cover-img" src="" alt="Track Cover Art">
                 </div>
 
-                <!-- ستون سمت راست - اطلاعات -->
-                <div class="track-info-column">
-                    <!-- هدر ترک -->
-                    <div class="track-header">
-                        <h1 id="trackTitle" class="track-title">Loading...</h1>
-                        <div class="artist-info">
-                            <img id="artistAvatar" src="" alt="" class="artist-avatar">
-                            <span id="artistName" class="artist-name">Loading...</span>
+                <div class="track-info">
+                    <h1 id="track-title" class="track-title"></h1>
+                    <div id="artist-name" class="artist-name"></div>
+
+                    <div class="track-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-user"></i>
+                            <span id="producer-info">Prod. by </span>
                         </div>
 
-                        <!-- Rating Display -->
-                        <div class="rating-display">
-                            <div class="rating-score">
-                                <span id="ratingScore" class="score">0.0</span>
-                                <span class="total">/10</span>
-                            </div>
-                            <div class="rating-meta">
-                                <span id="votesCount" class="votes-count">0 votes</span>
-                                <span class="rating-label">Community Rating</span>
-                            </div>
-                        </div>
-
-                        <div class="track-actions">
-                            <button class="action-btn rate-btn">
-                                <i class="fas fa-star"></i>
-                                Rate
-                            </button>
-                            <button class="action-btn share-btn">
-                                <i class="fas fa-share"></i>
-                                Share
-                            </button>
+                        <div class="meta-item">
+                            <i class="fas fa-calendar"></i>
+                            <span id="release-date"></span>
                         </div>
                     </div>
 
-                    <!-- اطلاعات تکمیلی ترک -->
-                    <div id="trackDetails" class="track-details">
-                        <!-- جزئیات اصلی -->
-                        <div class="detail-group">
-                            <h3>Track Info</h3>
-                            <div id="trackInfoDetails">
-                                <!-- Track info details will be generated dynamically -->
-                            </div>
-                        </div>
+                    <!-- Video Badge - Will be shown conditionally -->
+                    <div id="video-badge" class="video-badge" style="display: none;">
+                        <i class="fas fa-play-circle"></i>
+                        <span>موزیک ویدیو</span>
+                    </div>
 
-                        <!-- Credits Section -->
-                        <div id="creditsSection" class="detail-group">
-                            <h3>Credits</h3>
-                            <div id="creditsDetails">
-                                <!-- Credits will be generated dynamically -->
-                            </div>
-                        </div>
-
-                        <!-- Lyrics Section -->
-                        <div id="lyricsSection" class="detail-group">
-                            <h3>Lyrics</h3>
-                            <div class="lyrics-content">
-                                <p id="lyricsText" dir="rtl" class="lyrics-text">
-                                    <!-- Lyrics will be loaded here -->
-                                </p>
-                                <button class="expand-lyrics">Read More</button>
-                            </div>
-                        </div>
-
-                        <!-- Streaming Platforms (نمایش در موبایل) -->
-                        <div class="streaming-platforms desktop-hidden">
-                            <h3>Listen On</h3>
-                            <div id="mobilePlatformLinks" class="platform-links">
-                                <!-- Platform links for mobile will be generated dynamically -->
-                            </div>
+                    <!-- Track Links -->
+                    <div class="track-links">
+                        <h3 class="links-title">گوش کنید و دانلود کنید</h3>
+                        <div id="links-grid" class="links-grid">
+                            <!-- Dynamic links will be inserted here -->
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+
+            <!-- Description Section (if available) -->
+            <div id="track-description" class="track-description" style="display: none;">
+                <h2 class="description-title">درباره ترک</h2>
+                <div id="description-content" class="description-content"></div>
+            </div>
+
+            <!-- Video Section (if available) -->
+            <div id="track-video" class="track-video" style="display: none;">
+                <h2 class="video-title">ویدیو</h2>
+                <div class="video-container">
+                    <iframe id="video-iframe" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <!-- Loading Indicator -->
-    <div id="loadingIndicator" class="loading-indicator">
-        <div class="spinner"></div>
-    </div>
-
     <!-- Scripts -->
-    <script defer src="../js/core/components.js"></script>
-    <script defer src="../js/core/theme.js"></script>
-    <script defer src="../js/core/navigation.js"></script>
-    <script defer src="../js/track-details.js"></script>
+    <script src="../js/core/components.js"></script>
+    <script src="../js/core/theme.js"></script>
+    <script src="../js/core/navigation.js"></script>
+
+    <!-- Track Details Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            try {
+                // نمایش وضعیت بارگذاری
+                showLoading(true);
+
+                // بارگذاری کامپوننت پنل
+                try {
+                    await loadComponent('side-panel', '../components/layout/panel.html');
+                } catch (panelError) {
+                    console.error('Failed to load panel component:', panelError);
+                    // Try alternative paths
+                    try {
+                        await loadComponent('side-panel', '../../src/components/layout/panel.html');
+                    } catch (alternativeError) {
+                        console.error('Failed to load panel from alternative path:', alternativeError);
+                    }
+                }
+
+                // دریافت شناسه ترک از URL
+                const trackId = getTrackIdFromUrl();
+
+                if (!trackId) {
+                    showError('شناسه ترک در URL پیدا نشد');
+                    return;
+                }
+
+                // دریافت داده‌های ترک
+                const trackData = await fetchTrackData(trackId);
+
+                if (!trackData) {
+                    showError('ترک مورد نظر پیدا نشد');
+                    return;
+                }
+
+                // نمایش جزئیات ترک
+                populateTrackDetails(trackData);
+
+                // نمایش کانتینر جزئیات ترک
+                document.getElementById('track-details-container').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error loading track details:', error);
+                showError('خطا در بارگذاری جزئیات ترک: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        // دریافت شناسه ترک از URL
+        function getTrackIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // نمایش وضعیت بارگذاری
+        function showLoading(isLoading) {
+            document.getElementById('loading-container').style.display = isLoading ? 'flex' : 'none';
+        }
+
+        // نمایش پیام خطا
+        function showError(message) {
+            document.getElementById('error-message').textContent = message;
+            document.getElementById('error-container').style.display = 'flex';
+        }
+
+        // دریافت داده‌های ترک
+        async function fetchTrackData(trackId) {
+            try {
+                // تلاش برای خواندن از مسیرهای مختلف
+                let paths = [
+                    '../../public/data/tracks.json',
+                    '../../../public/data/tracks.json',
+                    '/frontend/public/data/tracks.json'
+                ];
+
+                let trackData = null;
+
+                for (const path of paths) {
+                    try {
+                        const response = await fetch(path);
+                        if (response.ok) {
+                            const data = await response.json();
+                            // Check if the data has a tracks array - the correct structure
+                            const tracksArray = data.tracks || data;
+
+                            if (Array.isArray(tracksArray)) {
+                                trackData = tracksArray.find(track => track.id.toString() === trackId);
+                            } else {
+                                console.error('Tracks data is not in expected format:', data);
+                            }
+
+                            if (trackData) break;
+                        }
+                    } catch (e) {
+                        console.log(`Could not fetch from ${path}:`, e);
+                    }
+                }
+
+                return trackData;
+            } catch (error) {
+                console.error('Error fetching track data:', error);
+                throw error;
+            }
+        }
+
+        // نمایش جزئیات ترک در صفحه
+        function populateTrackDetails(track) {
+            console.log('Track data:', track); // Debug: log track data
+
+            // عنوان صفحه
+            document.title = `${track.basicInfo?.title || track.title} - ${track.basicInfo?.artist || track.artist} | AZ10`;
+
+            // تصویر کاور
+            const coverImg = document.getElementById('track-cover-img');
+            const coverUrl = track.media?.coverArt || track.coverArt;
+            coverImg.src = coverUrl;
+            coverImg.alt = `${track.basicInfo?.title || track.title} by ${track.basicInfo?.artist || track.artist}`;
+
+            // عنوان و هنرمند
+            document.getElementById('track-title').textContent = track.basicInfo?.title || track.title;
+            document.getElementById('artist-name').textContent = track.basicInfo?.artist || track.artist;
+
+            // تولیدکننده
+            const producer = track.productionCredits?.music?.beatProducer || track.producer || 'Unknown';
+            document.getElementById('producer-info').textContent = `Prod. by ${producer}`;
+
+            // تاریخ انتشار
+            const releaseDate = (track.basicInfo?.releaseDate || track.releaseDate) ?
+                new Date(track.basicInfo?.releaseDate || track.releaseDate).toLocaleDateString('fa-IR') : 'Unknown';
+            document.getElementById('release-date').textContent = releaseDate;
+
+            // نشان ویدیو
+            if (track.media?.hasVideo || track.hasVideo) {
+                document.getElementById('video-badge').style.display = 'inline-flex';
+            }
+
+            // لینک‌های پلتفرم‌ها
+            const links = track.links || [];
+            const streamingLinks = track.streamingLinks || {};
+
+            if (links.length > 0 || Object.keys(streamingLinks).length > 0) {
+                const linksGrid = document.getElementById('links-grid');
+                linksGrid.innerHTML = '';
+
+                // Process links array if available
+                if (links.length > 0) {
+                    links.forEach(link => {
+                        addPlatformLink(linksGrid, link.platform, link.url);
+                    });
+                }
+                // Process streamingLinks object if available
+                else if (Object.keys(streamingLinks).length > 0) {
+                    for (const [platform, url] of Object.entries(streamingLinks)) {
+                        if (url && url !== "URL_TO_SPOTIFY" && url !== "URL_TO_SOUNDCLOUD" && url !== "URL_TO_APPLE_MUSIC") {
+                            addPlatformLink(linksGrid, platform, url);
+                        }
+                    }
+                }
+            }
+
+            // توضیحات
+            if (track.description) {
+                document.getElementById('description-content').textContent = track.description;
+                document.getElementById('track-description').style.display = 'block';
+            }
+
+            // ویدیو
+            const videoUrl = track.media?.videoUrl || track.videoUrl;
+            if (videoUrl && videoUrl !== "URL_TO_VIDEO") {
+                // تبدیل لینک یوتیوب به لینک امبد
+                let videoId = '';
+                const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+                const match = videoUrl.match(youtubeRegex);
+
+                if (match && match[1]) {
+                    videoId = match[1];
+                    const iframe = document.getElementById('video-iframe');
+                    iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                    document.getElementById('track-video').style.display = 'block';
+                }
+            }
+        }
+
+        // Helper function to add platform links
+        function addPlatformLink(container, platform, url) {
+            if (!url || url.includes("URL_TO_")) return;
+
+            const linkElement = document.createElement('a');
+            linkElement.href = url;
+            linkElement.className = 'platform-link';
+            linkElement.target = '_blank';
+            linkElement.rel = 'noopener noreferrer';
+
+            // Convert platform name to proper case if it's in camelCase
+            const platformName = platform.replace(/([A-Z])/g, ' $1')
+                .replace(/^./, str => str.toUpperCase());
+
+            // آیکون پلتفرم
+            let iconClass = 'fa-link';
+            if (platformName.toLowerCase().includes('spotify')) iconClass = 'fa-spotify';
+            if (platformName.toLowerCase().includes('apple')) iconClass = 'fa-apple';
+            if (platformName.toLowerCase().includes('youtube')) iconClass = 'fa-youtube';
+            if (platformName.toLowerCase().includes('soundcloud')) iconClass = 'fa-soundcloud';
+
+            linkElement.innerHTML = `
+                <i class="fab ${iconClass}"></i>
+                <span>${platformName}</span>
+            `;
+
+            container.appendChild(linkElement);
+        }
+    </script>
 </body>
 
 </html>

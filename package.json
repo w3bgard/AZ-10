@@ -1,0 +1,15 @@
+{
+  "name": "az10",
+  "version": "1.0.0",
+  "description": "AZ10 is a review and rating platform designed to spotlight Persian Hip-Hop music. In its early phase, AZ10 allows users to rate tracks and albums on a scale from 1 to 10, creating a community-driven environment where music lovers can share their opinions and discover new content.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

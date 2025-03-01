@@ -43,13 +43,20 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 /**
- * Gets the track ID from the URL path
- * Expected format: /track/[track-id]
+ * Gets the track ID from the URL query parameter or path
  */
 function getTrackIdFromUrl() {
+    // خواندن id از مسیر URL
     const pathSegments = window.location.pathname.split('/');
-    // The last segment should be the track ID
-    return pathSegments[pathSegments.length - 1];
+    const idFromPath = pathSegments[pathSegments.length - 1];
+    
+    if (idFromPath) {
+        return idFromPath;
+    }
+    
+    // اگر در مسیر نبود، از پارامتر URL استخراج می‌کنیم
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('id');
 }
 
 /**
@@ -57,6 +64,7 @@ function getTrackIdFromUrl() {
  */
 async function fetchTrackData(trackId) {
     try {
+        // مسیر صحیح به فایل JSON
         const response = await fetch('/public/data/tracks.json');
         if (!response.ok) {
             throw new Error('Failed to fetch tracks data');
@@ -330,4 +338,9 @@ function showLoading(show) {
  */
 function showError(message) {
     alert(`Error: ${message}`);
+}
+
+// اگر از JavaScript برای ایجاد لینک‌ها استفاده می‌کنید
+function createTrackLink(trackId) {
+    return `track-template.html?id=${trackId}`;  // مسیر به فایل در ریشه پروژه
 } 
