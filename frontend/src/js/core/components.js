@@ -13,7 +13,8 @@ class ComponentsManager {
             panel: null,
             logo: null,
             mobileNav: null,
-            pageInfoHeader: null
+            pageInfoHeader: null,
+            headerControls: null
         };
 
         // Initialize core elements
@@ -27,7 +28,7 @@ class ComponentsManager {
         try {
             // Load panel component
             await this.loadPanel();
-
+            
             // Add logo to page
             this.addLogoToPage();
 
@@ -50,16 +51,38 @@ class ComponentsManager {
      */
     async loadPanel() {
         try {
-            const panelResponse = await fetch(`${this.basePath}panel.html`);
-            const panelHtml = await panelResponse.text();
-
-            const navContainer = document.querySelector('.nav-container');
-            if (navContainer) {
-                navContainer.innerHTML = panelHtml;
-                this.components.panel = document.getElementById('mainPanel');
+            // Try multiple possible paths for the panel HTML
+            const possiblePaths = [
+                `${this.basePath}panel.html`,
+                '../components/layout/panel.html',
+                '../../src/components/layout/panel.html'
+            ];
+            
+            let loaded = false;
+            
+            // Try each path until one works
+            for (const path of possiblePaths) {
+                try {
+                    console.log(`Trying to load panel from: ${path}`);
+                    await loadComponent('side-panel', path);
+                    console.log(`Successfully loaded panel from: ${path}`);
+                    loaded = true;
+                    break;
+                } catch (error) {
+                    console.warn(`Failed to load panel from ${path}:`, error);
+                }
             }
+            
+            if (!loaded) {
+                throw new Error('Failed to load panel from any path');
+            }
+            
+            // Store reference to the panel and initialize controller
+            this.components.panel = document.getElementById('mainPanel');
+            this.initializePanelController();
         } catch (error) {
-            console.error('Error loading panel:', error);
+            console.error('Error in loadPanel:', error);
+            throw error;
         }
     }
 
@@ -252,17 +275,29 @@ if (typeof module !== 'undefined' && module.exports) {
  */
 async function loadComponent(id, path) {
     try {
+        console.log(`Loading component ${id} from path: ${path}`);
+        
         const response = await fetch(path);
         
         if (!response.ok) {
-            throw new Error(`Failed to load component: ${id}`);
+            throw new Error(`Failed to load component: ${id} from ${path} (Status: ${response.status})`);
         }
         
         const element = document.getElementById(id);
-        if (element) {
-            element.innerHTML = await response.text();
+        if (!element) {
+            throw new Error(`Element with ID '${id}' not found in the DOM`);
         }
+        
+        const contentText = await response.text();
+        if (!contentText || contentText.trim() === '') {
+            throw new Error(`Empty content loaded for component: ${id} from ${path}`);
+        }
+        
+        element.innerHTML = contentText;
+        console.log(`Successfully loaded ${id} component`);
+        return true;
     } catch (error) {
-        console.error(`Error loading component ${id}:`, error);
+        console.error(`Error loading component ${id} from ${path}:`, error);
+        throw error;
     }
 }

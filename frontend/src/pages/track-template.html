@@ -24,6 +24,15 @@
     <div id="side-panel" class="panel"></div>
 
     <main id="main-content" class="content">
+        <!-- Removing Header Controls -->
+        <!-- <div class="header-controls">
+            <div class="left-controls">
+                <button id="newLangToggle" class="language-button" aria-label="Toggle Language">
+                    <span class="button-text">EN</span>
+                </button>
+            </div>
+        </div> -->
+
         <!-- Loading State -->
         <div id="loading-container" class="loading-container">
             <div class="loading-spinner"></div>
@@ -104,16 +113,33 @@
                 // نمایش وضعیت بارگذاری
                 showLoading(true);
 
-                // بارگذاری کامپوننت پنل
+                // بارگذاری کامپوننت پنل با استفاده از ComponentsManager
                 try {
-                    await loadComponent('side-panel', '../components/layout/panel.html');
-                } catch (panelError) {
-                    console.error('Failed to load panel component:', panelError);
-                    // Try alternative paths
+                    // Initialize the components manager if needed
+                    if (!window.componentsManager) {
+                        window.componentsManager = new ComponentsManager();
+                    }
+
+                    // Load the panel component
+                    await window.componentsManager.init();
+
+                    // Initialize the header controls if they exist
+                    if (typeof initializeHeaderControls === 'function') {
+                        initializeHeaderControls();
+                    }
+                } catch (error) {
+                    console.error('Failed to load panel component:', error);
+                    // Try direct loading as fallback
                     try {
-                        await loadComponent('side-panel', '../../src/components/layout/panel.html');
+                        await loadComponent('side-panel', '../components/layout/panel.html');
                     } catch (alternativeError) {
-                        console.error('Failed to load panel from alternative path:', alternativeError);
+                        console.error('Failed to load panel using fallback:', alternativeError);
+                        // Final attempt with different path
+                        try {
+                            await loadComponent('side-panel', '../../src/components/layout/panel.html');
+                        } catch (finalError) {
+                            console.error('All panel loading attempts failed:', finalError);
+                        }
                     }
                 }
 
@@ -146,6 +172,58 @@
                 showLoading(false);
             }
         });
+
+        // Function to initialize and synchronize header controls
+        function initializeHeaderControls() {
+            // Original panel buttons
+            const themeToggle = document.getElementById('themeToggle');
+            const langToggle = document.getElementById('langToggle');
+
+            // New header control buttons - might not exist if header-controls-container was removed
+            const newThemeToggle = document.getElementById('newThemeToggle');
+            const newLangToggle = document.getElementById('newLangToggle');
+
+            // Check if the original panel buttons exist
+            if (!themeToggle && !langToggle) {
+                console.log('Panel buttons not found, header controls will not be initialized');
+                return;
+            }
+
+            // Only synchronize theme toggle if both buttons exist
+            if (themeToggle && newThemeToggle) {
+                // Sync theme button states
+                newThemeToggle.addEventListener('click', function () {
+                    // Trigger the original theme toggle button
+                    themeToggle.click();
+                });
+            }
+
+            // Only synchronize language toggle if both buttons exist
+            if (langToggle && newLangToggle) {
+                // Sync language button states
+                newLangToggle.addEventListener('click', function () {
+                    // Trigger the original language toggle button
+                    langToggle.click();
+                });
+
+                // Ensure the language display is synced
+                const updateLanguageDisplay = function () {
+                    const langButtonText = langToggle.querySelector('.button-text');
+                    const newLangButtonText = newLangToggle.querySelector('.button-text');
+                    if (langButtonText && newLangButtonText) {
+                        newLangButtonText.textContent = langButtonText.textContent;
+                    }
+                };
+
+                // Initial sync
+                updateLanguageDisplay();
+
+                // Observe changes to the original button
+                langToggle.addEventListener('click', function () {
+                    setTimeout(updateLanguageDisplay, 100); // Small delay to allow for updates
+                });
+            }
+        }
 
         // دریافت شناسه ترک از URL
         function getTrackIdFromUrl() {

@@ -27,6 +27,9 @@ import { TrackCard } from '../components/shared/TrackCard/track-card.js';
 async function loadTracks() {
     try {
         showLoadingState();
+        
+        // Initialize components manager to load the panel
+        await initializeComponents();
 
         // Fetch track data from JSON
         const response = await fetch('./data/tracks.json');
@@ -55,6 +58,40 @@ async function loadTracks() {
     } catch (error) {
         console.error('Error:', error);
         showError('Error loading tracks');
+    }
+}
+
+/**
+ * Initialize the ComponentsManager to ensure the panel is loaded properly
+ */
+async function initializeComponents() {
+    try {
+        console.log('Initializing components for index page...');
+        
+        // Initialize the components manager if needed
+        if (!window.componentsManager) {
+            console.log('Creating new ComponentsManager instance');
+            window.componentsManager = new ComponentsManager();
+        }
+        
+        // Load the panel component
+        await window.componentsManager.init();
+        console.log('Components initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize components:', error);
+        // Try direct loading as fallback
+        try {
+            console.log('Attempting fallback loading of panel...');
+            await loadComponent('side-panel', '../components/layout/panel.html');
+        } catch (alternativeError) {
+            console.error('Failed to load panel using fallback:', alternativeError);
+            // Final attempt with different path
+            try {
+                await loadComponent('side-panel', '../../src/components/layout/panel.html');
+            } catch (finalError) {
+                console.error('All panel loading attempts failed:', finalError);
+            }
+        }
     }
 }
 

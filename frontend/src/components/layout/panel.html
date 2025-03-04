@@ -52,8 +52,14 @@
             </li>
         </ul>
 
-        <!-- Auth Buttons -->
+        <!-- Theme Toggle Button -->
+        <div class="theme-switcher">
+            <button id="theme-toggle" aria-label="Toggle theme">
+                <i class="icon-theme"></i>
+            </button>
+        </div>
 
+        <!-- Auth Buttons -->
         <div class="auth-buttons">
             <a href="/signup" class="auth-btn signup-btn">
                 <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
@@ -69,22 +75,6 @@
 
     <!-- Panel Footer -->
     <footer class="panel-footer">
-
-        <!-- Settings Group -->
-        <div class="settings-group">
-            <div class="settings-button lang-toggle">
-                <button class="settings-button" id="langToggle" aria-label="Toggle Language">
-                    <span class="button-text">EN</span>
-                </button>
-            </div>
-
-            <div class="settings-button theme-toggle">
-                <button class="settings-button" id="themeToggle" aria-label="Toggle Theme" role="switch"
-                    aria-checked="true">
-                    <i class="fa-solid fa-paint-roller"></i>
-                </button>
-            </div>
-        </div>
 
         <!-- Social Media Links -->
         <div class="social-section" role="complementary" aria-label="Social Media Links">
@@ -145,3 +135,47 @@
 
 <!-- Skip to Main Content Link (Accessibility) -->
 <a href="#main-content" class="skip-to-main sr-only">Skip to main content</a>
+<!-- Add JavaScript for handling the new header controls -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Original panel buttons
+        const themeToggle = document.getElementById('themeToggle');
+        const langToggle = document.getElementById('langToggle');
+
+        // New header control buttons
+        const newThemeToggle = document.getElementById('newThemeToggle');
+        const newLangToggle = document.getElementById('newLangToggle');
+
+        // Theme toggle synchronization
+        if (themeToggle && newThemeToggle) {
+            // Sync theme button states
+            newThemeToggle.addEventListener('click', function () {
+                // Trigger the original theme toggle button
+                themeToggle.click();
+            });
+        }
+
+        // Language toggle synchronization
+        if (langToggle && newLangToggle) {
+            // Sync language button states
+            newLangToggle.addEventListener('click', function () {
+                // Trigger the original language toggle button
+                langToggle.click();
+            });
+
+            // Ensure the language display is synced
+            const updateLanguageDisplay = function () {
+                const langText = langToggle.querySelector('.button-text').textContent;
+                newLangToggle.querySelector('.button-text').textContent = langText;
+            };
+
+            // Initial sync
+            updateLanguageDisplay();
+
+            // Observe changes to the original button
+            langToggle.addEventListener('click', function () {
+                setTimeout(updateLanguageDisplay, 100); // Small delay to allow for updates
+            });
+        }
+    });
+</script>
