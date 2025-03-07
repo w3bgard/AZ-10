@@ -294,6 +294,23 @@ async function loadComponent(id, path) {
         }
         
         element.innerHTML = contentText;
+        
+        // Force reload Font Awesome icons for dynamically loaded content
+        if (id === 'side-panel') {
+            // Add small delay to ensure DOM is updated before rechecking icons
+            setTimeout(() => {
+                // Check if Font Awesome icons are properly loaded
+                const icons = document.querySelectorAll('.fa-solid, .fa-brands, .fas, .fab');
+                if (icons.length > 0 && window.getComputedStyle(icons[0]).fontFamily.indexOf('Font Awesome') === -1) {
+                    console.log('Reloading Font Awesome...');
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
+                    document.head.appendChild(link);
+                }
+            }, 200);
+        }
+        
         console.log(`Successfully loaded ${id} component`);
         return true;
     } catch (error) {

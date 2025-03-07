@@ -37,12 +37,6 @@
     margin: 0 0 2px 0;
 }
 
-.lightbox-artist-name {
-    composes: artist-name;
-    font-size: 1.1rem;
-    color: #ff5500;
-}
-
 /* Rating display styles */
 .rating-base {
     display: flex;

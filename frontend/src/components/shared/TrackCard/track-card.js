@@ -74,21 +74,25 @@ export class TrackCard {
                     <img src="${this.data.media.coverArt}" alt="${this.data.basicInfo.title}" loading="lazy">
                     <div class="card-overlay">
                         <div class="cd-content">
-                            <div class="track-rating ${rating === 'N/A' ? 'na-rating' : ''}">${rating}<span>/10</span></div>
+                            <div class="track-rating ${rating === 'N/A' ? 'na-rating' : ''}">
+                                ${rating}
+                                <span>AZ10</span>
+                                ${votes > 0 ? `<div class="vote-count">${votes} ${votes === 1 ? 'vote' : 'votes'}</div>` : ''}
+                            </div>
                             <div class="cd-center-hole"></div>
                             
                             <div class="cd-buttons">
                                 <button class="cd-btn minimal-btn">
                                     <i class="fas fa-info-circle"></i>
-                                    <span>MORE INFO</span>
+                                    <span>MORE</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-info">
-                    <h3 class="track-title">${this.data.basicInfo.title}</h3>
                     <div class="artist-name">${this.data.basicInfo.artist}</div>
+                    <h3 class="track-title">${this.data.basicInfo.title}</h3>
                     <div class="producer-info">Prod. by ${this.createProducerInfo()}</div>
                     
                     ${this.data.media.hasVideo ? `
@@ -129,7 +133,7 @@ export class TrackCard {
                     <div class="rating-pill">
                         <i class="fas fa-star"></i>
                         <span class="rating-value">${rating}</span>
-                        <span class="rating-max">/10</span>
+                        <span class="rating-max">AZ10</span>
                     </div>
                     <div class="votes-pill">
                         <i class="fas fa-users"></i>

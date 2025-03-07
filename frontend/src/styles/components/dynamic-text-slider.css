@@ -1,0 +1,91 @@
+.dynamic-text-slider {
+    /* background: #000000; */
+    /* border-radius: 26px; */
+    padding: 3rem 1.5rem;
+    margin-bottom: 2rem;
+    /* box-shadow: 0 6px 52px rgba(0, 0, 0, 0.5); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 120px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.typing-wrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#typed-text {
+    font-size: 2.8rem;
+    font-weight: 800; /* Extra bold */
+    color: #FFFFFF; /* White text */
+    text-align: center;
+    line-height: 1.2;
+    display: inline;
+    white-space: nowrap; /* Prevent wrapping that might break cursor alignment */
+}
+
+/* Style for the typed cursor */
+.typed-cursor {
+    font-size: 2.8rem;
+    color: #DA3300 !important; /* Orange cursor color */
+    opacity: 1;
+    display: inline;
+    position: relative;
+    margin-left: 0; /* Remove any margin that could cause misalignment */
+    vertical-align: text-top; /* Better alignment with text */
+    line-height: 1.2;
+}
+
+/* Fix for proper cursor blinking animation */
+@keyframes typed-cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.typed-cursor--blink {
+    animation: typed-cursor-blink 0.7s infinite;
+}
+
+/* Change text color for highlighted words */
+.typed-text-highlight {
+    color: #DA3300; /* Orange highlight */
+}
+
+@media (max-width: 1024px) {
+    .dynamic-text-slider {
+        padding: 2.5rem 1rem;
+        height: 100px;
+    }
+    
+    #typed-text, .typed-cursor {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dynamic-text-slider {
+        padding: 2rem 1rem;
+        height: 90px;
+    }
+    
+    #typed-text, .typed-cursor {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .dynamic-text-slider {
+        padding: 1.5rem 0.75rem;
+        height: 80px;
+    }
+    
+    #typed-text, .typed-cursor {
+        font-size: 1.5rem;
+    }
+} 

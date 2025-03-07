@@ -1,21 +1,5 @@
 /* Track Template Styles - با حفظ طراحی اصلی سایت */
 
-/* حذف بخش‌هایی که باعث بهم ریختگی شده‌اند */
-.side-panel {
-    /* این استایل‌ها را حذف می‌کنیم چون احتمالاً با استایل‌های اصلی تداخل دارند */
-    /* position: fixed; 
-    left: 0;
-    top: 0;
-    height: 100vh;
-    width: 250px; */
-}
-
-.main-content {
-    /* حذف مارجین که باعث تغییر لایه‌بندی شده */
-    /* margin-left: 250px; */
-    padding: 2rem 1.5rem;
-}
-
 /* بخش‌های مربوط به جزئیات ترک */
 .track-details-container {
     max-width: 1200px;
@@ -27,38 +11,75 @@
 .track-header {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     margin-bottom: 3rem;
+    align-items: center;
 }
 
 @media (min-width: 768px) {
     .track-header {
         flex-direction: row;
         align-items: flex-start;
+        justify-content: center;
+        gap: 4rem;
+    }
+    
+    /* Add a nice background to enhance the track cover */
+    .track-cover::before {
+        content: '';
+        position: absolute;
+        top: -10%;
+        left: -10%;
+        width: 120%;
+        height: 120%;
+        background: radial-gradient(circle at center, rgba(var(--color-primary-rgb), 0.15), transparent 70%);
+        z-index: -1;
+        opacity: 0.8;
+        border-radius: 50%;
+        pointer-events: none;
     }
 }
 
-/* Cover Art */
+/* کاور آهنگ - استایل ساده و مدرن */
 .track-cover {
     position: relative;
     width: 100%;
-    max-width: 350px;
+    max-width: 500px;
+    height: 500px;
     margin: 0 auto;
-    border-radius: 8px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.track-cover:hover {
-    transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
 }
 
-.track-cover img {
+/* افکت هاور ساده و شیک */
+.track-cover:hover {
+    transform: scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* گرادیان ملایم روی هاور */
+.track-cover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.track-cover:hover::before {
+    opacity: 1;
 }
 
 /* Track Info */
@@ -66,22 +87,19 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
 }
 
 .track-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin: 0;
-    line-height: 1.2;
+    line-height: 1.1;
     color: var(--color-text-primary);
+    margin-bottom: .5rem;
 }
 
 .artist-name {
     font-size: 1.5rem;
     font-weight: 500;
-    color: var(--color-primary);
-    margin-bottom: 1rem;
 }
 
 .track-meta {
@@ -291,5 +309,21 @@
     
     .main-content {
         margin-left: 0;
+    }
+}
+
+/* Add responsive sizing for larger screens */
+@media (min-width: 992px) {
+    .track-cover {
+        max-width: 600px;
+        height: 600px;
+    }
+    
+    .track-header {
+        gap: 5rem;
+    }
+    
+    .track-details-container {
+        padding: 3rem;
     }
 } 

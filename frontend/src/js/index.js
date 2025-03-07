@@ -129,24 +129,27 @@ function initializeViewToggles() {
             // Get the view type from data attribute
             const viewType = this.getAttribute('data-view');
             
-            // Get the parent section
-            const section = this.closest('.content-section');
-            
-            // Get the track container in this section
-            const trackContainer = section.querySelector('.tracks-grid');
-            
-            // Remove both view classes
-            trackContainer.classList.remove('view-grid', 'view-list');
-            
-            // Add the selected view class
-            trackContainer.classList.add(`view-${viewType}`);
-            
-            // Update active state on buttons
-            const toggleButtons = section.querySelectorAll('.view-toggle-btn');
-            toggleButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            this.classList.add('active');
+            // Only proceed if this button is not already active
+            if (!this.classList.contains('active')) {
+                // Get the parent section
+                const section = this.closest('.content-section');
+                
+                // Get the track container in this section
+                const trackContainer = section.querySelector('.tracks-grid');
+                
+                // Remove both view classes
+                trackContainer.classList.remove('view-grid', 'view-list');
+                
+                // Add the selected view class
+                trackContainer.classList.add(`view-${viewType}`);
+                
+                // Update active state on buttons
+                const toggleButtons = section.querySelectorAll('.view-toggle-btn');
+                toggleButtons.forEach(button => {
+                    button.classList.remove('active');
+                });
+                this.classList.add('active');
+            }
         });
     });
 }

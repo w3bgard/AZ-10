@@ -49,32 +49,25 @@
         <!-- Track Details Container -->
         <div id="track-details-container" class="track-details-container" style="display: none;">
             <div class="track-header">
-                <div class="track-cover">
-                    <img id="track-cover-img" src="" alt="Track Cover Art">
-                </div>
-
+                <div class="track-cover"></div>
                 <div class="track-info">
                     <h1 id="track-title" class="track-title"></h1>
                     <div id="artist-name" class="artist-name"></div>
-
                     <div class="track-meta">
                         <div class="meta-item">
                             <i class="fas fa-user"></i>
                             <span id="producer-info">Prod. by </span>
                         </div>
-
                         <div class="meta-item">
                             <i class="fas fa-calendar"></i>
                             <span id="release-date"></span>
                         </div>
                     </div>
-
                     <!-- Video Badge - Will be shown conditionally -->
                     <div id="video-badge" class="video-badge" style="display: none;">
                         <i class="fas fa-play-circle"></i>
                         <span>موزیک ویدیو</span>
                     </div>
-
                     <!-- Track Links -->
                     <div class="track-links">
                         <h3 class="links-title">گوش کنید و دانلود کنید</h3>
@@ -249,30 +242,53 @@
                 let paths = [
                     '../../public/data/tracks.json',
                     '../../../public/data/tracks.json',
+                    '../data/tracks.json',
+                    '/data/tracks.json',
                     '/frontend/public/data/tracks.json'
                 ];
 
                 let trackData = null;
+                let foundValidData = false;
+
+                console.log('Trying to fetch track data for ID:', trackId);
 
                 for (const path of paths) {
                     try {
+                        console.log('Attempting to fetch from path:', path);
                         const response = await fetch(path);
+
                         if (response.ok) {
+                            console.log('Fetch successful from:', path);
                             const data = await response.json();
+                            console.log('Data structure:', Object.keys(data));
+
                             // Check if the data has a tracks array - the correct structure
                             const tracksArray = data.tracks || data;
 
                             if (Array.isArray(tracksArray)) {
+                                console.log('Tracks array found with', tracksArray.length, 'items');
                                 trackData = tracksArray.find(track => track.id.toString() === trackId);
+
+                                if (trackData) {
+                                    console.log('Track found!', trackData);
+                                    foundValidData = true;
+                                    break;
+                                }
                             } else {
                                 console.error('Tracks data is not in expected format:', data);
                             }
-
-                            if (trackData) break;
+                        } else {
+                            console.warn(`Fetch failed for ${path}: ${response.status} ${response.statusText}`);
                         }
                     } catch (e) {
                         console.log(`Could not fetch from ${path}:`, e);
                     }
+                }
+
+                if (!foundValidData) {
+                    console.warn('Track not found in any data source. Attempting to load sample data.');
+                    // Si no se encuentra el track, cargamos un track de muestra
+                    trackData = createSampleTrackData(trackId);
                 }
 
                 return trackData;
@@ -282,40 +298,87 @@
             }
         }
 
+        // Create sample track data if real data could not be loaded
+        function createSampleTrackData(trackId) {
+            return {
+                id: trackId,
+                title: "عنوان نامشخص",
+                artist: "هنرمند نامشخص",
+                producer: "YJ",
+                releaseDate: "2024-10-29",
+                cover: "https://az-10-bucket.storage.iran.liara.space/artists/Dorcci/Track%20Covers/H2CO3%20-%20az10.jpg",
+                description: "این یک نمونه است که به دلیل مشکل در بارگذاری داده‌های اصلی نمایش داده می‌شود.",
+                links: [
+                    { platform: "Spotify", url: "https://open.spotify.com" },
+                    { platform: "SoundCloud", url: "https://soundcloud.com" }
+                ]
+            };
+        }
+
         // نمایش جزئیات ترک در صفحه
-        function populateTrackDetails(track) {
-            console.log('Track data:', track); // Debug: log track data
+        function populateTrackDetails(trackData) {
+            console.log('Track data:', trackData); // Debug: log track data
 
             // عنوان صفحه
-            document.title = `${track.basicInfo?.title || track.title} - ${track.basicInfo?.artist || track.artist} | AZ10`;
+            document.title = `${trackData.basicInfo?.title || trackData.title || 'عنوان نامشخص'} - ${trackData.basicInfo?.artist || trackData.artist || 'هنرمند نامشخص'} | AZ10`;
 
             // تصویر کاور
-            const coverImg = document.getElementById('track-cover-img');
-            const coverUrl = track.media?.coverArt || track.coverArt;
-            coverImg.src = coverUrl;
-            coverImg.alt = `${track.basicInfo?.title || track.title} by ${track.basicInfo?.artist || track.artist}`;
+            const coverElement = document.querySelector('.track-cover');
+            const coverUrl = trackData.media?.coverArt || trackData.coverArt || trackData.cover;
+
+            console.log('Setting cover image URL:', coverUrl); // Debug log
+
+            if (coverUrl) {
+                // Monitor image loading events
+                coverElement.onload = function () {
+                    console.log('Cover image loaded successfully!');
+                    // Ensure image is visible
+                    coverElement.style.display = 'block';
+                    coverElement.style.width = '100%';
+                    coverElement.style.opacity = '1';
+                };
+
+                coverElement.onerror = function () {
+                    console.error('Failed to load cover image:', coverUrl);
+                    // Fall back to placeholder
+                    coverElement.style.backgroundImage = 'url("../assets/images/placeholder-cover.jpg")';
+                };
+
+                // Set the src attribute and ensure the image is displayed
+                coverElement.style.backgroundImage = `url(${coverUrl})`;
+                coverElement.alt = `${trackData.basicInfo?.title || trackData.title || 'عنوان نامشخص'} by ${trackData.basicInfo?.artist || trackData.artist || 'هنرمند نامشخص'}`;
+                // Make image visible with inline styles as a backup
+                coverElement.style.display = 'block';
+                coverElement.style.width = '100%';
+                coverElement.style.opacity = '1';
+                console.log('Cover image set to:', coverUrl);
+            } else {
+                // If no cover URL is found, use a placeholder
+                coverElement.style.backgroundImage = 'url("../assets/images/placeholder-cover.jpg")';
+                console.log('No cover image found, using placeholder');
+            }
 
             // عنوان و هنرمند
-            document.getElementById('track-title').textContent = track.basicInfo?.title || track.title;
-            document.getElementById('artist-name').textContent = track.basicInfo?.artist || track.artist;
+            document.getElementById('track-title').textContent = trackData.basicInfo?.title || trackData.title || 'عنوان نامشخص';
+            document.getElementById('artist-name').textContent = trackData.basicInfo?.artist || trackData.artist || 'هنرمند نامشخص';
 
             // تولیدکننده
-            const producer = track.productionCredits?.music?.beatProducer || track.producer || 'Unknown';
+            const producer = trackData.productionCredits?.music?.beatProducer || trackData.producer || 'Unknown';
             document.getElementById('producer-info').textContent = `Prod. by ${producer}`;
 
             // تاریخ انتشار
-            const releaseDate = (track.basicInfo?.releaseDate || track.releaseDate) ?
-                new Date(track.basicInfo?.releaseDate || track.releaseDate).toLocaleDateString('fa-IR') : 'Unknown';
+            const releaseDate = (trackData.releaseDate) ?
+                new Date(trackData.releaseDate).toLocaleDateString('fa-IR') : 'Unknown';
             document.getElementById('release-date').textContent = releaseDate;
 
             // نشان ویدیو
-            if (track.media?.hasVideo || track.hasVideo) {
+            if (trackData.video) {
                 document.getElementById('video-badge').style.display = 'inline-flex';
             }
 
             // لینک‌های پلتفرم‌ها
-            const links = track.links || [];
-            const streamingLinks = track.streamingLinks || {};
+            const links = trackData.links || [];
+            const streamingLinks = trackData.streamingLinks || {};
 
             if (links.length > 0 || Object.keys(streamingLinks).length > 0) {
                 const linksGrid = document.getElementById('links-grid');
@@ -338,13 +401,13 @@
             }
 
             // توضیحات
-            if (track.description) {
-                document.getElementById('description-content').textContent = track.description;
+            if (trackData.description) {
+                document.getElementById('description-content').textContent = trackData.description;
                 document.getElementById('track-description').style.display = 'block';
             }
 
             // ویدیو
-            const videoUrl = track.media?.videoUrl || track.videoUrl;
+            const videoUrl = trackData.videoUrl || trackData.video;
             if (videoUrl && videoUrl !== "URL_TO_VIDEO") {
                 // تبدیل لینک یوتیوب به لینک امبد
                 let videoId = '';

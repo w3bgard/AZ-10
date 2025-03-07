@@ -4,11 +4,11 @@
 
  :root {
     /* رنگ‌های اصلی برند */
-    --color-primary: #ff4713;           /* نارنجی برند */
-    --color-primary-soft: #ff471315;    /* نارنجی با شفافیت برای پس‌زمینه */
-    --color-primary-hover: #ff5728;     /* نارنجی تیره‌تر برای هاور */
-    --color-primary-active: #e63d0e;    /* نارنجی تیره برای حالت active */
-    --color-primary-disabled: #ff471380; /* نارنجی غیرفعال */
+    --color-primary: #e74c3c;           /* نارنجی برند */
+    --color-primary-soft: #e74c3c15;    /* نارنجی با شفافیت برای پس‌زمینه */
+    --color-primary-hover: #d44231;     /* نارنجی تیره‌تر برای هاور */
+    --color-primary-active: #c0392b;    /* نارنجی تیره برای حالت active */
+    --color-primary-disabled: #e74c3c80; /* نارنجی غیرفعال */
 
     /* سیستم رنگ‌های خاکستری */
     --gray-50: #fafafa;
@@ -18,10 +18,11 @@
     --gray-400: #a3a3a3;
     --gray-500: #737373;
     --gray-600: #525252;
+    --gray-650: #333333;
     --gray-700: #404040;
     --gray-800: #262626;
     --gray-900: #171717;
-    --gray-950: #3b3b3b;
+    --gray-950: #0e0e0e;
 
     /* ابعاد و اندازه‌ها - Responsive */
     --panel-width-mobile: 70px;         /* عرض منوی کناری در موبایل */
@@ -31,9 +32,9 @@
     /* سایز کارت‌ها - Responsive */
     --card-size-mobile: 260px;          /* اندازه کارت در موبایل */
     --card-size-tablet: 300px;          /* اندازه کارت در تبلت */
-    --card-size-desktop: 280px;         /* اندازه کارت در دسکتاپ */
-    --card-min-width: 240px;            /* حداقل عرض کارت */
-    --card-max-width: 320px;            /* حداکثر عرض کارت */
+    --card-size-desktop: 260px;         /* اندازه کارت در دسکتاپ */
+    --card-min-width: 220px;            /* حداقل عرض کارت */
+    --card-max-width: 300px;            /* حداکثر عرض کارت */
 
     /* پدینگ‌های محتوا - Responsive */
     --container-padding-mobile: 16px;    /* پدینگ محتوا در موبایل */
@@ -220,6 +221,7 @@
         /* تنظیمات موبایل کوچک */
         --card-size: var(--card-size-mobile);
         --container-padding: var(--container-padding-mobile);
+        --panel-width: 0; /* Set panel width to 0 on small mobile to allow full content width */
     }
 }
 
@@ -228,6 +230,7 @@
         /* تنظیمات موبایل */
         --card-size: calc(var(--card-size-mobile) * 1.1);
         --container-padding: var(--container-padding-mobile);
+        --panel-width: 0; /* Set panel width to 0 on mobile to allow full content width */
     }
 }
 

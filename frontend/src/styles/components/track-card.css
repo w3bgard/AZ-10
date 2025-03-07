@@ -15,7 +15,6 @@
 
 .track-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Common text styles */
@@ -32,7 +31,7 @@
 .artist-name {
     font-size: var(--font-size-lg);
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--text-secondary);
     margin: 0 0 2px 0;
 }
 
@@ -57,8 +56,8 @@
 
 /* Grid View (Default) - افزایش سایز کارت‌ها */
 .view-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
 }
 
 /* List View */
@@ -116,15 +115,11 @@
 .card-image {
     position: relative;
     width: 100%;
-    padding-bottom: 100%; /* Maintain aspect ratio */
+    padding-bottom: 100%;
     border: 1px solid var(--border-color);
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: var(--space-md);
-}
-
-.card-image:hover {
-    box-shadow: 0 10px 10px rgb(0, 0, 0);
 }
 
 .card-image img {
@@ -135,51 +130,21 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
+    transform-origin: center center;
+}
+
+/* CD spinning animation keyframes */
+@keyframes spinCD {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .card-image:hover img {
-    transform: scale(1.05);
-}
-
-/* Video badge - multiple approaches to ensure display */
-.video-badge-absolute {
-    position: absolute !important;
-    top: 10px !important;
-    right: 10px !important;
-    background: rgba(255, 0, 0, 0.8) !important;
-    color: white !important;
-    border-radius: 50% !important;
-    width: 36px !important;
-    height: 36px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
-    z-index: 9999 !important;
-    pointer-events: none !important;
-}
-
-.video-icon {
-    font-size: 18px !important;
-    color: white !important;
-}
-
-/* JavaScript-generated video badge */
-.video-badge-js {
-    position: absolute !important;
-    top: 10px !important;
-    right: 10px !important;
-    background: rgba(255, 0, 0, 0.8) !important;
-    color: white !important;
-    border-radius: 50% !important;
-    width: 36px !important;
-    height: 36px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
-    z-index: 9999 !important;
-    pointer-events: none !important;
+    animation: spinCD 4s linear infinite;
 }
 
 .video-badge-js i {
@@ -197,14 +162,52 @@
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
     border-radius: 50%;
     padding: 10px;
     z-index: 10;
+    backdrop-filter: blur(2px);
+    transform: scale(0.95);
 }
 
 .card-image:hover .card-overlay {
     opacity: 1;
+    transform: scale(1);
+}
+
+/* Add subtle animation for elements within the overlay */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-image:hover .track-rating {
+    animation: fadeInUp 0.4s forwards;
+}
+
+.card-image:hover .cd-buttons {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cd-buttons::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, 
+        rgba(255, 255, 255, 0.15) 0%, 
+        rgba(255, 255, 255, 0.05) 100%);
+    border-radius: inherit;
+    pointer-events: none;
 }
 
 /* CD content container for better positioning */
@@ -215,14 +218,14 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    padding: 20px 0;
+    padding: 20px 45px;
 }
 
 /* CD center hole positioned absolutely */
 .cd-center-hole {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: #111;
     border: 2px solid rgba(255, 255, 255, 0.2);
@@ -231,6 +234,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: none !important;
 }
 
 /* Rating display moved higher to avoid center hole */
@@ -240,8 +244,11 @@
     font-weight: 700;
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, rgba(255, 165, 0, 0.2) 100%);
-    border-radius: 50%;
+    background: linear-gradient(120deg, rgba(241, 63, 14, 0.527), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     width: 90px;
     height: 90px;
     display: flex;
@@ -249,63 +256,179 @@
     justify-content: center;
     flex-direction: column;
     line-height: 1;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-    margin-top: -40px; /* Move up to avoid center hole */
-    margin-bottom: 60px; /* Increase space between rating and buttons */
+    margin-top: -40px;
+    margin-bottom: 60px;
+    transform: perspective(500px) rotateX(10deg);
+    transition: all 0.3s ease;
+    z-index: 30;
 }
 
-.track-rating.na-rating {
-    background: radial-gradient(circle, rgba(150, 150, 150, 0.4) 0%, rgba(100, 100, 100, 0.2) 100%);
-    font-size: 28px;
+.card-image:hover .track-rating {
+    transform: perspective(500px) rotateX(0deg) scale(1.05);
+    box-shadow: 0 15px 30px rgba(94, 94, 94, 0.4), 0 0 20px rgba(72, 72, 72, 0.6);
+}
+
+.track-rating::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, 
+        rgba(255, 255, 255, 0.15) 0%, 
+        rgba(255, 255, 255, 0.05) 100%);
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.track-rating i {
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Ratings with different glass effects based on score */
+.track-rating[data-rating="10"],
+.track-rating[data-rating="9"] {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.track-rating[data-rating="8"],
+.track-rating[data-rating="7"] {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.12),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.track-rating[data-rating="6"],
+.track-rating[data-rating="5"] {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.06));
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.track-rating[data-rating="4"],
+.track-rating[data-rating="3"] {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.track-rating[data-rating="2"],
+.track-rating[data-rating="1"] {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.06),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 .track-rating span {
     font-size: 14px !important;
-    opacity: 0.8;
+    font-weight: 500;
+    opacity: 0.9;
+    margin-top: 2px;
+}
+
+.track-rating .vote-count {
+    position: absolute;
+    bottom: -20px;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* CD buttons - with added video button */
 .cd-buttons {
+    position: relative;
+    font-size: 13px;
+    font-weight: 400;
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    width: 80px;
+    height: 80px;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    gap: 10px;
-    width: 80%;
-    max-width: 200px;
+    line-height: 1;
+    margin-top: 60px;
+    margin-bottom: -40px;
+    transform: perspective(500px) rotateX(10deg);
+    transition: all 0.3s ease;
+    z-index: 30;
+}
+
+.card-image:hover .cd-buttons {
+    transform: perspective(500px) rotateX(0deg) scale(1.05);
+    box-shadow: 0 15px 30px rgba(94, 94, 94, 0.4), 0 0 20px rgba(72, 72, 72, 0.6);
 }
 
 .cd-btn.minimal-btn,
 .cd-btn.video-btn {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: none;
     color: white;
-    border-radius: 4px;
-    padding: 8px 15px;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 16px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    letter-spacing: 0.5px;
+    flex-direction: column;
     width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    gap: 4px;
+}
+
+.cd-btn.minimal-btn span {
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.9;
 }
 
 .cd-btn.minimal-btn:hover,
 .cd-btn.video-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-}
-
-.cd-btn.video-btn {
-    display: none;
+    transform: scale(1.1);
 }
 
 .cd-btn i {
-    font-size: 14px;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.cd-btn:hover i {
+    transform: scale(1.2);
+}
+
+/* Video button specific styles */
+.cd-btn.video-btn {
+    color: #ff3d3d;
+}
+
+.cd-btn.video-btn:hover {
+    color: #ff5555;
 }
 
 /* Always-visible video badge for tracks with videos */
@@ -534,6 +657,7 @@
 @media (max-width: 1400px) {
     .view-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
     }
 }
 
@@ -574,6 +698,7 @@
     .cd-buttons {
         flex-direction: column;
         gap: 5px;
+        margin-top: 60px;
     }
     
     .card-image {
@@ -661,10 +786,6 @@
     gap: 4px;
 }
 
-.artist-info, .metadata-section, .release-date {
-    margin-bottom: 2px;
-}
-
 .producer-info {
     color: var(--text-secondary);
     font-size: 0.9em;
@@ -694,5 +815,20 @@
 .video-info i {
     font-size: 12px;
     color: #ff0000;
+}
+
+.cd-btn.video-btn {
+    background: rgba(220, 20, 60, 0.4);
+    border-color: rgba(220, 20, 60, 0.5);
+}
+
+.cd-btn.video-btn:hover {
+    background: rgba(220, 20, 60, 0.6);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.cd-btn i {
+    font-size: 16px;
+    transition: transform 0.3s ease;
 }
   
