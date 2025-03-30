@@ -3,3 +3,5 @@ RewriteBase /
 
 # هدایت track/[ID] به track-template.html
 RewriteRule ^track/(.*)$ track-template.html [QSA,L] 
+
+# Artist page rules removed 

@@ -13,6 +13,7 @@
     flex-direction: column;
     margin-bottom: 3rem;
     align-items: center;
+    gap: 2rem;
 }
 
 @media (min-width: 768px) {
@@ -22,47 +23,57 @@
         justify-content: center;
         gap: 4rem;
     }
-    
-    /* Add a nice background to enhance the track cover */
-    .track-cover::before {
-        content: '';
-        position: absolute;
-        top: -10%;
-        left: -10%;
-        width: 120%;
-        height: 120%;
-        background: radial-gradient(circle at center, rgba(var(--color-primary-rgb), 0.15), transparent 70%);
-        z-index: -1;
-        opacity: 0.8;
-        border-radius: 50%;
-        pointer-events: none;
-    }
 }
 
-/* کاور آهنگ - استایل ساده و مدرن */
+/* Track Cover Container with Controls */
+.track-cover-container {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+/* Updated Cover Image with Enhanced Hover Effects */
 .track-cover {
     position: relative;
     width: 100%;
-    max-width: 500px;
-    height: 500px;
+    max-width: 380px;
+    height: 380px;
     margin: 0 auto;
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 40px rgb(0, 0, 0);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     background-size: cover;
     background-position: center;
     cursor: pointer;
+    z-index: 1;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
-/* افکت هاور ساده و شیک */
-.track-cover:hover {
-    transform: scale(1.02);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-}
-
-/* گرادیان ملایم روی هاور */
+/* Add a glow effect behind cover */
 .track-cover::before {
+    content: '';
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
+    background: radial-gradient(
+        circle at center,
+        rgba(var(--color-primary-rgb), 0.3) 0%,
+        transparent 70%
+    );
+    z-index: -1;
+    opacity: 0;
+    transform: scale(0.9);
+    filter: blur(15px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+}
+
+.track-cover::after {
     content: '';
     position: absolute;
     top: 0;
@@ -70,16 +81,103 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0) 0%,
+        135deg,
+        rgba(0, 0, 0, 0.1) 0%,
         rgba(0, 0, 0, 0.4) 100%
     );
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    z-index: 2;
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+}
+
+/* Track Controls */
+.track-controls {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.control-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--surface-color);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgb(0, 0, 0);
+    transition: all 0.3s ease;
+}
+
+.control-button:hover {
+    transform: scale(1.1);
+}
+
+.control-button:active {
+    transform: scale(0.95);
+}
+
+/* Enhanced hover effects - more striking and artistic */
+.track-cover:hover {
+    transform: translateY(-15px) scale(1.03) rotateY(2deg);
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6), 
+                0 0 20px rgba(var(--color-primary-rgb), 0.4);
 }
 
 .track-cover:hover::before {
     opacity: 1;
+    transform: scale(1);
+}
+
+.track-cover:hover::after {
+    opacity: 0.7;
+    background: linear-gradient(
+        135deg,
+        rgba(var(--color-primary-rgb), 0.2) 0%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+}
+
+/* Cover hover animation and effects */
+@keyframes albumShine {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.track-cover:hover::after {
+    background: linear-gradient(
+        135deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 20%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.1) 80%,
+        transparent 100%
+    ), linear-gradient(
+        135deg,
+        rgba(var(--color-primary-rgb), 0.2) 0%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+    background-size: 200% 100%;
+    animation: albumShine 2s infinite linear;
+}
+
+/* Enhanced focus effects for accessibility */
+.track-cover:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-primary), 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 /* Track Info */
@@ -87,19 +185,29 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+    .track-info {
+        margin-top: 0;
+    }
 }
 
 .track-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
     line-height: 1.1;
     color: var(--color-text-primary);
-    margin-bottom: .5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.5px;
 }
 
 .artist-name {
     font-size: 1.5rem;
     font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
 }
 
 .track-meta {
@@ -195,6 +303,53 @@
     font-size: 1.2rem;
 }
 
+/* SoundCloud Player Section */
+.soundcloud-player {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+    animation: fadeIn 0.8s ease;
+}
+
+.player-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.player-title::before {
+    content: '\f1be';
+    font-family: 'Font Awesome 5 Brands';
+    color: #ff5500;
+    font-size: 1.8rem;
+}
+
+.soundcloud-container {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1.5rem;
+    background-color: var(--color-bg-secondary);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.soundcloud-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.soundcloud-container iframe {
+    display: block;
+    border-radius: 8px;
+    background-color: var(--color-bg-secondary);
+}
+
 /* Description Section */
 .track-description {
     margin-top: 3rem;
@@ -212,6 +367,7 @@
 .description-content {
     line-height: 1.7;
     color: var(--color-text-secondary);
+    font-size: 1.1rem;
 }
 
 /* Video Section */
@@ -292,6 +448,15 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
+[data-theme="light"] .track-cover:hover {
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.3), 
+                0 0 20px rgba(var(--color-primary-rgb), 0.3);
+}
+
+[data-theme="light"] .control-button {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 [data-theme="light"] .platform-link:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -302,6 +467,23 @@
 
 /* برای موبایل، پنل کناری را مخفی و محتوا را بدون حاشیه نمایش می‌دهیم */
 @media (max-width: 768px) {
+    .track-cover {
+        max-width: 300px;
+        height: 300px;
+    }
+    
+    .track-cover-container {
+        max-width: 300px;
+    }
+
+    .track-title {
+        font-size: 1.8rem;
+    }
+
+    .artist-name {
+        font-size: 1.2rem;
+    }
+
     .side-panel {
         width: 0;
         overflow: hidden;
@@ -310,13 +492,27 @@
     .main-content {
         margin-left: 0;
     }
+    
+    .track-controls {
+        bottom: -20px;
+    }
+    
+    .control-button {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
 }
 
 /* Add responsive sizing for larger screens */
 @media (min-width: 992px) {
     .track-cover {
-        max-width: 600px;
-        height: 600px;
+        max-width: 450px;
+        height: 450px;
+    }
+    
+    .track-cover-container {
+        max-width: 450px;
     }
     
     .track-header {
@@ -325,5 +521,25 @@
     
     .track-details-container {
         padding: 3rem;
+    }
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+    .track-cover {
+        max-width: 500px;
+        height: 500px;
+    }
+    
+    .track-cover-container {
+        max-width: 500px;
+    }
+    
+    .track-title {
+        font-size: 3rem;
+    }
+    
+    .artist-name {
+        font-size: 1.8rem;
     }
 } 

@@ -1,133 +1,120 @@
 <!-- Main Panel Component -->
-<aside class="side-panel" id="mainPanel" aria-label="Main Navigation Panel">
+<aside class="side-panel" id="side-panel" aria-label="Main Navigation Panel">
     <!-- Force reload Font Awesome for dynamically loaded component -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Local fallback for Font Awesome -->
     <link rel="stylesheet" href="../src/styles/vendors/fontawesome/css/all.min.css">
-    <!-- Inline styles to ensure icons display correctly -->
-    <style>
-        .fa-solid,
-        .fa-brands,
-        .fas,
-        .fab,
-        .far,
-        .fa-regular {
-            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "FontAwesome" !important;
-            display: inline-block;
-            font-style: normal;
-            font-variant: normal;
-            text-rendering: auto;
-            line-height: 1;
-        }
 
-        .fa-solid,
-        .fas {
-            font-weight: 900 !important;
-        }
+    <!-- Panel Header -->
+    <div class="brand-section">
+        <!-- Logo -->
+        <div class="logo-container">
+            <a href="/" class="logo-link" aria-label="Go to AZ10 Homepage">
+                <img src="https://az-10-bucket.storage.iran.liara.space/Visual%20Identity/Logo/01%20AZ10-White-Logo.png"
+                    alt="AZ10 Logo" class="panel-logo" loading="eager">
+            </a>
+        </div>
 
-        .fa-brands,
-        .fab {
-            font-weight: 400 !important;
-        }
-
-        .fa-regular,
-        .far {
-            font-weight: 400 !important;
-        }
-
-        /* Unicode icon styles */
-        .icon-unicode {
-            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "FontAwesome" !important;
-            font-weight: 900;
-            display: inline-block;
-            font-style: normal;
-            font-variant: normal;
-            text-rendering: auto;
-            line-height: 1;
-            width: 1.25em;
-            text-align: center;
-        }
-
-        /* Fallback for icons using SVG */
-        .icon-svg {
-            width: 1em;
-            height: 1em;
-            display: inline-block;
-            vertical-align: -0.125em;
-        }
-    </style>
+        <!-- Brand Name -->
+        <h1 class="brand-title">AZ10</h1>
+        <p class="brand-pronunciation">/æz dæh/</p>
+    </div>
 
     <!-- Main Navigation -->
     <nav class="panel-nav" role="navigation">
 
-        <h1 class="brand-title">AZ10</h1>
-        <p class="brand-tag">/æz dæh/</p>
-
         <ul class="nav-list">
-            <!-- Discover Section - Active for MVP (Landing Page) -->
-            <li class="nav-item">
-                <a href="/" class="nav-link" aria-expanded="false">
+            <!-- Discover Section with Submenu -->
+            <li class="nav-item expandable">
+                <a href="/" class="nav-link has-submenu" aria-expanded="false">
                     <span class="icon-unicode" aria-hidden="true">&#xf58f;</span>
-                    <span class="nav-text" data-translate="discover">Discover</span>
+                    <span class="nav-text">Discover</span>
+                    <span class="expand-icon icon-unicode" aria-hidden="true">&#xf078;</span>
                 </a>
+                <ul class="nav-submenu">
+                    <li class="submenu-item">
+                        <a href="/new-drops" class="submenu-link">
+                            <span class="submenu-text">New Drops</span>
+                        </a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/artists" class="submenu-link">
+                            <span class="submenu-text">Artists</span>
+                        </a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="#" class="submenu-link disabled" aria-disabled="true">
+                            <span class="submenu-text">Producers</span>
+                            <span class="coming-soon-badge">Coming Soon</span>
+                        </a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="#" class="submenu-link disabled" aria-disabled="true">
+                            <span class="submenu-text">Directors</span>
+                            <span class="coming-soon-badge">Coming Soon</span>
+                        </a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="#" class="submenu-link disabled" aria-disabled="true">
+                            <span class="submenu-text">Recording Labels</span>
+                            <span class="coming-soon-badge">Coming Soon</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
-            <!-- Artists Section - Active for MVP -->
-            <li class="nav-item">
-                <a href="/artists" class="nav-link" aria-expanded="false">
-                    <span class="icon-unicode" aria-hidden="true">&#xf0c0;</span>
-                    <span class="nav-text" data-translate="artists">Artists</span>
-                </a>
-            </li>
+            <!-- Artists Section - Removed -->
 
-            <!-- Charts Section - Disabled -->
+            <!-- Charts Section - Can be expandable in the future -->
             <li class="nav-item">
                 <a href="#" class="nav-link disabled" aria-expanded="false" aria-disabled="true">
-                    <span class="icon-unicode" aria-hidden="true">&#xf411;</span>
-                    <span class="nav-text" data-translate="charts">Charts</span>
-                    <span class="coming-soon-badge" data-translate="coming_soon">Coming Soon</span>
+                    <span class="icon-unicode" aria-hidden="true">&#xe473;</span>
+                    <span class="nav-text">Charts</span>
+                    <span class="coming-soon-badge">Coming Soon</span>
                 </a>
             </li>
 
-            <!-- Blog Section - Disabled -->
+            <!-- Blog Section - Can be expandable in the future -->
             <li class="nav-item">
                 <a href="#" class="nav-link disabled" aria-expanded="false" aria-disabled="true">
                     <span class="icon-unicode" aria-hidden="true">&#xe0b7;</span>
-                    <span class="nav-text" data-translate="blog">Blog</span>
-                    <span class="coming-soon-badge" data-translate="coming_soon">Coming Soon</span>
+                    <span class="nav-text">Blog</span>
+                    <span class="coming-soon-badge">Coming Soon</span>
                 </a>
             </li>
 
-            <!-- More Section - Disabled -->
-            <li class="nav-item">
-                <a href="#" class="nav-link disabled" aria-expanded="false" aria-disabled="true">
+            <!-- More Section - Can be expandable in the future -->
+            <li class="nav-item expandable">
+                <a href="#" class="nav-link has-submenu" aria-expanded="false">
                     <span class="icon-unicode" aria-hidden="true">&#xf141;</span>
-                    <span class="nav-text" data-translate="more">More</span>
-                    <span class="coming-soon-badge" data-translate="coming_soon">Coming Soon</span>
+                    <span class="nav-text">More</span>
+                    <span class="expand-icon icon-unicode" aria-hidden="true">&#xf078;</span>
                 </a>
+                <ul class="nav-submenu">
+                    <li class="submenu-item">
+                        <a href="#" class="submenu-link" id="submenuThemeToggle"
+                            onclick="window.toggleTheme(); return false;">
+                            <span class="icon-unicode" aria-hidden="true">&#xf186;</span>
+                            <span class="submenu-text">Change Theme</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
 
-        <!-- Theme Toggle Button -->
-        <div class="theme-switcher">
-            <button id="theme-toggle" aria-label="Toggle theme">
-                <i class="icon-theme"></i>
-            </button>
-        </div>
-
-        <!-- Auth Buttons -->
-        <div class="auth-buttons">
-            <a href="/signup" class="auth-btn signup-btn">
-                <span class="icon-unicode" aria-hidden="true">&#xf234;</span>
-                <span data-translate="signup">Sign Up</span>
-            </a>
-            <a href="/signin" class="auth-btn signin-btn">
-                <span class="icon-unicode" aria-hidden="true">&#xf2f6;</span>
-                <span data-translate="signin">Sign In</span>
-            </a>
-        </div>
-
     </nav>
+
+    <!-- Auth Buttons - Moved outside of nav and placed before footer -->
+    <div class="auth-buttons">
+        <a href="/signup" class="auth-btn signup-btn">
+            <span class="icon-unicode" aria-hidden="true">&#xf234;</span>
+            <span>Sign Up</span>
+        </a>
+        <a href="/signin" class="auth-btn signin-btn">
+            <span class="icon-unicode" aria-hidden="true">&#xf2f6;</span>
+            <span>Sign In</span>
+        </a>
+    </div>
 
     <!-- Panel Footer -->
     <footer class="panel-footer">
@@ -166,6 +153,7 @@
                 <p aria-hidden="true">AI-Driven / MVP / Test Version </p>
             </div>
         </div>
+
     </footer>
 </aside>
 
@@ -174,11 +162,8 @@
     <a href="/" class="nav-item" aria-label="Discover">
         <span class="icon-unicode" aria-hidden="true">&#xf58f;</span>
     </a>
-    <a href="/artists" class="nav-item" aria-label="Artists">
-        <span class="icon-unicode" aria-hidden="true">&#xf0c0;</span>
-    </a>
     <span class="nav-item disabled" aria-label="Charts" aria-disabled="true">
-        <span class="icon-unicode" aria-hidden="true">&#xf091;</span>
+        <span class="icon-unicode" aria-hidden="true">&#xf080;</span>
     </span>
     <span class="nav-item disabled" aria-label="Blog" aria-disabled="true">
         <span class="icon-unicode" aria-hidden="true">&#xe0b7;</span>
@@ -191,47 +176,3 @@
 
 <!-- Skip to Main Content Link (Accessibility) -->
 <a href="#main-content" class="skip-to-main sr-only">Skip to main content</a>
-<!-- Add JavaScript for handling the new header controls -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Original panel buttons
-        const themeToggle = document.getElementById('themeToggle');
-        const langToggle = document.getElementById('langToggle');
-
-        // New header control buttons
-        const newThemeToggle = document.getElementById('newThemeToggle');
-        const newLangToggle = document.getElementById('newLangToggle');
-
-        // Theme toggle synchronization
-        if (themeToggle && newThemeToggle) {
-            // Sync theme button states
-            newThemeToggle.addEventListener('click', function () {
-                // Trigger the original theme toggle button
-                themeToggle.click();
-            });
-        }
-
-        // Language toggle synchronization
-        if (langToggle && newLangToggle) {
-            // Sync language button states
-            newLangToggle.addEventListener('click', function () {
-                // Trigger the original language toggle button
-                langToggle.click();
-            });
-
-            // Ensure the language display is synced
-            const updateLanguageDisplay = function () {
-                const langText = langToggle.querySelector('.button-text').textContent;
-                newLangToggle.querySelector('.button-text').textContent = langText;
-            };
-
-            // Initial sync
-            updateLanguageDisplay();
-
-            // Observe changes to the original button
-            langToggle.addEventListener('click', function () {
-                setTimeout(updateLanguageDisplay, 100); // Small delay to allow for updates
-            });
-        }
-    });
-</script>

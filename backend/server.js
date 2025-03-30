@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 // مسیریابی برای صفحه جزئیات ترک
 app.get('/track/:id', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/src/pages/track-template.html'));
-});
+}); 
 
 // اجرای سرور
 app.listen(PORT, () => {

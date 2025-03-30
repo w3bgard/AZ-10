@@ -18,23 +18,3 @@
   .lightbox-content {
     animation: slideUp 0.4s ease forwards;
   }
-
-/* CD Spinning Animation */
-@keyframes cdSpin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Apply this class to make any element spin like a CD */
-.spin-cd {
-  animation: cdSpin 8s linear infinite;
-}
-
-.album-cover:hover img {
-  animation: cdSpin 8s linear infinite;
-  border-radius: 50%;
-}

@@ -215,8 +215,8 @@ q:after {
 
 /* Scrollbar customization */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -224,12 +224,20 @@ q:after {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color, rgba(255, 255, 255, 0.1));
-  border-radius: 4px;
+  background: var(--scrollbar-color);
+  border-radius: 2px;
+  opacity: 0.8;
+  transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary, rgba(255, 255, 255, 0.5));
+  background: var(--scrollbar-hover-color);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-color) transparent;
 }
 
 /* RTL Support */

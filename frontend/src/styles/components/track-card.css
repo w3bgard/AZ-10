@@ -133,20 +133,6 @@
     transform-origin: center center;
 }
 
-/* CD spinning animation keyframes */
-@keyframes spinCD {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.card-image:hover img {
-    animation: spinCD 4s linear infinite;
-}
-
 .video-badge-js i {
     font-size: 18px !important;
     color: white !important;
@@ -244,7 +230,7 @@
     font-weight: 700;
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(120deg, rgba(241, 63, 14, 0.527), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(120deg, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.05));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -265,7 +251,7 @@
 
 .card-image:hover .track-rating {
     transform: perspective(500px) rotateX(0deg) scale(1.05);
-    box-shadow: 0 15px 30px rgba(94, 94, 94, 0.4), 0 0 20px rgba(72, 72, 72, 0.6);
+    box-shadow: 0 15px 30px rgba(69, 69, 69, 0.3), 0 0 20px rgba(72, 72, 72, 0.6);
 }
 
 .track-rating::before {

@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="../styles/components/panel.css">
     <link rel="stylesheet" href="../styles/components/content.css">
     <link rel="stylesheet" href="../styles/pages/track/track-content.css">
+    <!-- Add theme toggle CSS -->
+    <link rel="stylesheet" href="../styles/components/theme-toggle.css">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -24,89 +26,133 @@
     <div id="side-panel" class="panel"></div>
 
     <main id="main-content" class="content">
-        <!-- Removing Header Controls -->
-        <!-- <div class="header-controls">
-            <div class="left-controls">
-                <button id="newLangToggle" class="language-button" aria-label="Toggle Language">
-                    <span class="button-text">EN</span>
-                </button>
+        <div class="content-inner">
+            <!-- Loading State -->
+            <div id="loading-container" class="loading-container">
+                <div class="loading-spinner"></div>
+                <p>Loading...</p>
             </div>
-        </div> -->
 
-        <!-- Loading State -->
-        <div id="loading-container" class="loading-container">
-            <div class="loading-spinner"></div>
-            <p>در حال بارگذاری...</p>
-        </div>
+            <!-- Error State -->
+            <div id="error-container" class="error-container" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <h2>Error Loading Track</h2>
+                <p id="error-message" class="error-message">There was a problem loading the track information.</p>
+            </div>
 
-        <!-- Error State -->
-        <div id="error-container" class="error-container" style="display: none;">
-            <i class="fas fa-exclamation-circle"></i>
-            <h2>خطا در بارگذاری</h2>
-            <p id="error-message" class="error-message">مشکلی در بارگذاری اطلاعات ترک رخ داده است.</p>
-        </div>
-
-        <!-- Track Details Container -->
-        <div id="track-details-container" class="track-details-container" style="display: none;">
-            <div class="track-header">
-                <div class="track-cover"></div>
-                <div class="track-info">
-                    <h1 id="track-title" class="track-title"></h1>
-                    <div id="artist-name" class="artist-name"></div>
-                    <div class="track-meta">
-                        <div class="meta-item">
-                            <i class="fas fa-user"></i>
-                            <span id="producer-info">Prod. by </span>
-                        </div>
-                        <div class="meta-item">
-                            <i class="fas fa-calendar"></i>
-                            <span id="release-date"></span>
+            <!-- Track Details Container -->
+            <div id="track-details-container" class="track-details-container" style="display: none;">
+                <div class="track-header">
+                    <div class="track-cover-container">
+                        <div class="track-cover"></div>
+                        <div class="track-controls">
+                            <button class="control-button" id="playPauseButton" aria-label="Play">
+                                <i class="fas fa-play"></i>
+                            </button>
                         </div>
                     </div>
-                    <!-- Video Badge - Will be shown conditionally -->
-                    <div id="video-badge" class="video-badge" style="display: none;">
-                        <i class="fas fa-play-circle"></i>
-                        <span>موزیک ویدیو</span>
-                    </div>
-                    <!-- Track Links -->
-                    <div class="track-links">
-                        <h3 class="links-title">گوش کنید و دانلود کنید</h3>
-                        <div id="links-grid" class="links-grid">
-                            <!-- Dynamic links will be inserted here -->
+                    <div class="track-info">
+                        <h1 id="track-title" class="track-title"></h1>
+                        <div id="artist-name" class="artist-name"></div>
+                        <div class="track-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span id="producer-info">Prod. by </span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span id="release-date"></span>
+                            </div>
+                        </div>
+                        <!-- Video Badge - Will be shown conditionally -->
+                        <div id="video-badge" class="video-badge" style="display: none;">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Official Music Video</span>
+                        </div>
+                        <!-- Track Links -->
+                        <div class="track-links">
+                            <h3 class="links-title">Listen & Download</h3>
+                            <div id="links-grid" class="links-grid">
+                                <!-- Dynamic links will be inserted here -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Description Section (if available) -->
-            <div id="track-description" class="track-description" style="display: none;">
-                <h2 class="description-title">درباره ترک</h2>
-                <div id="description-content" class="description-content"></div>
-            </div>
+                <!-- SoundCloud Player Section -->
+                <div id="soundcloud-player" class="soundcloud-player" style="display: none;">
+                    <h2 class="player-title">Listen on SoundCloud</h2>
+                    <div class="soundcloud-container">
+                        <iframe id="soundcloud-iframe" width="100%" height="166" scrolling="no" frameborder="no"
+                            allow="autoplay"></iframe>
+                    </div>
+                </div>
 
-            <!-- Video Section (if available) -->
-            <div id="track-video" class="track-video" style="display: none;">
-                <h2 class="video-title">ویدیو</h2>
-                <div class="video-container">
-                    <iframe id="video-iframe" allowfullscreen></iframe>
+                <!-- Description Section (if available) -->
+                <div id="track-description" class="track-description" style="display: none;">
+                    <h2 class="description-title">About This Track</h2>
+                    <div id="description-content" class="description-content"></div>
+                </div>
+
+                <!-- Video Section (if available) -->
+                <div id="track-video" class="track-video" style="display: none;">
+                    <h2 class="video-title">Music Video</h2>
+                    <div class="video-container">
+                        <iframe id="video-iframe" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Scripts -->
+    <!-- Core Scripts - Using type="module" for modern apps -->
     <script src="../js/core/components.js"></script>
     <script src="../js/core/theme.js"></script>
     <script src="../js/core/navigation.js"></script>
+    <script src="../js/core/border.js"></script>
+    <!-- Platform Initialization Script -->
+    <script src="../js/core/init.js" type="module"></script>
+    <!-- Theme diagnostics for debugging theme toggle issues -->
+    <script type="module" src="../js/utils/theme-diagnostics.js"></script>
+
+    <!-- Fallback script to ensure theme toggle works even if module import fails -->
+    <script>
+        // Ensure theme toggle functionality is available
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait a moment to ensure theme.js has had a chance to initialize
+            setTimeout(() => {
+                if (typeof window.toggleTheme !== 'function') {
+                    console.warn('Theme toggle function not found, creating fallback');
+                    window.toggleTheme = function () {
+                        const html = document.documentElement;
+                        const currentTheme = html.getAttribute('data-theme') || 'dark';
+                        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                        html.setAttribute('data-theme', newTheme);
+                        localStorage.setItem('theme', newTheme);
+
+                        // Notify any listeners
+                        const event = new CustomEvent('az10themechange', {
+                            detail: { theme: newTheme }
+                        });
+                        document.dispatchEvent(event);
+
+                        console.log(`Theme toggled to ${newTheme} (fallback)`);
+                        return newTheme;
+                    };
+                }
+            }, 500);
+        });
+    </script>
 
     <!-- Track Details Script -->
     <script>
         document.addEventListener('DOMContentLoaded', async function () {
             try {
-                // نمایش وضعیت بارگذاری
+                // Show loading state
                 showLoading(true);
 
-                // بارگذاری کامپوننت پنل با استفاده از ComponentsManager
+                // Load panel component using ComponentsManager
                 try {
                     // Initialize the components manager if needed
                     if (!window.componentsManager) {
@@ -136,121 +182,252 @@
                     }
                 }
 
-                // دریافت شناسه ترک از URL
+                // Get track ID from URL
                 const trackId = getTrackIdFromUrl();
 
                 if (!trackId) {
-                    showError('شناسه ترک در URL پیدا نشد');
+                    showError('Track ID not found in URL');
                     return;
                 }
 
-                // دریافت داده‌های ترک
+                // Fetch track data
                 const trackData = await fetchTrackData(trackId);
 
                 if (!trackData) {
-                    showError('ترک مورد نظر پیدا نشد');
+                    showError('Track not found');
                     return;
                 }
 
-                // نمایش جزئیات ترک
+                // Populate track details
                 populateTrackDetails(trackData);
 
-                // نمایش کانتینر جزئیات ترک
+                // Show track details container
                 document.getElementById('track-details-container').style.display = 'block';
+
+                // Set up audio player controls
+                setupAudioControls(trackData);
+
+                // Notify AZ10 platform that page content is fully loaded
+                if (window.AZ10_STATE) {
+                    window.dispatchEvent(new CustomEvent('az10:content-ready'));
+                }
 
             } catch (error) {
                 console.error('Error loading track details:', error);
-                showError('خطا در بارگذاری جزئیات ترک: ' + error.message);
+                showError('Error loading track details: ' + error.message);
             } finally {
                 showLoading(false);
             }
         });
 
-        // Function to initialize and synchronize header controls
-        function initializeHeaderControls() {
-            // Original panel buttons
-            const themeToggle = document.getElementById('themeToggle');
-            const langToggle = document.getElementById('langToggle');
+        // Function to set up audio player controls
+        function setupAudioControls(trackData) {
+            const playPauseButton = document.getElementById('playPauseButton');
+            const coverElement = document.querySelector('.track-cover');
 
-            // New header control buttons - might not exist if header-controls-container was removed
-            const newThemeToggle = document.getElementById('newThemeToggle');
-            const newLangToggle = document.getElementById('newLangToggle');
+            let isPlaying = false;
+            let audioElement = null;
+            let soundCloudIframe = null;
 
-            // Check if the original panel buttons exist
-            if (!themeToggle && !langToggle) {
-                console.log('Panel buttons not found, header controls will not be initialized');
-                return;
+            // Check if there's a SoundCloud URL
+            const soundCloudUrl = getSoundCloudUrl(trackData);
+
+            if (soundCloudUrl) {
+                // Setup SoundCloud iframe
+                setupSoundCloudPlayer(soundCloudUrl);
+
+                // Use SoundCloud SDK for playback control if available
+                if (window.SC) {
+                    // SoundCloud widget API handling would go here
+                    console.log('SoundCloud SDK available');
+                } else {
+                    console.log('SoundCloud SDK not available, using iframe only');
+                }
             }
 
-            // Only synchronize theme toggle if both buttons exist
-            if (themeToggle && newThemeToggle) {
-                // Sync theme button states
-                newThemeToggle.addEventListener('click', function () {
-                    // Trigger the original theme toggle button
-                    themeToggle.click();
-                });
+            // Click handler for play/pause button
+            playPauseButton.addEventListener('click', function () {
+                togglePlayback();
+            });
+
+            // Click handler for cover
+            coverElement.addEventListener('click', function () {
+                togglePlayback();
+            });
+
+            function togglePlayback() {
+                if (isPlaying) {
+                    pauseTrack();
+                } else {
+                    playTrack();
+                }
             }
 
-            // Only synchronize language toggle if both buttons exist
-            if (langToggle && newLangToggle) {
-                // Sync language button states
-                newLangToggle.addEventListener('click', function () {
-                    // Trigger the original language toggle button
-                    langToggle.click();
-                });
+            function playTrack() {
+                isPlaying = true;
+                // Update button icon
+                playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+                playPauseButton.setAttribute('aria-label', 'Pause');
 
-                // Ensure the language display is synced
-                const updateLanguageDisplay = function () {
-                    const langButtonText = langToggle.querySelector('.button-text');
-                    const newLangButtonText = newLangToggle.querySelector('.button-text');
-                    if (langButtonText && newLangButtonText) {
-                        newLangButtonText.textContent = langButtonText.textContent;
+                // Either scroll to SoundCloud player or play audio directly
+                const soundcloudSection = document.getElementById('soundcloud-player');
+                if (soundcloudSection.style.display !== 'none') {
+                    soundcloudSection.scrollIntoView({ behavior: 'smooth' });
+
+                    // Try to play SoundCloud via iframe
+                    if (soundCloudIframe && soundCloudIframe.contentWindow) {
+                        soundCloudIframe.contentWindow.postMessage('{"method":"play"}', '*');
                     }
-                };
+                } else if (audioElement) {
+                    audioElement.play();
+                }
+            }
 
-                // Initial sync
-                updateLanguageDisplay();
+            function pauseTrack() {
+                isPlaying = false;
+                // Update button icon
+                playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+                playPauseButton.setAttribute('aria-label', 'Play');
 
-                // Observe changes to the original button
-                langToggle.addEventListener('click', function () {
-                    setTimeout(updateLanguageDisplay, 100); // Small delay to allow for updates
-                });
+                // Try to pause SoundCloud via iframe
+                if (soundCloudIframe && soundCloudIframe.contentWindow) {
+                    soundCloudIframe.contentWindow.postMessage('{"method":"pause"}', '*');
+                } else if (audioElement) {
+                    audioElement.pause();
+                }
             }
         }
 
-        // دریافت شناسه ترک از URL
+        // Function to setup SoundCloud player
+        function setupSoundCloudPlayer(soundCloudUrl) {
+            // Extract track ID from SoundCloud URL
+            const trackId = extractSoundCloudTrackId(soundCloudUrl);
+
+            if (trackId) {
+                const iframe = document.getElementById('soundcloud-iframe');
+                iframe.src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${trackId}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`;
+
+                // Store reference to iframe
+                soundCloudIframe = iframe;
+
+                // Show SoundCloud player section
+                document.getElementById('soundcloud-player').style.display = 'block';
+            }
+        }
+
+        // Function to extract SoundCloud track ID
+        function extractSoundCloudTrackId(url) {
+            // Handle specific known URLs
+            if (url.includes('/dorcci/kxsnne')) {
+                return '1796359904'; // Hardcoded ID for KXSNNE track
+            }
+
+            // Generic extraction logic would go here
+            // This is placeholder logic and might need adjusting
+            const regex = /\/tracks\/(\d+)/;
+            const match = url.match(regex);
+
+            if (match && match[1]) {
+                return match[1];
+            }
+
+            return null;
+        }
+
+        // Function to get SoundCloud URL from track data
+        function getSoundCloudUrl(trackData) {
+            // Special case for KXSNNE track
+            if (trackData.title === "KXSNNE" || trackData.title === "KXSNNE [UNRELEASED]" ||
+                (trackData.id && trackData.id.toString() === "kxsnne")) {
+                return "https://soundcloud.com/dorcci/kxsnne";
+            }
+
+            // Check in links array
+            if (trackData.links && Array.isArray(trackData.links)) {
+                const soundCloudLink = trackData.links.find(link =>
+                    link.platform.toLowerCase().includes('soundcloud') && link.url);
+
+                if (soundCloudLink) {
+                    return soundCloudLink.url;
+                }
+            }
+
+            // Check in streamingLinks object
+            if (trackData.streamingLinks && trackData.streamingLinks.soundcloud) {
+                return trackData.streamingLinks.soundcloud;
+            }
+
+            return null;
+        }
+
+        // Function to initialize header controls - modified to remove theme toggle sync
+        function initializeHeaderControls() {
+            // Check for other header controls here if needed
+            console.log('Header controls initialized');
+        }
+
+        // Get track ID from URL
         function getTrackIdFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('id');
+            const id = urlParams.get('id');
+
+            // If no ID is specified, return a default track ID
+            if (!id) {
+                console.log('No track ID found in URL, using default track');
+                return "kxsnne"; // Default to KXSNNE track as an example
+            }
+
+            return id;
         }
 
-        // نمایش وضعیت بارگذاری
+        // Show loading state
         function showLoading(isLoading) {
             document.getElementById('loading-container').style.display = isLoading ? 'flex' : 'none';
         }
 
-        // نمایش پیام خطا
+        // Show error message
         function showError(message) {
             document.getElementById('error-message').textContent = message;
             document.getElementById('error-container').style.display = 'flex';
         }
 
-        // دریافت داده‌های ترک
+        // Fetch track data
         async function fetchTrackData(trackId) {
             try {
-                // تلاش برای خواندن از مسیرهای مختلف
+                console.log('Attempting to fetch track data for ID:', trackId);
+
+                // Handle special case for KXSNNE
+                if (trackId === "kxsnne") {
+                    console.log('Using built-in data for KXSNNE track');
+                    return {
+                        id: "kxsnne",
+                        title: "KXSNNE [UNRELEASED]",
+                        artist: "Dorcci",
+                        producer: "Therichpia",
+                        releaseDate: "2024-05-01",
+                        cover: "https://az-10-bucket.storage.iran.liara.space/artists/Dorcci/Track%20Covers/H2CO3%20-%20az10.jpg",
+                        description: "Unreleased track by Dorcci, exclusively on SoundCloud.",
+                        links: [
+                            { platform: "SoundCloud", url: "https://soundcloud.com/dorcci/kxsnne?si=9c8594d2bb4c4871aed5cc520ebcec8c" }
+                        ]
+                    };
+                }
+
+                // Try multiple paths
                 let paths = [
                     '../../public/data/tracks.json',
                     '../../../public/data/tracks.json',
                     '../data/tracks.json',
                     '/data/tracks.json',
-                    '/frontend/public/data/tracks.json'
+                    '/frontend/public/data/tracks.json',
+                    '../../../backend/data/tracks.json',
+                    '../../backend/data/tracks.json'
                 ];
 
                 let trackData = null;
                 let foundValidData = false;
 
-                console.log('Trying to fetch track data for ID:', trackId);
+                console.log('Trying multiple paths to find track data');
 
                 for (const path of paths) {
                     try {
@@ -267,12 +444,14 @@
 
                             if (Array.isArray(tracksArray)) {
                                 console.log('Tracks array found with', tracksArray.length, 'items');
-                                trackData = tracksArray.find(track => track.id.toString() === trackId);
+                                trackData = tracksArray.find(track => track.id && track.id.toString() === trackId);
 
                                 if (trackData) {
                                     console.log('Track found!', trackData);
                                     foundValidData = true;
                                     break;
+                                } else {
+                                    console.warn('Track with ID', trackId, 'not found in this data source');
                                 }
                             } else {
                                 console.error('Tracks data is not in expected format:', data);
@@ -286,140 +465,188 @@
                 }
 
                 if (!foundValidData) {
-                    console.warn('Track not found in any data source. Attempting to load sample data.');
-                    // Si no se encuentra el track, cargamos un track de muestra
+                    console.warn('Track not found in any data source. Using sample data instead.');
+                    // If track not found, use sample data
                     trackData = createSampleTrackData(trackId);
                 }
 
                 return trackData;
             } catch (error) {
                 console.error('Error fetching track data:', error);
-                throw error;
+                // Even if there's an error, still provide sample data
+                return createSampleTrackData(trackId);
             }
         }
 
         // Create sample track data if real data could not be loaded
         function createSampleTrackData(trackId) {
+            console.log('Creating sample track data for ID:', trackId);
+
             return {
                 id: trackId,
-                title: "عنوان نامشخص",
-                artist: "هنرمند نامشخص",
-                producer: "YJ",
-                releaseDate: "2024-10-29",
+                title: "Sample Track",
+                artist: "AZ10 Demo Artist",
+                producer: "AZ10 Producer",
+                releaseDate: "2024-01-01",
+                // Use a reliable image URL
                 cover: "https://az-10-bucket.storage.iran.liara.space/artists/Dorcci/Track%20Covers/H2CO3%20-%20az10.jpg",
-                description: "این یک نمونه است که به دلیل مشکل در بارگذاری داده‌های اصلی نمایش داده می‌شود.",
+                description: "This is a sample track displayed when the requested track data couldn't be loaded. You can explore our platform to discover real tracks from Iranian artists.",
+                hasVideo: false,
                 links: [
                     { platform: "Spotify", url: "https://open.spotify.com" },
-                    { platform: "SoundCloud", url: "https://soundcloud.com" }
-                ]
+                    { platform: "SoundCloud", url: "https://soundcloud.com/dorcci/kxsnne" }
+                ],
+                // Include additional properties that might be used elsewhere
+                basicInfo: {
+                    title: "Sample Track",
+                    artist: "AZ10 Demo Artist"
+                },
+                productionCredits: {
+                    music: {
+                        beatProducer: "AZ10 Producer"
+                    }
+                },
+                streamingLinks: {
+                    spotify: "https://open.spotify.com",
+                    soundcloud: "https://soundcloud.com/dorcci/kxsnne"
+                }
             };
         }
 
-        // نمایش جزئیات ترک در صفحه
+        // Populate track details on the page
         function populateTrackDetails(trackData) {
-            console.log('Track data:', trackData); // Debug: log track data
+            try {
+                console.log('Populating track details with data:', trackData);
 
-            // عنوان صفحه
-            document.title = `${trackData.basicInfo?.title || trackData.title || 'عنوان نامشخص'} - ${trackData.basicInfo?.artist || trackData.artist || 'هنرمند نامشخص'} | AZ10`;
-
-            // تصویر کاور
-            const coverElement = document.querySelector('.track-cover');
-            const coverUrl = trackData.media?.coverArt || trackData.coverArt || trackData.cover;
-
-            console.log('Setting cover image URL:', coverUrl); // Debug log
-
-            if (coverUrl) {
-                // Monitor image loading events
-                coverElement.onload = function () {
-                    console.log('Cover image loaded successfully!');
-                    // Ensure image is visible
-                    coverElement.style.display = 'block';
-                    coverElement.style.width = '100%';
-                    coverElement.style.opacity = '1';
-                };
-
-                coverElement.onerror = function () {
-                    console.error('Failed to load cover image:', coverUrl);
-                    // Fall back to placeholder
-                    coverElement.style.backgroundImage = 'url("../assets/images/placeholder-cover.jpg")';
-                };
-
-                // Set the src attribute and ensure the image is displayed
-                coverElement.style.backgroundImage = `url(${coverUrl})`;
-                coverElement.alt = `${trackData.basicInfo?.title || trackData.title || 'عنوان نامشخص'} by ${trackData.basicInfo?.artist || trackData.artist || 'هنرمند نامشخص'}`;
-                // Make image visible with inline styles as a backup
-                coverElement.style.display = 'block';
-                coverElement.style.width = '100%';
-                coverElement.style.opacity = '1';
-                console.log('Cover image set to:', coverUrl);
-            } else {
-                // If no cover URL is found, use a placeholder
-                coverElement.style.backgroundImage = 'url("../assets/images/placeholder-cover.jpg")';
-                console.log('No cover image found, using placeholder');
-            }
-
-            // عنوان و هنرمند
-            document.getElementById('track-title').textContent = trackData.basicInfo?.title || trackData.title || 'عنوان نامشخص';
-            document.getElementById('artist-name').textContent = trackData.basicInfo?.artist || trackData.artist || 'هنرمند نامشخص';
-
-            // تولیدکننده
-            const producer = trackData.productionCredits?.music?.beatProducer || trackData.producer || 'Unknown';
-            document.getElementById('producer-info').textContent = `Prod. by ${producer}`;
-
-            // تاریخ انتشار
-            const releaseDate = (trackData.releaseDate) ?
-                new Date(trackData.releaseDate).toLocaleDateString('fa-IR') : 'Unknown';
-            document.getElementById('release-date').textContent = releaseDate;
-
-            // نشان ویدیو
-            if (trackData.video) {
-                document.getElementById('video-badge').style.display = 'inline-flex';
-            }
-
-            // لینک‌های پلتفرم‌ها
-            const links = trackData.links || [];
-            const streamingLinks = trackData.streamingLinks || {};
-
-            if (links.length > 0 || Object.keys(streamingLinks).length > 0) {
-                const linksGrid = document.getElementById('links-grid');
-                linksGrid.innerHTML = '';
-
-                // Process links array if available
-                if (links.length > 0) {
-                    links.forEach(link => {
-                        addPlatformLink(linksGrid, link.platform, link.url);
-                    });
+                if (!trackData) {
+                    console.error('No track data provided to populateTrackDetails');
+                    showError('No track data available');
+                    return;
                 }
-                // Process streamingLinks object if available
-                else if (Object.keys(streamingLinks).length > 0) {
-                    for (const [platform, url] of Object.entries(streamingLinks)) {
-                        if (url && url !== "URL_TO_SPOTIFY" && url !== "URL_TO_SOUNDCLOUD" && url !== "URL_TO_APPLE_MUSIC") {
-                            addPlatformLink(linksGrid, platform, url);
+
+                // Page title
+                document.title = `${trackData.basicInfo?.title || trackData.title || 'Unknown Track'} - ${trackData.basicInfo?.artist || trackData.artist || 'Unknown Artist'} | AZ10`;
+
+                // Cover image
+                const coverElement = document.querySelector('.track-cover');
+                const coverUrl = trackData.media?.coverArt || trackData.coverArt || trackData.cover;
+
+                if (coverUrl) {
+                    // Set background image
+                    coverElement.style.backgroundImage = `url(${coverUrl})`;
+                    // Set alt text
+                    coverElement.setAttribute('aria-label', `${trackData.basicInfo?.title || trackData.title || 'Unknown Track'} by ${trackData.basicInfo?.artist || trackData.artist || 'Unknown Artist'}`);
+                    console.log('Cover image set to:', coverUrl);
+                } else {
+                    // If no cover URL is found, use a placeholder
+                    coverElement.style.backgroundImage = 'url("../assets/images/placeholder-cover.jpg")';
+                    console.log('No cover image found, using placeholder');
+                }
+
+                // Title and artist
+                const titleElement = document.getElementById('track-title');
+                const artistElement = document.getElementById('artist-name');
+
+                if (titleElement) {
+                    titleElement.textContent = trackData.basicInfo?.title || trackData.title || 'Unknown Track';
+                }
+
+                if (artistElement) {
+                    artistElement.textContent = trackData.basicInfo?.artist || trackData.artist || 'Unknown Artist';
+                }
+
+                // Producer
+                const producerElement = document.getElementById('producer-info');
+                if (producerElement) {
+                    const producer = trackData.productionCredits?.music?.beatProducer || trackData.producer || 'Unknown';
+                    producerElement.textContent = `Prod. by ${producer}`;
+                }
+
+                // Release date
+                const releaseDateElement = document.getElementById('release-date');
+                if (releaseDateElement) {
+                    const releaseDate = (trackData.releaseDate) ?
+                        new Date(trackData.releaseDate).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        }) : 'Unknown';
+                    releaseDateElement.textContent = releaseDate;
+                }
+
+                // Video badge
+                const videoBadge = document.getElementById('video-badge');
+                if (videoBadge) {
+                    if (trackData.video || trackData.videoUrl || trackData.hasVideo) {
+                        videoBadge.style.display = 'inline-flex';
+                    } else {
+                        videoBadge.style.display = 'none';
+                    }
+                }
+
+                // Platform links
+                const links = trackData.links || [];
+                const streamingLinks = trackData.streamingLinks || {};
+                const linksGrid = document.getElementById('links-grid');
+
+                if (linksGrid) {
+                    linksGrid.innerHTML = '';
+
+                    // Process links array if available
+                    if (links.length > 0) {
+                        links.forEach(link => {
+                            if (link && link.platform && link.url) {
+                                addPlatformLink(linksGrid, link.platform, link.url);
+                            }
+                        });
+                    }
+                    // Process streamingLinks object if available
+                    else if (Object.keys(streamingLinks).length > 0) {
+                        for (const [platform, url] of Object.entries(streamingLinks)) {
+                            if (url && url !== "URL_TO_SPOTIFY" && url !== "URL_TO_SOUNDCLOUD" && url !== "URL_TO_APPLE_MUSIC") {
+                                addPlatformLink(linksGrid, platform, url);
+                            }
                         }
                     }
                 }
-            }
 
-            // توضیحات
-            if (trackData.description) {
-                document.getElementById('description-content').textContent = trackData.description;
-                document.getElementById('track-description').style.display = 'block';
-            }
+                // Description
+                const descriptionContent = document.getElementById('description-content');
+                const trackDescription = document.getElementById('track-description');
 
-            // ویدیو
-            const videoUrl = trackData.videoUrl || trackData.video;
-            if (videoUrl && videoUrl !== "URL_TO_VIDEO") {
-                // تبدیل لینک یوتیوب به لینک امبد
-                let videoId = '';
-                const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-                const match = videoUrl.match(youtubeRegex);
-
-                if (match && match[1]) {
-                    videoId = match[1];
-                    const iframe = document.getElementById('video-iframe');
-                    iframe.src = `https://www.youtube.com/embed/${videoId}`;
-                    document.getElementById('track-video').style.display = 'block';
+                if (trackData.description && descriptionContent && trackDescription) {
+                    descriptionContent.textContent = trackData.description;
+                    trackDescription.style.display = 'block';
+                } else if (trackDescription) {
+                    trackDescription.style.display = 'none';
                 }
+
+                // Video
+                const videoUrl = trackData.videoUrl || trackData.video;
+                const trackVideo = document.getElementById('track-video');
+
+                if (videoUrl && videoUrl !== "URL_TO_VIDEO" && trackVideo) {
+                    // Convert YouTube link to embed URL
+                    let videoId = '';
+                    const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+                    const match = videoUrl.match(youtubeRegex);
+
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        const iframe = document.getElementById('video-iframe');
+                        if (iframe) {
+                            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                            trackVideo.style.display = 'block';
+                        }
+                    }
+                } else if (trackVideo) {
+                    trackVideo.style.display = 'none';
+                }
+
+                console.log('Track details populated successfully');
+            } catch (error) {
+                console.error('Error populating track details:', error);
+                showError('Error displaying track information');
             }
         }
 
@@ -437,7 +664,7 @@
             const platformName = platform.replace(/([A-Z])/g, ' $1')
                 .replace(/^./, str => str.toUpperCase());
 
-            // آیکون پلتفرم
+            // Platform icon
             let iconClass = 'fa-link';
             if (platformName.toLowerCase().includes('spotify')) iconClass = 'fa-spotify';
             if (platformName.toLowerCase().includes('apple')) iconClass = 'fa-apple';

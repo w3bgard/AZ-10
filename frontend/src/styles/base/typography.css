@@ -47,6 +47,17 @@
     font-display: swap;
 }
 
+/* --------------------
+ * تعریف فونت Gabelo
+ * ------------------- */
+@font-face {
+    font-family: 'Gabelo';
+    src: url('/frontend/public/assets/fonts/Gabelo-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* تعریف کلاس‌های کمکی */
 .font-thin {
     font-weight: 100;

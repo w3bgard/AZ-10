@@ -11,7 +11,6 @@ class ComponentsManager {
         // Components references
         this.components = {
             panel: null,
-            logo: null,
             mobileNav: null,
             pageInfoHeader: null,
             headerControls: null
@@ -28,9 +27,6 @@ class ComponentsManager {
         try {
             // Load panel component
             await this.loadPanel();
-            
-            // Add logo to page
-            this.addLogoToPage();
 
             // Initialize panel controller (for mobile and settings)
             this.initializePanelController();
@@ -78,7 +74,7 @@ class ComponentsManager {
             }
             
             // Store reference to the panel and initialize controller
-            this.components.panel = document.getElementById('mainPanel');
+            this.components.panel = document.getElementById('side-panel');
             this.initializePanelController();
         } catch (error) {
             console.error('Error in loadPanel:', error);
@@ -131,26 +127,6 @@ class ComponentsManager {
     }
 
     /**
-     * Add logo section to page
-     */
-    addLogoToPage() {
-        const logoSection = document.createElement('div');
-        logoSection.className = 'logo-section';
-        logoSection.innerHTML = `
-            <a href="/" class="logo-link" aria-label="Go to AZ10 Homepage">
-                <img src="https://az-10-bucket.storage.iran.liara.space/Visual%20Identity/Logo/01%20AZ10-White-Logo.png"
-                     alt="AZ10 Logo" 
-                     class="logo-img"
-                     width="50"
-                     height="50"
-                     loading="eager">
-            </a>
-        `;
-        document.body.appendChild(logoSection);
-        this.components.logo = logoSection;
-    }
-
-    /**
      * Initialize panel controller (handles panel, mobile navigation)
      */
     initializePanelController() {
@@ -167,10 +143,11 @@ class ComponentsManager {
     }
 
     /**
-     * Toggle panel state
+     * Toggle panel state (mobile only)
      */
     togglePanel() {
         if (this.components.panel) {
+            // Only toggle 'expanded' class for mobile panel functionality
             this.components.panel.classList.toggle('expanded');
 
             // Handle body overflow
@@ -250,11 +227,6 @@ class ComponentsManager {
         const isMobile = window.innerWidth <= 768;
         if (!isMobile && this.components.panel) {
             this.closePanel();
-        }
-
-        // Update logo visibility based on screen size
-        if (this.components.logo) {
-            this.components.logo.style.display = isMobile ? 'none' : 'flex';
         }
     }
 }

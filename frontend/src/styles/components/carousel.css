@@ -1,0 +1,342 @@
+/* =========================
+   Carousel/Slider Component Styles
+   ========================= */
+
+/* Carousel Container */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    padding: 10px 0;
+    overflow: hidden;
+    margin-bottom: 30px; /* Add space for indicators */
+}
+
+/* Carousel Container Placeholder - Used before initialization */
+.carousel-container-placeholder {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--surface-color);
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.carousel-container-placeholder .loading-placeholder {
+    font-size: 18px;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.carousel-container-placeholder .loading-placeholder::before {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-primary-lighter);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: carousel-spinner 1s linear infinite;
+}
+
+@keyframes carousel-spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Carousel Track - This is where the slides are placed */
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 20px;
+    padding: 5px 0;
+    min-height: 300px; /* Ensure consistent height */
+    will-change: transform; /* Optimize for animations */
+}
+
+/* Individual Slide Style */
+.carousel-slide {
+    flex: 0 0 auto;
+    width: 260px; /* Same as our card width */
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex; /* Ensure content fills slide */
+    justify-content: center; /* Center cards horizontally */
+}
+
+/* Navigation Buttons */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 20; /* Increased to ensure buttons are above other elements */
+    pointer-events: none; /* The buttons themselves will have pointer-events re-enabled */
+    padding: 0 10px; /* Add padding to move buttons away from edge */
+}
+
+.carousel-button {
+    width: 44px; /* Slightly larger for better touch targets */
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+    z-index: 25; /* Ensure buttons are above content */
+    position: relative; /* Allow proper stacking context */
+}
+
+.carousel-button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.5), 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-button:disabled,
+.carousel-button.disabled {
+    background: var(--surface-color);
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none; /* Completely disable interactions */
+}
+
+.carousel-button.prev {
+    left: 5px;
+    margin-left: 5px;
+}
+
+.carousel-button.next {
+    right: 5px;
+    margin-right: 5px;
+}
+
+/* Make the navigation buttons more noticeable for better UX */
+.carousel-button i {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* Make buttons more prominent on hover */
+.carousel-container:hover .carousel-button:not(:disabled):not(.disabled) {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* Progress Indicators */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    right: 0;
+    z-index: 5;
+}
+
+.carousel-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--surface-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid var(--color-primary-lighter);
+}
+
+.carousel-indicator.active {
+    background-color: var(--color-primary);
+    transform: scale(1.2);
+}
+
+.carousel-indicator:hover {
+    transform: scale(1.15);
+    background-color: var(--color-primary-lighter);
+}
+
+/* Swipe Animation */
+.carousel-track.swiping {
+    transition: none; /* Disable transition during drag for smoother feel */
+}
+
+/* Visual indicator for swipe action */
+.carousel-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    right: 0;
+    background: linear-gradient(to right, transparent, var(--background-color));
+    pointer-events: none;
+    z-index: 5;
+}
+
+.carousel-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    left: 0;
+    background: linear-gradient(to left, transparent, var(--background-color));
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Active slide enhancement */
+.carousel-slide.active {
+    transform: scale(1.03);
+    z-index: 2;
+}
+
+/* Card styling in carousel */
+.carousel-slide > * {
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .carousel-slide {
+        width: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-slide {
+        width: 220px;
+    }
+    
+    .carousel-button {
+        width: 38px;
+        height: 38px;
+    }
+    
+    /* Enlarge touch targets for mobile */
+    .carousel-indicator {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .carousel-indicators {
+        gap: 12px;
+    }
+    
+    /* Show hint for swipe on mobile */
+    .carousel-container:not([data-swiped="true"])::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        width: 30px;
+        height: 30px;
+        background: var(--color-primary);
+        border-radius: 50%;
+        transform: translateY(-50%);
+        opacity: 0.7;
+        z-index: 6;
+        animation: swipe-hint 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes swipe-hint {
+        0% { 
+            transform: translateY(-50%) translateX(0);
+            opacity: 0.7;
+        }
+        50% { 
+            transform: translateY(-50%) translateX(-20px);
+            opacity: 0.9;
+        }
+        100% { 
+            transform: translateY(-50%) translateX(0);
+            opacity: 0.7;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-slide {
+        width: 200px;
+    }
+    
+    .carousel-button {
+        width: 34px;
+        height: 34px;
+    }
+    
+    .carousel-button i {
+        font-size: 16px;
+    }
+    
+    /* Further optimizations for small screens */
+    .carousel-container {
+        padding: 5px 0;
+    }
+    
+    .carousel-track {
+        gap: 15px;
+    }
+    
+    /* Reduce side gradients width */
+    .carousel-container::before,
+    .carousel-container::after {
+        width: 20px;
+    }
+}
+
+/* Touch Gestures Support */
+.carousel-container {
+    touch-action: pan-y;
+}
+
+/* Smooth animations for cards in carousel */
+.carousel-slide .track-card {
+    height: 100%;
+    margin-bottom: 0;
+}
+
+/* Hover effect amplification for cards in carousel */
+.carousel-slide .track-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    z-index: 2;
+}
+
+/* Hide scroll hint after first swipe */
+.carousel-container[data-swiped="true"]::after {
+    animation: none;
+    opacity: 0.3;
+}
+
+/* Ensure artist cards, blog cards, etc. look good in carousel */
+.carousel-slide .artist-card,
+.carousel-slide .blog-post-card,
+.carousel-slide .community-content-card {
+    height: 100%;
+    margin: 0;
+    width: 100%;
+} 

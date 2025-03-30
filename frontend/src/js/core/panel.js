@@ -4,7 +4,7 @@
  * Version: 2.0.0
  * --------------------- */
 
-class PanelController {
+export class PanelController {
     constructor() {
         // Core Elements
         this.panel = document.getElementById('mainPanel');
@@ -15,12 +15,9 @@ class PanelController {
         this.navItems = document.querySelectorAll('.nav-item');
         this.navLinks = document.querySelectorAll('.nav-link');
         
-        // Theme & Language Controls
-        this.themeToggle = document.getElementById('themeToggle');
-        this.langToggle = document.getElementById('langToggle');
-        
         // State
         this.isMobile = window.innerWidth <= 768;
+        this.isDesktop = window.innerWidth >= 1025;
         this.activeSubmenu = null;
         
         // Initialize
@@ -53,8 +50,10 @@ class PanelController {
     bindEvents() {
         // Navigation Events
         this.navItems.forEach(item => {
-            if (item.classList.contains('has-submenu')) {
-                const link = item.querySelector('.nav-link');
+            const link = item.querySelector('.nav-link');
+            
+            // For expandable items with submenu
+            if (item.classList.contains('expandable')) {
                 const submenu = item.querySelector('.nav-submenu');
                 
                 link.addEventListener('click', (e) => {
@@ -79,20 +78,6 @@ class PanelController {
             });
         }
 
-        // Theme Toggle
-        if (this.themeToggle) {
-            this.themeToggle.addEventListener('click', () => {
-                this.toggleTheme();
-            });
-        }
-
-        // Language Toggle
-        if (this.langToggle) {
-            this.langToggle.addEventListener('click', () => {
-                this.toggleLanguage();
-            });
-        }
-
         // Close panel on outside click (mobile)
         document.addEventListener('click', (e) => {
             if (this.isMobile && 
@@ -108,6 +93,43 @@ class PanelController {
                 this.handleEscapeKey();
             }
         });
+    }
+
+    /**
+     * Toggle theme between light and dark
+     * Method kept for backwards compatibility but will delegate to global theme controller
+     */
+    toggleTheme() {
+        try {
+            console.log('PanelController: toggleTheme called');
+            
+            // Use global theme toggle function if available
+            if (typeof window.toggleTheme === 'function') {
+                console.log('PanelController: Using global toggleTheme function');
+                window.toggleTheme();
+            } else {
+                console.warn('PanelController: Global toggleTheme function not available, creating local implementation');
+                
+                // Fallback implementation
+                const html = document.documentElement;
+                const currentTheme = html.getAttribute('data-theme') || 'dark';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                // Update theme attribute
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // Trigger custom event
+                const event = new CustomEvent('az10themechange', {
+                    detail: { theme: newTheme }
+                });
+                document.dispatchEvent(event);
+                
+                console.log(`PanelController: Theme toggled to ${newTheme}`);
+            }
+        } catch (error) {
+            console.error('PanelController: Error in toggleTheme:', error);
+        }
     }
 
     /**
@@ -131,19 +153,12 @@ class PanelController {
         // Update active submenu reference
         this.activeSubmenu = isExpanding ? item : null;
         
-        // Handle animation timing
+        // Apply staggered animation to submenu items
         if (isExpanding) {
-            submenu.style.display = 'block';
-            requestAnimationFrame(() => {
-                submenu.style.maxHeight = `${submenu.scrollHeight}px`;
-                submenu.style.opacity = '1';
+            const submenuItems = item.querySelectorAll('.submenu-item');
+            submenuItems.forEach((subItem, index) => {
+                subItem.style.setProperty('--item-index', index);
             });
-        } else {
-            submenu.style.maxHeight = '0';
-            submenu.style.opacity = '0';
-            setTimeout(() => {
-                submenu.style.display = 'none';
-            }, 300); // Match transition duration
         }
     }
 
@@ -153,16 +168,8 @@ class PanelController {
      */
     closeSubmenu(item) {
         item.classList.remove('active');
-        const submenu = item.querySelector('.nav-submenu');
         const link = item.querySelector('.nav-link');
-        
         link.setAttribute('aria-expanded', 'false');
-        submenu.style.maxHeight = '0';
-        submenu.style.opacity = '0';
-        
-        setTimeout(() => {
-            submenu.style.display = 'none';
-        }, 300);
     }
 
     /**
@@ -206,59 +213,16 @@ class PanelController {
     }
 
     /**
-     * Toggle theme preference
-     */
-    toggleTheme() {
-        const html = document.documentElement;
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        // Update button text
-        const buttonText = this.themeToggle.querySelector('.button-text');
-        buttonText.textContent = buttonText.dataset[`text${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)}`];
-    }
-
-    /**
-     * Toggle language preference
-     */
-    toggleLanguage() {
-        const html = document.documentElement;
-        const currentLang = html.getAttribute('lang');
-        const newLang = currentLang === 'en' ? 'fa' : 'en';
-        
-        html.setAttribute('lang', newLang);
-        html.dir = newLang === 'fa' ? 'rtl' : 'ltr';
-        localStorage.setItem('language', newLang);
-        
-        this.updateTranslations(newLang);
-    }
-
-    /**
-     * Update translations across the panel
-     * @param {string} lang - Language code
-     */
-    updateTranslations(lang) {
-        document.querySelectorAll('[data-translate]').forEach(element => {
-            const key = element.getAttribute('data-translate');
-            const translation = this.translations[lang]?.[key];
-            if (translation) {
-                element.textContent = translation;
-            }
-        });
-    }
-
-    /**
-     * Check and update mobile state
+     * Check mobile/desktop state
      */
     checkMobileState() {
-        const wasMobile = this.isMobile;
-        this.isMobile = window.innerWidth <= 768;
+        const width = window.innerWidth;
+        this.isMobile = width <= 768;
+        this.isDesktop = width >= 1025;
         
-        if (wasMobile !== this.isMobile) {
-            this.handleBreakpointChange();
+        // Ensure panel is visible on desktop
+        if (this.isDesktop) {
+            this.panel.classList.remove('active');
         }
     }
 
@@ -266,14 +230,10 @@ class PanelController {
      * Handle breakpoint changes
      */
     handleBreakpointChange() {
-        if (!this.isMobile) {
-            // Reset mobile-specific states
-            this.closeMobilePanel();
-            this.panel.removeAttribute('style');
-        }
-        // Close any open submenus
-        if (this.activeSubmenu) {
-            this.closeSubmenu(this.activeSubmenu);
+        this.checkMobileState();
+        
+        if (this.isMobile) {
+            document.body.style.overflow = '';
         }
     }
 
@@ -373,25 +333,56 @@ class PanelController {
         if (savedTheme) {
             document.documentElement.setAttribute('data-theme', savedTheme);
         }
+    }
 
-        // Load language preference
-        const savedLang = localStorage.getItem('language');
-        if (savedLang) {
-            document.documentElement.setAttribute('lang', savedLang);
-            document.documentElement.dir = savedLang === 'fa' ? 'rtl' : 'ltr';
-            this.updateTranslations(savedLang);
+    /**
+     * Initialize animations for panel elements
+     */
+    initAnimations() {
+        // Pre-set submenu item indexes for staggered animations
+        document.querySelectorAll('.nav-item.expandable').forEach(item => {
+            const submenuItems = item.querySelectorAll('.submenu-item');
+            submenuItems.forEach((subItem, index) => {
+                subItem.style.setProperty('--item-index', index);
+            });
+        });
+        
+        // Add animation classes once DOM is loaded
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.add('animate-ready');
+        });
+    }
+
+    /**
+     * Focus next navigation item
+     * @param {HTMLElement} currentLink - Current navigation link
+     */
+    focusNextNavItem(currentLink) {
+        const currentItem = currentLink.closest('.nav-item');
+        const nextItem = currentItem.nextElementSibling;
+        
+        if (nextItem) {
+            const nextLink = nextItem.querySelector('.nav-link');
+            if (nextLink) {
+                nextLink.focus();
+            }
         }
     }
 
     /**
-     * Initialize animations
+     * Focus previous navigation item
+     * @param {HTMLElement} currentLink - Current navigation link
      */
-    initAnimations() {
-        // Add entrance animation classes
-        this.navItems.forEach((item, index) => {
-            item.style.animationDelay = `${index * 50}ms`;
-            item.classList.add('animate-in');
-        });
+    focusPreviousNavItem(currentLink) {
+        const currentItem = currentLink.closest('.nav-item');
+        const prevItem = currentItem.previousElementSibling;
+        
+        if (prevItem) {
+            const prevLink = prevItem.querySelector('.nav-link');
+            if (prevLink) {
+                prevLink.focus();
+            }
+        }
     }
 }
 
