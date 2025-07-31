@@ -1,57 +1,44 @@
-<!-- Main Menu Header -->
-<header class="glass-header">
-    <div class="header-container">
-        <!-- Main Navigation -->
-        <nav class="main-nav">
-            <ul>
-                <div class="nav-left">
-                    <li class="has-submenu"><a href="#discover" data-submenu="discover">Discover</a></li>
-                    <li class="has-submenu"><a href="#blog" data-submenu="blog">Blog</a>
-                    </li>
-                </div>
-                <li class="logo-container">
-                    <a href="#home">
-                        <img src="../public/assets/images/logo/AZ-light.png" alt="AZ10 Logo" class="logo light-logo"
-                            id="lightLogo">
-                        <img src="../public/assets/images/logo/AZ-dark.png" alt="AZ10 Logo" class="nav-logo dark-logo">
-                    </a>
-                </li>
-                <div class="nav-right">
-                    <li class="has-submenu"><a href="#joinus" data-submenu="joinus">Profile</a></li>
-                    <li class="has-submenu"><a href="#aboutus" data-submenu="aboutus">About
-                            Us</a></li>
-                </div>
+<nav id="main-navigation" class="main-nav">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <a href="#home" class="brand-link">
+                <h1>AZ10</h1>
+            </a>
+        </div>
+        <div class="nav-menu">
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">خانه</a></li>
+                <li><a href="#tracks" class="nav-link">ترک‌ها</a></li>
+                <li><a href="#team" class="nav-link">تیم</a></li>
+                <li><a href="#credits" class="nav-link">کردیت‌ها</a></li>
             </ul>
-        </nav>
+        </div>
+        <div class="mobile-menu-toggle">
+            <button id="mobile-menu-btn" aria-label="منوی موبایل">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
     </div>
-</header>
-
-<!-- Mobile Bottom Navigation -->
-<nav class="mobile-bottom-nav">
-    <div class="mobile-nav-menu">
-        <a href="#discover" class="mobile-nav-item" data-section="discover">
-            <i class="mobile-nav-icon fas fa-compass"></i>
-            <span class="mobile-nav-label">Discover</span>
-        </a>
-
-        <a href="#blog" class="mobile-nav-item" data-section="blog">
-            <i class="mobile-nav-icon fas fa-newspaper"></i>
-            <span class="mobile-nav-label">Blog</span>
-        </a>
-
-        <a href="#home" class="mobile-nav-item mobile-nav-logo" data-section="home">
-            <img src="../public/assets/images/logo/AZ-light.png" alt="AZ10 Logo" class="light-logo">
-            <img src="../public/assets/images/logo/AZ-dark.png" alt="AZ10 Logo" class="dark-logo">
-        </a>
-
-        <a href="#joinus" class="mobile-nav-item" data-section="joinus">
-            <i class="mobile-nav-icon fas fa-user-plus"></i>
-            <span class="mobile-nav-label">Profile</span>
-        </a>
-
-        <a href="#aboutus" class="mobile-nav-item" data-section="aboutus">
-            <i class="mobile-nav-icon fas fa-users"></i>
-            <span class="mobile-nav-label">About</span>
-        </a>
+</nav>
+<nav id="mobile-navigation" class="mobile-nav">
+    <div class="mobile-nav-container">
+        <div class="mobile-nav-item" data-section="home">
+            <i class="fas fa-home"></i>
+            <span>خانه</span>
+        </div>
+        <div class="mobile-nav-item" data-section="tracks">
+            <i class="fas fa-music"></i>
+            <span>ترک‌ها</span>
+        </div>
+        <div class="mobile-nav-item" data-section="team">
+            <i class="fas fa-users"></i>
+            <span>تیم</span>
+        </div>
+        <div class="mobile-nav-item" data-section="credits">
+            <i class="fas fa-award"></i>
+            <span>کردیت‌ها</span>
+        </div>
     </div>
 </nav>
