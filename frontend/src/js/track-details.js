@@ -1,7 +1,7 @@
 /**
- * Track Details Page Module
- * Version: 3.1.0
- * Description: Handles display and interaction for individual track details with dynamic data loading
+ * Track Details Page Module - Redesigned
+ * Version: 4.0.0
+ * Description: Updated for new circular cover design with centralized layout
  */
 
 export const trackDetailsPage = {
@@ -52,6 +52,9 @@ export const trackDetailsPage = {
 
         // Populate track details
         this.populateTrackDetails(trackData);
+        
+        // Initialize interactive elements
+        this.initializeInteractiveElements();
     },
 
     populateTrackDetails(trackData) {
@@ -67,36 +70,49 @@ export const trackDetailsPage = {
         // Update page title
         document.title = `${basicInfo.title} - ${basicInfo.artist} | AZ10`;
 
-        // Cover image and basic info
-        const trackCover = document.getElementById('track-cover');
-        const coverTrackTitle = document.getElementById('cover-track-title');
-        const coverTrackArtist = document.getElementById('cover-track-artist');
+        // Header title and artist
+        const trackTitle = document.getElementById('track-title');
+        const trackArtist = document.getElementById('track-artist');
+        
+        if (trackTitle) trackTitle.textContent = basicInfo.title || 'Unknown Title';
+        if (trackArtist) trackArtist.textContent = basicInfo.artist || 'Unknown Artist';
 
-        // Cover image handling with original dimensions
+        // Cover image with circular styling
+        const trackCover = document.getElementById('track-cover');
         if (trackCover) {
             trackCover.src = media.coverArt || '../public/assets/images/tracks/placeholder.svg';
             
-            // Ensure image loads with its original dimensions
+            // Handle image loading
             trackCover.onload = () => {
-                // Log original image dimensions for debugging
-                console.log(`Cover Image Dimensions: ${trackCover.naturalWidth} x ${trackCover.naturalHeight}`);
+                console.log(`Cover Image Loaded: ${trackCover.naturalWidth} x ${trackCover.naturalHeight}`);
                 
-                // Optional: Set max-height if image is extremely tall
-                const maxHeight = window.innerHeight * 0.7; // 70% of viewport height
-                if (trackCover.naturalHeight > maxHeight) {
-                    trackCover.style.maxHeight = `${maxHeight}px`;
-                }
+                // Add loaded class for animations
+                trackCover.classList.add('loaded');
+            };
+
+            trackCover.onerror = () => {
+                console.error('Failed to load cover image');
+                trackCover.src = '../public/assets/images/tracks/placeholder.svg';
             };
         }
-        if (coverTrackTitle) coverTrackTitle.textContent = basicInfo.title || 'Unknown Title';
-        if (coverTrackArtist) coverTrackArtist.textContent = basicInfo.artist || 'Unknown Artist';
 
-        // Metadata fields
+        // Duration and release date
+        const trackDuration = document.getElementById('track-duration');
+        const trackReleaseDate = document.getElementById('track-release-date');
+        const trackReleaseItem = document.getElementById('track-release-item');
+
+        if (trackDuration) trackDuration.textContent = metadata.duration || 'N/A';
+        
+        if (trackReleaseDate && basicInfo.releaseDate) {
+            trackReleaseDate.textContent = basicInfo.releaseDate;
+            if (trackReleaseItem) trackReleaseItem.style.display = 'flex';
+        }
+
+        // Rating system
+        this.updateRating(stats.communityRating || 0, stats.numberOfVotes || 0);
+
+        // Metadata fields mapping
         const metaFields = {
-            'info-track-title': basicInfo.title,
-            'info-track-artist': basicInfo.artist,
-            'track-duration': metadata.duration,
-            'track-release-date': basicInfo.releaseDate,
             'track-label': basicInfo.label,
             'track-beat-producer': productionCredits.music?.beatProducer,
             'track-sound-engineer': productionCredits.music?.soundEngineer,
@@ -104,40 +120,37 @@ export const trackDetailsPage = {
             'track-art-direction': productionCredits.music?.artDirection
         };
 
-        // Update all metadata fields
+        // Update metadata fields and show/hide containers
         Object.entries(metaFields).forEach(([id, value]) => {
             const element = document.getElementById(id);
-            if (element) element.textContent = value || 'N/A';
-        });
-
-        // Show/hide optional fields
-        const optionalFields = [
-            'track-release-item', 
-            'track-label-item', 
-            'track-beat-producer-item', 
-            'track-sound-engineer-item', 
-            'track-project-manager-item', 
-            'track-art-direction-item'
-        ];
-        optionalFields.forEach(id => {
-            const element = document.getElementById(id);
-            if (element) {
-                element.style.display = metaFields[id.replace('-item', '')] ? 'flex' : 'none';
+            const container = document.getElementById(`${id}-item`);
+            
+            if (element && container) {
+                if (value) {
+                    element.textContent = value;
+                    container.style.display = 'flex';
+                } else {
+                    container.style.display = 'none';
+                }
             }
         });
 
-        // Rating
+        // Streaming links (placeholder - would be populated from data)
+        this.populateStreamingLinks(media.streamingLinks || []);
+
+        // SoundCloud embed
+        this.setupSoundCloudEmbed(media.soundcloudUrl);
+    },
+
+    updateRating(rating, votes) {
         const trackRatingValue = document.getElementById('track-rating-value');
         const trackRatingVotes = document.getElementById('track-rating-votes');
         const trackRatingStars = document.getElementById('track-rating-stars');
 
-        const rating = stats.communityRating || 0;
-        const votes = stats.numberOfVotes || 0;
-
         if (trackRatingValue) trackRatingValue.textContent = rating.toFixed(1);
         if (trackRatingVotes) trackRatingVotes.textContent = `(${votes} votes)`;
 
-        // Update star rating
+        // Update star rating display
         if (trackRatingStars) {
             const stars = trackRatingStars.querySelectorAll('i');
             stars.forEach((star, index) => {
@@ -145,34 +158,154 @@ export const trackDetailsPage = {
                     star.classList.remove('far');
                     star.classList.add('fas');
                     star.style.color = 'var(--accent-color)';
+                } else if (index === Math.floor(rating) && rating % 1 >= 0.5) {
+                    star.classList.remove('far', 'fas');
+                    star.classList.add('fas');
+                    star.style.color = 'var(--accent-color)';
+                    star.style.opacity = '0.5';
                 } else {
                     star.classList.remove('fas');
                     star.classList.add('far');
                     star.style.color = '#444';
+                    star.style.opacity = '1';
                 }
             });
         }
+    },
 
-        // SoundCloud Embed
+    populateStreamingLinks(links) {
+        const streamingContainer = document.getElementById('streaming-links-compact');
+        if (!streamingContainer) return;
+
+        // Default streaming platforms if no data provided
+        const defaultLinks = [
+            { platform: 'spotify', url: '#', icon: 'fab fa-spotify' },
+            { platform: 'apple-music', url: '#', icon: 'fab fa-apple' },
+            { platform: 'soundcloud', url: '#', icon: 'fab fa-soundcloud' },
+            { platform: 'youtube', url: '#', icon: 'fab fa-youtube' }
+        ];
+
+        const linksToShow = links.length > 0 ? links : defaultLinks;
+        
+        streamingContainer.innerHTML = linksToShow.map(link => `
+            <a href="${link.url}" class="streaming-link" target="_blank" rel="noopener noreferrer">
+                <i class="${link.icon}"></i>
+                <span>${this.formatPlatformName(link.platform)}</span>
+            </a>
+        `).join('');
+    },
+
+    formatPlatformName(platform) {
+        const names = {
+            'spotify': 'Spotify',
+            'apple-music': 'Apple Music',
+            'soundcloud': 'SoundCloud',
+            'youtube': 'YouTube',
+            'deezer': 'Deezer',
+            'tidal': 'TIDAL'
+        };
+        return names[platform] || platform.charAt(0).toUpperCase() + platform.slice(1);
+    },
+
+    setupSoundCloudEmbed(soundcloudUrl) {
         const soundcloudEmbed = document.getElementById('track-soundcloud-embed');
-        const soundcloudLink = "@https://soundcloud.com/dorcci/h2co3?in=dorcci/sets/young-morvarid&si=c4f66079f3a14117a5477c018dbeeab6&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing";
+        
+        if (!soundcloudEmbed) return;
 
-        if (soundcloudEmbed && soundcloudLink) {
-            // Create SoundCloud iframe embed
+        // Use provided URL or fallback to demo
+        const embedUrl = soundcloudUrl || "https://soundcloud.com/dorcci/h2co3?in=dorcci/sets/young-morvarid&si=c4f66079f3a14117a5477c018dbeeab6&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing";
+
+        if (embedUrl) {
             soundcloudEmbed.innerHTML = `
                 <iframe 
                     width="100%" 
-                    height="166" 
+                    height="200" 
                     scrolling="no" 
                     frameborder="no" 
                     allow="autoplay" 
-                    src="https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudLink)}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+                    loading="lazy"
+                    src="https://w.soundcloud.com/player/?url=${encodeURIComponent(embedUrl)}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
                 </iframe>
             `;
         } else {
-            // Hide or clear the embed container if no valid link
-            soundcloudEmbed.innerHTML = '';
+            soundcloudEmbed.style.display = 'none';
         }
+    },
+
+    initializeInteractiveElements() {
+        // Cover image click handler for modal/fullscreen view
+        const coverContainer = document.querySelector('.cover-container');
+        if (coverContainer) {
+            coverContainer.addEventListener('click', this.handleCoverClick.bind(this));
+        }
+
+        // Play button functionality (placeholder)
+        const playIcon = document.querySelector('.play-icon');
+        if (playIcon) {
+            playIcon.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.handlePlayClick();
+            });
+        }
+
+        // Add hover effects with JavaScript for better performance
+        this.addInteractiveHoverEffects();
+    },
+
+    handleCoverClick() {
+        // Could implement full-screen image view or music player
+        console.log('Cover image clicked - implement full-screen view');
+        
+        // For now, just trigger the play functionality
+        this.handlePlayClick();
+    },
+
+    handlePlayClick() {
+        console.log('Play button clicked - implement music playback');
+        
+        // Could integrate with music player API
+        // For now, scroll to SoundCloud embed
+        const soundcloudEmbed = document.getElementById('track-soundcloud-embed');
+        if (soundcloudEmbed) {
+            soundcloudEmbed.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+        }
+    },
+
+    addInteractiveHoverEffects() {
+        // Add ripple effect on cover hover
+        const coverContainer = document.querySelector('.cover-container');
+        if (coverContainer) {
+            coverContainer.addEventListener('mouseenter', () => {
+                coverContainer.style.filter = 'brightness(1.1)';
+            });
+            
+            coverContainer.addEventListener('mouseleave', () => {
+                coverContainer.style.filter = 'brightness(1)';
+            });
+        }
+
+        // Parallax effect on scroll (subtle)
+        let ticking = false;
+        const updateParallax = () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            const coverCenter = document.querySelector('.track-cover-center');
+            if (coverCenter) {
+                coverCenter.style.transform = `translateY(${rate}px)`;
+            }
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
     },
 
     showTrackNotFound() {
@@ -184,7 +317,7 @@ export const trackDetailsPage = {
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
                     <h2>Track Not Found</h2>
-                    <p>The requested track could not be found.</p>
+                    <p>The requested track could not be found or may have been removed.</p>
                     <button onclick="window.history.back()" class="back-btn">
                         <i class="fas fa-arrow-left"></i> Go Back
                     </button>
