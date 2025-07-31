@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Load main menu header
-  fetch('../src/components/main-menu.html')
+  fetch('./src/components/main-menu.html')
     .then(response => response.text())
     .then(data => {
       const mainMenuContainer = document.createElement('div');
