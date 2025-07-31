@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Test - AZ10</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="./src/styles/variables.css">
+    <link rel="stylesheet" href="./src/styles/global.css">
+    <link rel="stylesheet" href="./src/styles/navigation.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-family-base);
+        }
+        
+        #main-content {
+            padding-top: 6rem;
+            text-align: center;
+        }
+        
+        .test-content {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu will be loaded here -->
+    
+    <div id="main-content">
+        <div class="test-content">
+            <h1>Menu Test Page</h1>
+            <p>اگر منو نمایش داده شود، مشکل حل شده است.</p>
+            <p>Menu should appear at the top of this page.</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple menu loader for testing
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, fetching menu...');
+            
+            fetch('./src/components/main-menu.html')
+                .then(response => {
+                    console.log('Fetch response:', response);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('Menu HTML loaded:', data.substring(0, 100) + '...');
+                    
+                    const mainMenuContainer = document.createElement('div');
+                    mainMenuContainer.id = 'main-menu-container';
+                    mainMenuContainer.innerHTML = data;
+                    document.body.insertBefore(mainMenuContainer, document.body.firstChild);
+                    
+                    console.log('Menu inserted into DOM');
+                    
+                    // Initialize basic click handlers
+                    const navLinks = document.querySelectorAll('.main-nav a, .mobile-nav-item');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            console.log('Navigation clicked:', this.getAttribute('href') || this.getAttribute('data-section'));
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading menu:', error);
+                    // Show error message
+                    const errorDiv = document.createElement('div');
+                    errorDiv.style.cssText = `
+                        position: fixed;
+                        top: 10px;
+                        left: 10px;
+                        right: 10px;
+                        background: #ff4444;
+                        color: white;
+                        padding: 10px;
+                        border-radius: 5px;
+                        z-index: 10000;
+                    `;
+                    errorDiv.textContent = 'خطا در لود منو: ' + error.message;
+                    document.body.appendChild(errorDiv);
+                });
+        });
+    </script>
+</body>
+</html>
