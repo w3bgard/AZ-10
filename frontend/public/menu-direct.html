@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Menu Test - AZ10</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="./src/styles/variables.css">
+    <link rel="stylesheet" href="./src/styles/global.css">
+    <link rel="stylesheet" href="./src/styles/navigation.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-family-base);
+        }
+        
+        #main-content {
+            padding-top: 6rem;
+            text-align: center;
+        }
+        
+        .test-content {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Direct Menu HTML -->
+    <div id="main-menu-container">
+        <!-- Main Menu Header -->
+        <header class="glass-header" role="banner">
+            <div class="header-container">
+                <!-- Main Navigation -->
+                <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                    <ul>
+                        <div class="nav-left" role="group" aria-label="Primary navigation links">
+                            <li class="has-submenu">
+                                <a href="#discover" 
+                                   data-submenu="discover" 
+                                   aria-describedby="discover-desc"
+                                   tabindex="0">
+                                    Discover
+                                </a>
+                                <span id="discover-desc" class="sr-only">Explore new music and artists</span>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="#blog" 
+                                   data-submenu="blog" 
+                                   aria-describedby="blog-desc"
+                                   tabindex="0">
+                                    Blog
+                                </a>
+                                <span id="blog-desc" class="sr-only">Read latest music news and updates</span>
+                            </li>
+                        </div>
+                        
+                        <li class="logo-container" role="presentation">
+                            <a href="#home" 
+                               aria-label="AZ10 Home - Go to homepage"
+                               tabindex="0">
+                                <img src="./public/assets/images/logo/AZ-light.png" 
+                                     alt="AZ10 Logo" 
+                                     class="logo light-logo"
+                                     id="lightLogo"
+                                     loading="eager"
+                                     decoding="async">
+                                <img src="./public/assets/images/logo/AZ-dark.png" 
+                                     alt="AZ10 Logo" 
+                                     class="nav-logo dark-logo"
+                                     loading="eager"
+                                     decoding="async">
+                            </a>
+                        </li>
+                        
+                        <div class="nav-right" role="group" aria-label="User navigation links">
+                            <li class="has-submenu">
+                                <a href="#joinus" 
+                                   data-submenu="joinus" 
+                                   aria-describedby="profile-desc"
+                                   tabindex="0">
+                                    Profile
+                                </a>
+                                <span id="profile-desc" class="sr-only">Access your profile and settings</span>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="#aboutus" 
+                                   data-submenu="aboutus" 
+                                   aria-describedby="about-desc"
+                                   tabindex="0">
+                                    About Us
+                                </a>
+                                <span id="about-desc" class="sr-only">Learn more about AZ10</span>
+                            </li>
+                        </div>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-bottom-nav" 
+             role="navigation" 
+             aria-label="Mobile navigation"
+             id="mobile-navigation">
+            <div class="mobile-nav-menu">
+                <a href="#discover" 
+                   class="mobile-nav-item" 
+                   data-section="discover"
+                   aria-label="Discover music"
+                   tabindex="0">
+                    <i class="mobile-nav-icon fas fa-compass" aria-hidden="true"></i>
+                    <span class="mobile-nav-label">Discover</span>
+                </a>
+
+                <a href="#blog" 
+                   class="mobile-nav-item" 
+                   data-section="blog"
+                   aria-label="Read blog"
+                   tabindex="0">
+                    <i class="mobile-nav-icon fas fa-newspaper" aria-hidden="true"></i>
+                    <span class="mobile-nav-label">Blog</span>
+                </a>
+
+                <a href="#home" 
+                   class="mobile-nav-item mobile-nav-logo" 
+                   data-section="home"
+                   aria-label="AZ10 Home"
+                   tabindex="0">
+                    <img src="./public/assets/images/logo/AZ-light.png" 
+                         alt="AZ10 Logo" 
+                         class="light-logo"
+                         loading="eager"
+                         decoding="async">
+                    <img src="./public/assets/images/logo/AZ-dark.png" 
+                         alt="AZ10 Logo" 
+                         class="dark-logo"
+                         loading="eager"
+                         decoding="async">
+                </a>
+
+                <a href="#joinus" 
+                   class="mobile-nav-item" 
+                   data-section="joinus"
+                   aria-label="Join us or access profile"
+                   tabindex="0">
+                    <i class="mobile-nav-icon fas fa-user-plus" aria-hidden="true"></i>
+                    <span class="mobile-nav-label">Profile</span>
+                </a>
+
+                <a href="#aboutus" 
+                   class="mobile-nav-item" 
+                   data-section="aboutus"
+                   aria-label="About us"
+                   tabindex="0">
+                    <i class="mobile-nav-icon fas fa-users" aria-hidden="true"></i>
+                    <span class="mobile-nav-label">About</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+    
+    <div id="main-content">
+        <div class="test-content">
+            <h1>منو تست مستقیم</h1>
+            <p>منو باید در بالای این صفحه نمایش داده شود.</p>
+            <p>Menu should appear at the top of this page.</p>
+            <p>اگر منو نمایش داده می‌شود، یعنی CSS و HTML درست هستند.</p>
+        </div>
+    </div>
+
+    <script>
+        console.log('Direct menu test loaded');
+        
+        // Simple navigation handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.main-nav a, .mobile-nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('href') || this.getAttribute('data-section');
+                    console.log('Navigation clicked:', section);
+                    alert('Navigation clicked: ' + section);
+                });
+            });
+            
+            console.log('Navigation handlers attached');
+        });
+    </script>
+</body>
+</html>

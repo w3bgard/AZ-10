@@ -84,6 +84,7 @@
 /* Glass header base styles - Enhanced */
 .glass-header {
   position: fixed;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 55%;
@@ -94,7 +95,7 @@
   backdrop-filter: var(--glass-blur-sm);
   -webkit-backdrop-filter: var(--glass-blur-sm);
   z-index: var(--z-index-main-menu);
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
   gap: var(--nav-gap-default);

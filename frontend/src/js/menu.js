@@ -1,32 +1,69 @@
+console.log('Menu.js loaded');
+
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOMContentLoaded event fired, starting menu load...');
+  
   // Load main menu header
   fetch('./src/components/main-menu.html')
-    .then(response => response.text())
+    .then(response => {
+      console.log('Fetch response status:', response.status);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
     .then(data => {
+      console.log('Menu HTML loaded successfully, length:', data.length);
+      
       const mainMenuContainer = document.createElement('div');
       mainMenuContainer.id = 'main-menu-container';
       mainMenuContainer.innerHTML = data;
       document.body.insertBefore(mainMenuContainer, document.body.firstChild);
       
-      // Menu components loaded
+      console.log('Menu container inserted into DOM');
+      
+      // Initialize navigation after menu is loaded
+      setTimeout(() => {
+        initializeMainNav();
+        initializeMobileNav();
+        initializeResponsiveNav();
+        initializeAccessibility();
+        console.log('Navigation initialized');
+      }, 100);
     })
-    .then(() => {
-      // Initialize navigation after all components are loaded
-      initializeMainNav();
-      initializeMobileNav();
-      initializeResponsiveNav();
-      initializeAccessibility();
-    })
-    .catch(error => console.error('Error loading menu components:', error));
+    .catch(error => {
+      console.error('Error loading menu components:', error);
+      
+      // Show error message to user
+      const errorDiv = document.createElement('div');
+      errorDiv.style.cssText = `
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        background: #ff4444;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 10000;
+        font-family: Arial, sans-serif;
+      `;
+      errorDiv.textContent = 'خطا در لود منو: ' + error.message;
+      document.body.appendChild(errorDiv);
+    });
 });
 
 // Function to initialize main navigation
 function initializeMainNav() {
+  console.log('Initializing main navigation...');
   const mainNavLinks = document.querySelectorAll('#main-menu-container .main-nav a');
-  mainNavLinks.forEach(link => {
+  console.log('Found main nav links:', mainNavLinks.length);
+  
+  mainNavLinks.forEach((link, index) => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const section = this.getAttribute('href').substring(1);
+      console.log('Main nav clicked:', section);
       
       // Update main nav active state
       updateMainNav(section);
@@ -51,11 +88,15 @@ function initializeMainNav() {
 
 // Function to initialize mobile navigation
 function initializeMobileNav() {
+  console.log('Initializing mobile navigation...');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-item');
-  mobileNavLinks.forEach(link => {
+  console.log('Found mobile nav links:', mobileNavLinks.length);
+  
+  mobileNavLinks.forEach((link, index) => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const section = this.getAttribute('data-section');
+      console.log('Mobile nav clicked:', section);
       
       // Update mobile nav active state
       updateMobileNav(section);
@@ -83,6 +124,7 @@ function initializeMobileNav() {
 
 // Function to initialize responsive navigation behavior
 function initializeResponsiveNav() {
+  console.log('Initializing responsive navigation...');
   let resizeTimer;
   
   // Handle responsive navigation visibility
@@ -91,14 +133,28 @@ function initializeResponsiveNav() {
     const mobileNav = document.querySelector('.mobile-bottom-nav');
     const screenWidth = window.innerWidth;
     
+    console.log('Screen width:', screenWidth);
+    
     if (screenWidth <= 480) {
       // Mobile: hide desktop nav, show mobile nav
-      if (glasHeader) glasHeader.style.display = 'none';
-      if (mobileNav) mobileNav.style.display = 'flex';
+      if (glasHeader) {
+        glasHeader.style.display = 'none';
+        console.log('Desktop nav hidden');
+      }
+      if (mobileNav) {
+        mobileNav.style.display = 'flex';
+        console.log('Mobile nav shown');
+      }
     } else {
       // Desktop/Tablet: show desktop nav, hide mobile nav
-      if (glasHeader) glasHeader.style.display = 'flex';
-      if (mobileNav) mobileNav.style.display = 'none';
+      if (glasHeader) {
+        glasHeader.style.display = 'flex';
+        console.log('Desktop nav shown');
+      }
+      if (mobileNav) {
+        mobileNav.style.display = 'none';
+        console.log('Mobile nav hidden');
+      }
     }
   }
   
@@ -114,23 +170,13 @@ function initializeResponsiveNav() {
 
 // Function to initialize accessibility features
 function initializeAccessibility() {
+  console.log('Initializing accessibility features...');
+  
   // Add skip navigation link
   const skipNav = document.createElement('a');
   skipNav.href = '#main-content';
   skipNav.textContent = 'Skip to main content';
   skipNav.className = 'skip-nav';
-  skipNav.style.cssText = `
-    position: absolute;
-    top: -40px;
-    left: 6px;
-    background: var(--color-accent);
-    color: white;
-    padding: 8px;
-    text-decoration: none;
-    border-radius: 4px;
-    z-index: 10000;
-    transition: top 0.3s;
-  `;
   
   skipNav.addEventListener('focus', function() {
     this.style.top = '6px';
@@ -162,6 +208,7 @@ function initializeAccessibility() {
 
 // Function to update main navigation active state
 function updateMainNav(section) {
+  console.log('Updating main nav active state for:', section);
   const mainNavLinks = document.querySelectorAll('#main-menu-container .main-nav a');
   mainNavLinks.forEach(link => {
     if (link.getAttribute('href') === `#${section}`) {
@@ -175,7 +222,8 @@ function updateMainNav(section) {
 }
 
 // Function to update mobile navigation active state
-window.updateMobileNav = function(section) {
+function updateMobileNav(section) {
+  console.log('Updating mobile nav active state for:', section);
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-item');
   mobileNavLinks.forEach(link => {
     if (link.getAttribute('data-section') === section) {
@@ -197,6 +245,7 @@ function setActiveNavigation(section) {
 // Listen for hash changes to update navigation
 window.addEventListener('hashchange', function() {
   const hash = window.location.hash.substring(1);
+  console.log('Hash changed to:', hash);
   if (hash) {
     setActiveNavigation(hash);
   }
@@ -205,6 +254,7 @@ window.addEventListener('hashchange', function() {
 // Initialize navigation based on current hash
 window.addEventListener('load', function() {
   const hash = window.location.hash.substring(1);
+  console.log('Page loaded with hash:', hash);
   if (hash) {
     setActiveNavigation(hash);
   } else {
@@ -212,19 +262,9 @@ window.addEventListener('load', function() {
   }
 });
 
-// Placeholder function for loadSubMenu (currently not implemented)
-window.loadSubMenu = function(section) {
-  console.log(`Loading submenu for section: ${section}`);
-  // This can be implemented later if submenus are needed
-}
-
-// Placeholder function for updateSubMenuNav (currently not implemented)
-window.updateSubMenuNav = function(subsection) {
-  console.log(`Updating submenu nav for subsection: ${subsection}`);
-  // This can be implemented later if submenus are needed
-}
-
 // Export functions for external use
 window.updateMainNav = updateMainNav;
 window.updateMobileNav = updateMobileNav;
-window.setActiveNavigation = setActiveNavigation; 
+window.setActiveNavigation = setActiveNavigation;
+
+console.log('Menu.js functions defined and ready'); 
