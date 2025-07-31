@@ -11,9 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
       // Menu components loaded
     })
     .then(() => {
-      // Initialize main navigation after all components are loaded
+      // Initialize navigation after all components are loaded
       initializeMainNav();
       initializeMobileNav();
+      initializeResponsiveNav();
+      initializeAccessibility();
     })
     .catch(error => console.error('Error loading menu components:', error));
 });
@@ -35,6 +37,14 @@ function initializeMainNav() {
       }
       
       window.location.hash = `#${section}`;
+    });
+
+    // Add keyboard navigation support
+    link.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
     });
   });
 }
@@ -60,6 +70,93 @@ function initializeMobileNav() {
       
       window.location.hash = `#${section}`;
     });
+
+    // Add keyboard navigation support for mobile
+    link.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
+    });
+  });
+}
+
+// Function to initialize responsive navigation behavior
+function initializeResponsiveNav() {
+  let resizeTimer;
+  
+  // Handle responsive navigation visibility
+  function handleResponsiveNav() {
+    const glasHeader = document.querySelector('.glass-header');
+    const mobileNav = document.querySelector('.mobile-bottom-nav');
+    const screenWidth = window.innerWidth;
+    
+    if (screenWidth <= 480) {
+      // Mobile: hide desktop nav, show mobile nav
+      if (glasHeader) glasHeader.style.display = 'none';
+      if (mobileNav) mobileNav.style.display = 'flex';
+    } else {
+      // Desktop/Tablet: show desktop nav, hide mobile nav
+      if (glasHeader) glasHeader.style.display = 'flex';
+      if (mobileNav) mobileNav.style.display = 'none';
+    }
+  }
+  
+  // Throttled resize handler for better performance
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(handleResponsiveNav, 100);
+  });
+  
+  // Initial call
+  handleResponsiveNav();
+}
+
+// Function to initialize accessibility features
+function initializeAccessibility() {
+  // Add skip navigation link
+  const skipNav = document.createElement('a');
+  skipNav.href = '#main-content';
+  skipNav.textContent = 'Skip to main content';
+  skipNav.className = 'skip-nav';
+  skipNav.style.cssText = `
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--color-accent);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 10000;
+    transition: top 0.3s;
+  `;
+  
+  skipNav.addEventListener('focus', function() {
+    this.style.top = '6px';
+  });
+  
+  skipNav.addEventListener('blur', function() {
+    this.style.top = '-40px';
+  });
+  
+  document.body.insertBefore(skipNav, document.body.firstChild);
+  
+  // Enhanced focus management
+  const navElements = document.querySelectorAll('.main-nav a, .mobile-nav-item');
+  navElements.forEach((element, index) => {
+    element.addEventListener('keydown', function(e) {
+      // Arrow key navigation
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextIndex = (index + 1) % navElements.length;
+        navElements[nextIndex].focus();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevIndex = (index - 1 + navElements.length) % navElements.length;
+        navElements[prevIndex].focus();
+      }
+    });
   });
 }
 
@@ -69,8 +166,10 @@ function updateMainNav(section) {
   mainNavLinks.forEach(link => {
     if (link.getAttribute('href') === `#${section}`) {
       link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
     } else {
       link.classList.remove('active');
+      link.removeAttribute('aria-current');
     }
   });
 }
@@ -81,11 +180,37 @@ window.updateMobileNav = function(section) {
   mobileNavLinks.forEach(link => {
     if (link.getAttribute('data-section') === section) {
       link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
     } else {
       link.classList.remove('active');
+      link.removeAttribute('aria-current');
     }
   });
 }
+
+// Enhanced menu state management
+function setActiveNavigation(section) {
+  updateMainNav(section);
+  updateMobileNav(section);
+}
+
+// Listen for hash changes to update navigation
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    setActiveNavigation(hash);
+  }
+});
+
+// Initialize navigation based on current hash
+window.addEventListener('load', function() {
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    setActiveNavigation(hash);
+  } else {
+    setActiveNavigation('home');
+  }
+});
 
 // Placeholder function for loadSubMenu (currently not implemented)
 window.loadSubMenu = function(section) {
@@ -101,4 +226,5 @@ window.updateSubMenuNav = function(subsection) {
 
 // Export functions for external use
 window.updateMainNav = updateMainNav;
-window.updateMobileNav = updateMobileNav; 
+window.updateMobileNav = updateMobileNav;
+window.setActiveNavigation = setActiveNavigation; 
