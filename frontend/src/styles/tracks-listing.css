@@ -1,0 +1,882 @@
+/* Tracks Listing Page Styles */
+
+.tracks-listing-page {
+  min-height: 100vh;
+  padding: 2rem 0;
+  transition: all 0.3s ease;
+}
+
+/* Page Header */
+.page-header {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header-content {
+  text-align: center;
+}
+
+.page-header h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.page-header p {
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Controls Section */
+.tracks-controls {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 16px 12px 48px;
+  /* border: 1px solid var(--glass-border); */
+  border: none;
+  border-radius: var(--border-radius-lg);
+  /* background: var(--glass-bg); */
+  background-color: transparent;
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  transition: all 0.3s ease;
+}
+
+.search-box input:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--glass-bg-hover);
+}
+
+.search-box input::placeholder {
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+.search-box i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text);
+  opacity: 0.7;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.search-box input:focus + i {
+  color: var(--color-text);
+}
+
+/* Filter and Sort Controls */
+.filter-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.sort-select,
+.filter-select {
+  padding: 12px;
+  border: none;
+  border-radius: var(--border-radius-lg);
+  background-color: transparent;
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.sort-select:focus,
+.filter-select:focus {
+  outline: none;
+  background: var(--glass-bg-hover);
+}
+
+.sort-select:hover,
+.filter-select:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+}
+
+/* View Mode Controls */
+.view-mode-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.view-mode-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.view-mode-btn:hover {
+  color: var(--color-text);
+  background: var(--glass-bg);
+}
+
+.view-mode-btn.active {
+  color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.2);
+}
+
+/* Tracks Container */
+.tracks-listing-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Tracks Grid - Different View Modes */
+.tracks-grid {
+  display: grid;
+  margin-bottom: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* Large View Mode */
+.tracks-grid[data-view-mode="large"] {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 3rem 2rem;
+}
+
+/* Small View Mode */
+.tracks-grid[data-view-mode="small"] {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+}
+
+/* ========================================
+   Track Card Styles
+   ======================================== */
+
+/* Large Track Card */
+.track-card-large {
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.track-card-large:hover {
+  transform: translateY(-2px);
+}
+
+.track-card-large .track-cover {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+.track-card-large .track-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.track-card-large:hover .track-cover img {
+  transform: scale(1.05);
+}
+
+/* Large track info styling */
+.track-card-large .track-info {
+  padding: 0.5rem;
+  position: relative;
+  z-index: 2;
+  flex-direction: column;
+}
+
+.track-card-large .track-info .track-artist {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.track-card-large .track-info .track-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+
+.track-card-large .track-info .track-producer {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.track-card-large .track-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  margin-top: 0.8rem;
+  gap: 0.3rem;
+}
+
+.track-card-large .track-date {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+  line-height: 1.4;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.track-card-large .gregorian-date {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-normal);
+  opacity: 0.7;
+  font-size: 0.75rem;
+  margin-top: 0.1rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* ========================================
+   Small Track Card - Improved Layout
+   ======================================== */
+
+.track-card-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.2rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-3xl);
+  background: var(--glass-bg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  
+}
+
+/* .track-card-small::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.03) 0%, 
+    rgba(255, 255, 255, 0.01) 50%, 
+    rgba(255, 255, 255, 0.005) 100%);
+  pointer-events: none;
+  z-index: 1;
+} */
+
+.track-card-small:hover {
+  transform: translateY(-3px);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Small track cover */
+.track-card-small .track-cover {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.track-card-small:hover .track-cover {
+  transform: scale(1.02);
+  border-color: var(--glass-border-hover);
+}
+
+.track-card-small .track-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.track-card-small:hover .track-cover img {
+  transform: scale(1.08);
+}
+
+/* Track overlay for play button */
+/* .track-card-small .track-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+  border-radius: 50%;
+} */
+
+.track-card-small:hover .track-overlay {
+  opacity: 1;
+}
+
+/* Small track info container - single row layout */
+.track-card-small .track-info {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Track main info section - vertical layout for artist and title */
+.track-card-small .track-main-info {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.track-card-small .track-artist-title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.track-card-small .track-info .track-artist {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.track-card-small .track-info .track-title {
+  font-size: 0.8rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-tight);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.track-card-small .track-info .track-producer {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-normal);
+  opacity: 0.8;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+/* Track meta info section - horizontal layout */
+.track-card-small .track-meta-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.track-card-small .track-type {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.track-card-small .track-type i {
+  font-size: 0.65rem;
+  opacity: 0.9;
+}
+
+.track-card-small .track-date {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-normal);
+  opacity: 0.8;
+  line-height: 1.3;
+  text-align: center;
+  margin: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.track-card-small .track-date .relative-time {
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-medium);
+  opacity: 1;
+  font-size: 0.68rem;
+  display: inline;
+}
+
+.track-card-small .track-date .gregorian-date {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-normal);
+  opacity: 0.8;
+  font-size: 0.6rem;
+  display: inline;
+}
+
+
+
+/* ========================================
+   Common Track Card Elements
+   ======================================== */
+
+.track-type {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.track-type i {
+  color: var(--color-primary);
+}
+
+/* ========================================
+   Loading and Error States
+   ======================================== */
+
+.loading-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-text-muted);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--glass-border);
+  border-top: 3px solid var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-text-muted);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  font-size: var(--font-size-xl);
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.empty-state p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+}
+
+.error-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-text-muted);
+}
+
+.error-icon {
+  font-size: 4rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.error-state h3 {
+  font-size: var(--font-size-xl);
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.error-state p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+}
+
+/* ========================================
+   Load More Button
+   ======================================== */
+
+.load-more-container {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.load-more-btn {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-base);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-2px);
+}
+
+.load-more-btn:active {
+  background: var(--color-primary-active);
+  transform: translateY(0);
+}
+
+/* ========================================
+   Dark Theme Enhancements
+   ======================================== */
+
+body.dark-theme .track-card-small::before {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0.02) 50%, 
+    rgba(255, 255, 255, 0.01) 100%);
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+  .tracks-listing-page {
+    padding: 1rem 0;
+  }
+
+  .page-header {
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .page-header h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .page-header p {
+    font-size: clamp(0.9rem, 3vw, 1rem);
+  }
+
+  .tracks-controls {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 0 1rem;
+  }
+
+  .search-box {
+    min-width: 100%;
+    max-width: none;
+  }
+
+  .filter-controls {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .sort-select,
+  .filter-select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .view-mode-controls {
+    order: -1;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .tracks-listing-container {
+    padding: 0 1rem;
+  }
+
+  .tracks-grid[data-view-mode="large"] {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2.5rem 1.5rem;
+  }
+
+  .tracks-grid[data-view-mode="small"] {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .track-card-large .track-cover {
+    width: 220px;
+    height: 220px;
+  }
+
+  /* Small track card mobile adjustments */
+  .track-card-small {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .track-card-small .track-cover {
+    width: 60px;
+    height: 60px;
+  }
+
+  .track-card-small .track-info {
+    gap: 1rem;
+  }
+
+  .track-card-small .track-main-info {
+    gap: 0.8rem;
+  }
+
+  .track-card-small .track-meta-info {
+    gap: 0.8rem;
+  }
+
+  .track-card-small .track-info .track-artist {
+    font-size: 0.8rem;
+  }
+
+  .track-card-small .track-info .track-title {
+    font-size: 0.7rem;
+  }
+
+  .track-card-small .track-info .track-producer {
+    font-size: 0.6rem;
+  }
+
+  .track-card-small .track-type {
+    font-size: 0.6rem;
+  }
+
+  .track-card-small .track-date {
+    font-size: 0.55rem;
+  }
+
+  .track-card-small .track-date .relative-time {
+    font-size: 0.58rem;
+  }
+
+  .track-card-small .track-date .gregorian-date {
+    font-size: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tracks-grid[data-view-mode="large"] {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .tracks-grid[data-view-mode="small"] {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .track-card-large .track-cover {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* Extra small mobile adjustments */
+  .track-card-small {
+    padding: 0.8rem;
+    gap: 0.6rem;
+  }
+
+  .track-card-small .track-cover {
+    width: 50px;
+    height: 50px;
+  }
+
+  .track-card-small .track-info {
+    gap: 0.5rem;
+  }
+
+  .track-card-small .track-main-info {
+    gap: 0.5rem;
+  }
+
+  .track-card-small .track-meta-info {
+    gap: 0.5rem;
+  }
+
+  .track-card-small .track-info .track-artist {
+    font-size: 0.75rem;
+  }
+
+  .track-card-small .track-info .track-title {
+    font-size: 0.65rem;
+  }
+
+  .track-card-small .track-info .track-producer {
+    font-size: 0.55rem;
+  }
+
+  .track-card-small .track-type {
+    font-size: 0.55rem;
+  }
+
+  .track-card-small .track-date {
+    font-size: 0.5rem;
+  }
+
+  .track-card-small .track-date .relative-time {
+    font-size: 0.53rem;
+  }
+
+  .track-card-small .track-date .gregorian-date {
+    font-size: 0.45rem;
+  }
+
+  .page-header h1 {
+    font-size: clamp(1.3rem, 6vw, 1.8rem);
+  }
+
+  .tracks-controls {
+    padding: 0.8rem;
+  }
+
+  .view-mode-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ========================================
+   Touch Device Optimizations
+   ======================================== */
+
+@media (hover: none) and (pointer: coarse) {
+  .track-card-large:hover,
+  .track-card-small:hover {
+    transform: none;
+  }
+  
+  .track-card-large:active {
+    transform: scale(0.98);
+  }
+
+  .track-card-small:active {
+    transform: scale(0.98);
+  }
+  
+  .load-more-btn:hover {
+    background: var(--color-primary);
+    transform: none;
+  }
+} 
+
+ 

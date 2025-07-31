@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "name": "Ahmad Mirjalalian",
+    "position": "Co-founder & Managing Director",
+    "description": "Architectural and interior designer with a passion for creative problem-solving. Active and interested in platform development and programming. Values teamwork, continuous learning, and always strives to deliver the best.",
+    "experience": "Sep 2022 – Present",
+    "image": "assets/images/team/placeholder.svg",
+    "skills": [
+      "Architectural Design",
+      "Interior Design", 
+      "Platform Development",
+      "Programming",
+      "Leadership"
+    ],
+    "education": [
+      "M.A. Interior Architecture – Pars University of Art and Architecture (2017 – 2020)",
+      "B.A. Architectural Engineering – Islamic Azad University (2013 – 2017)"
+    ],
+    "contact": {
+      "email": "ahmad@azsolutions.com",
+      "linkedin": "https://www.linkedin.com/in/ahmad-mirjalalian-416b49268/"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Zahra Khatibi",
+    "position": "Co-founder & Technical Director",
+    "description": "Experienced software architect and full-stack developer with expertise in modern web technologies and cloud solutions. Passionate about creating scalable and innovative digital platforms.",
+    "experience": "Sep 2022 – Present",
+    "image": "assets/images/team/placeholder.svg",
+    "skills": [
+      "Full-Stack Development",
+      "Cloud Architecture",
+      "DevOps",
+      "AI Integration",
+      "Technical Leadership"
+    ],
+    "education": [
+      "M.S. Computer Science – Stanford University (2018 – 2020)",
+      "B.S. Software Engineering – MIT (2014 – 2018)"
+    ],
+    "contact": {
+      "email": "zahra@azsolutions.com",
+      "linkedin": "https://www.linkedin.com/in/zahra-khatibi-tech"
+    }
+  }
+] 

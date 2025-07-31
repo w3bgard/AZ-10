@@ -1,325 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="description" content="AZ10 - Persian Hip-Hop Rating Platform">
-    <title>AZ10 | Persian Hip-Hop Ratings</title>
+    <title>AZ10</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="../src/styles/base/variables.css">
-    <link rel="stylesheet" href="../src/styles/base/reset.css">
-    <link rel="stylesheet" href="../src/styles/base/typography.css">
-    <link rel="stylesheet" href="../src/styles/base/global.css">
-    <link rel="stylesheet" href="../src/styles/components/panel.css">
-    <link rel="stylesheet" href="../src/styles/components/content.css">
-    <link rel="stylesheet" href="../src/styles/components/track-card.css">
-    <link rel="stylesheet" href="../src/styles/components/animations.css">
-    <link rel="stylesheet" href="../src/styles/components/main-header.css">
-    <link rel="stylesheet" href="../src/styles/components/fullscreen.css">
-    <link rel="stylesheet" href="../src/styles/components/theme-toggle.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../src/styles/variables.css">
+    <link rel="stylesheet" href="../src/styles/typography-overrides.css">
+    <link rel="stylesheet" href="../src/styles/global.css">
+    <link rel="stylesheet" href="../src/styles/navigation.css">
+    <link rel="stylesheet" href="../src/styles/content.css">
+    <link rel="stylesheet" href="../src/styles/utility-controls.css">
+    <link rel="stylesheet" href="../src/styles/timeline.css">
+    <link rel="stylesheet" href="../src/styles/team.css">
+    <link rel="stylesheet" href="../src/styles/home.css">
+    <link rel="stylesheet" href="../src/styles/track-card.css">
+    <link rel="stylesheet" href="../src/styles/tracks-listing.css">
+    <link rel="stylesheet" href="../src/styles/track-details.css">
 
-    <link rel="stylesheet" href="../src/styles/components/carousel.css">
-    <link rel="stylesheet" href="../src/styles/components/common.css">
-    <link rel="stylesheet" href="../src/styles/pages/track/track-content.css">
+    <!-- Fonts (optional) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Load theme.js and debug.js first to ensure toggle functionality is available -->
-    <script src="../src/js/core/theme.js"></script>
-    <script src="../src/js/utils/debug.js"></script>
-
-    <!-- Ensure fallback theme toggle is available -->
-    <script>
-        // Emergency theme toggle fallback
-        if (typeof window.toggleTheme !== 'function') {
-            window.toggleTheme = function () {
-                const html = document.documentElement;
-                const currentTheme = html.getAttribute('data-theme') || 'dark';
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-                html.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-
-                console.log(`Theme toggled to ${newTheme} (inline fallback)`);
-                return newTheme;
-            };
-        }
-    </script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
-<body class="home-page">
-    <!-- Side Panel -->
-    <div id="side-panel" class="panel"></div>
-
-    <!-- Main Content -->
-    <main id="main-content" class="content">
-        <!-- Main Header -->
-        <div class="main-header">
-            <div class="header-taglines">
-                <p class="tagline highlight">Not Just <span class="word-highlight">Music</span>, A New Perspective</p>
+<body>
+    <div id="main-container">
+        <!-- Utility Controls Container -->
+        <div id="utility-controls-container">
+            <div class="utility-control">
+                <button id="profile-button" aria-label="Profile" title="Profile">
+                    <!-- Profile icon will be added via CSS -->
+                </button>
             </div>
-            <h1 class="main-title">
-                <div class="title-secondary">
-                    <span class="title-word secondary">REVIEW</span>
-                    <span class="title-word secondary">RATE</span>
-                </div>
-                <span class="title-word primary">AZ10</span>
-            </h1>
-            <p class="header-description">
-                The definitive community platform for Persian rap and hip-hop enthusiasts
-                to rate, review, and discover the best in the scene.
-            </p>
+            <div class="utility-control">
+                <button id="more-button" aria-label="More Settings" title="More Settings">
+                    <!-- More icon will be added via CSS -->
+                </button>
+            </div>
         </div>
 
-        <!-- Mainstream Latest Drops Section -->
-        <section class="content-section">
-            <div class="section-header">
-                <div class="section-header-text">
-                    <h2 class="section-title">Mainstream Latest Drops</h2>
-                    <p class="subtitle">Top releases from well-known artists</p>
-                </div>
-                <a href="/new-drops.html" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
+        <!-- Header section will be dynamically populated -->
+        <header id="main-header"></header>
+
+        <!-- Main content area -->
+        <main id="app-content">
+            <div class="main-content">
+                <!-- Page content will be dynamically inserted here -->
             </div>
+        </main>
 
-            <div id="mainstreamTracks" class="tracks-grid view-grid">
-                <!-- Tracks will be added here via JavaScript -->
-                <div class="loading-placeholder">Loading tracks...</div>
-            </div>
-        </section>
-
-        <!-- Featured Artists Section -->
-        <section class="content-section">
-            <div class="section-header">
-                <div class="section-header-text">
-                    <h2 class="section-title">Featured Artists</h2>
-                    <p class="subtitle">Popular hip-hop artists in the Persian scene</p>
-                </div>
-                <a href="/artists.html" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
-            </div>
-
-            <div id="featuredArtists" class="artists-grid view-grid">
-                <!-- Artists will be added here via JavaScript -->
-                <div class="loading-placeholder">Loading artists...</div>
-            </div>
-        </section>
-
-        <!-- Blogs Section -->
-        <section class="content-section">
-            <div class="section-header">
-                <div class="section-header-text">
-                    <h2 class="section-title">Blogs</h2>
-                    <p class="subtitle">Latest articles and insights about Persian hip-hop</p>
-                </div>
-                <a href="/blogs.html" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
-            </div>
-
-            <div id="blogPosts" class="blog-grid view-grid">
-                <!-- Blog posts will be added here via JavaScript -->
-                <div class="loading-placeholder">Loading blog posts...</div>
-            </div>
-        </section>
-
-        <!-- Community Contents Section -->
-        <section class="content-section">
-            <div class="section-header">
-                <div class="section-header-text">
-                    <h2 class="section-title">Community Contents</h2>
-                    <p class="subtitle">Latest user contributions and reviews</p>
-                </div>
-                <a href="/community.html" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
-            </div>
-
-            <div id="communityContent" class="community-grid view-grid">
-                <!-- Community content will be added here via JavaScript -->
-                <div class="loading-placeholder">Loading community content...</div>
-            </div>
-        </section>
-
-        <!-- Join Community Section -->
-        <section class="content-section join-community-section">
-            <div class="section-header">
-                <div class="section-header-text">
-                    <h2 class="section-title">Join Community</h2>
-                    <p class="subtitle">Become part of the AZ10 community</p>
-                </div>
-                <a href="/signup" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
-            </div>
-
-            <div class="join-community-content">
-                <p class="community-description">
-                    AZ10 is more than a platform—it's a growing community of Persian hip-hop enthusiasts who are
-                    passionate
-                    about the culture and art form.
-                </p>
-
-                <div class="community-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">15K+</span>
-                        <span class="stat-label">Active Members</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">2.5K+</span>
-                        <span class="stat-label">Tracks Rated</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">500+</span>
-                        <span class="stat-label">Artist Profiles</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">300+</span>
-                        <span class="stat-label">Articles Published</span>
-                    </div>
-                </div>
-
-                <div class="join-buttons">
-                    <button class="btn primary-btn">Sign Up</button>
-                    <button class="btn secondary-btn">Learn More</button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Error Messages -->
-    <div id="errorContainer" class="error-container" style="display: none;">
-        <p class="error-message"></p>
+        <!-- No footer as per requirements -->
     </div>
 
-    <!-- Loading Indicator -->
-    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
-        <div class="spinner"></div>
-    </div>
+    <!-- JS (Defer loading) -->
+    <script type="module" src="../src/js/main.js" defer></script>
+    <script type="module" src="../src/js/router.js" defer></script>
+    <script type="module" src="../src/js/home.js" defer></script>
+    <script type="module" src="../src/js/team.js" defer></script>
+    <script type="module" src="../src/js/tracks-listing.js" defer></script>
+    <script type="module" src="../src/js/track-details.js" defer></script>
 
-    <!-- First load essential dependencies - Global scripts needed by other components -->
-    <script src="../src/js/core/components.js"></script>
+    <script type="module" src="../src/js/more-settings.js" defer></script>
+    <script type="module" src="../src/js/profile.js" defer></script>
+    <script type="module" src="../src/js/menu.js" defer></script>
 
-    <!-- Core base functionality - in dependency order -->
-    <script src="../src/js/core/router.js"></script>
-    <script src="../src/js/core/panel.js"></script>
-    <script src="../src/js/core/navigation.js"></script>
-    <script src="../src/js/core/border.js"></script>
-
-    <!-- Carousel Component - ensure carousel.js loads before carousel-init.js -->
-    <script src="../src/js/components/carousel.js"></script>
-    <script src="../src/js/components/carousel-init.js"></script>
-
-    <!-- Track Card Component -->
-    <script type="module" src="../src/components/shared/TrackCard/track-card.js"></script>
-
-    <!-- Initialize everything after all dependencies are loaded -->
-    <script src="../src/js/core/init.js"></script>
-
-    <!-- Theme diagnostics for debugging theme toggle issues -->
-    <script type="module" src="../src/js/utils/theme-diagnostics.js"></script>
-
-    <!-- Main App Script - load last to ensure all components are ready -->
-    <script type="module" src="../src/js/index.js"></script>
-
-    <!-- Direct fix for theme toggle button -->
-    <script>
-        // Add observers to catch when the submenuThemeToggle is added to the DOM
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('Setting up direct theme toggle button observer');
-
-            // Create a MutationObserver to watch for the theme toggle button
-            const observer = new MutationObserver(function (mutations) {
-                mutations.forEach(function (mutation) {
-                    if (mutation.type === 'childList') {
-                        const themeToggle = document.getElementById('submenuThemeToggle');
-                        if (themeToggle) {
-                            console.log('Theme toggle button found in DOM, applying direct handler');
-
-                            // Ensure window.toggleTheme exists
-                            if (typeof window.toggleTheme !== 'function') {
-                                console.log('Creating emergency toggleTheme function');
-                                window.toggleTheme = function () {
-                                    const html = document.documentElement;
-                                    const currentTheme = html.getAttribute('data-theme') || 'dark';
-                                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-                                    html.setAttribute('data-theme', newTheme);
-                                    localStorage.setItem('theme', newTheme);
-
-                                    console.log(`Theme toggled to ${newTheme} (mutation observer fallback)`);
-                                    return newTheme;
-                                };
-                            }
-
-                            // Apply direct onclick handler
-                            themeToggle.onclick = function (e) {
-                                if (e) {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                }
-                                window.toggleTheme();
-                                return false;
-                            };
-
-                            // Also fix the onclick attribute
-                            themeToggle.setAttribute('onclick', 'window.toggleTheme(); return false;');
-
-                            console.log('Direct handler applied to theme toggle button');
-
-                            // We can stop observing once we've found and fixed the button
-                            observer.disconnect();
-                        }
-                    }
-                });
-            });
-
-            // Start observing the document body
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-
-            // Also try immediately
-            const themeToggle = document.getElementById('submenuThemeToggle');
-            if (themeToggle) {
-                console.log('Theme toggle button already in DOM, applying direct handler');
-
-                // Ensure window.toggleTheme exists
-                if (typeof window.toggleTheme !== 'function') {
-                    console.log('Creating emergency toggleTheme function');
-                    window.toggleTheme = function () {
-                        const html = document.documentElement;
-                        const currentTheme = html.getAttribute('data-theme') || 'dark';
-                        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-                        html.setAttribute('data-theme', newTheme);
-                        localStorage.setItem('theme', newTheme);
-
-                        console.log(`Theme toggled to ${newTheme} (direct fallback)`);
-                        return newTheme;
-                    };
-                }
-
-                // Apply direct onclick handler
-                themeToggle.onclick = function (e) {
-                    if (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
-                    window.toggleTheme();
-                    return false;
-                };
-
-                // Also fix the onclick attribute
-                themeToggle.setAttribute('onclick', 'window.toggleTheme(); return false;');
-
-                console.log('Direct handler applied to theme toggle button');
-            }
-
-            // Run fixThemeButtons function if available
-            if (typeof window.fixThemeButtons === 'function') {
-                setTimeout(window.fixThemeButtons, 500);
-            }
-        });
-    </script>
+    <script type="module" src="../src/js/portfolio-timeline.js" defer></script>
+    <script type="module" src="../src/js/scroll-enhancements.js" defer></script>
 </body>
 
 </html>

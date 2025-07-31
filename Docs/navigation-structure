@@ -1,0 +1,11 @@
+# ساختار Navigation
+
+## Main Menu
+
+| آیتم منوی اصلی  | کلید i18n             | توضیح (انگلیسی)            |
+| --------------- | --------------------- | -------------------------- |
+| Discover        | navigation.discover   | Ecosystem exploration      |
+| AI Insights Hub | navigation.aiinsights | Brand-generated content    |
+| Logo (Home)     | navigation.home       | Return to landing          |
+| Profile         | navigation.joinus     | User profile & access      |
+| About Us        | navigation.aboutus    | Brand info & team overview |

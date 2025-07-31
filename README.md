@@ -1,17 +1,83 @@
-# AZ10 - Persian Hip-Hop Rating Platform
+# AZ10
 
-AZ10 is a review and rating platform designed to spotlight Persian Hip-Hop music. In its early phase, AZ10 allows users to rate tracks and albums on a scale from 1 to 10, creating a community-driven environment where music lovers can share their opinions and discover new content.
+**پلتفرمی برای یکپارچه‌سازی تمام نیازهای معماری**
 
-## Features
+---
 
-- **Rating System**: Users can rate Persian Hip-Hop tracks and albums out of 10, providing valuable feedback for the community.
-- **Track and Album Reviews**: Share your thoughts and insights on Persian Hip-Hop music with other enthusiasts.
-- **Discover New Music**: Explore trending tracks and albums in the Persian Hip-Hop scene.
-- **User Interaction**: Engage with other users through comments and ratings to foster a vibrant community of music fans.
+## معرفی کوتاه
 
-## How to Use
+AZ10 یک بستر حرفه‌ای و یکپارچه برای معماران، طراحان و فعالان حوزه‌ی ساخت‌وساز و هنر است.
+این پلتفرم با هدف پوشش همه‌جانبه‌ی نیازهای حرفه‌ای در حوزه معماری طراحی شده است؛ از ارائه و مستندسازی پروژه‌ها گرفته تا دسترسی به منابع تخصصی مانند مقالات، پروژه‌های منتشرشده و محتوای مرجع مرتبط.
 
-1. **Create an Account**: Sign up to rate and review your favorite Persian Hip-Hop tracks and albums.
-2. **Browse Music**: Explore new releases, trending albums, and hidden gems.
-3. **Rate and Share**: Rate tracks and albums from 1 to 10 and leave your reviews to help others discover great music.
-4. **Join the Community**: Interact with fellow music lovers and discover new perspectives.
+---
+
+## چه چیزی AZ10 را متمایز می‌کند؟
+
+- **یکپارچه‌سازی ابزارها**: تمام آنچه یک معمار نیاز دارد، در یک بستر منسجم
+- **طراحی ساختاریافته و مینیمال**: تمرکز بر عملکرد، سادگی و وضوح
+- **توسعه مبتنی بر هوش مصنوعی**: محتوای پلتفرم و امکانات آن به کمک AI توسعه می‌یابند
+
+---
+
+## تیم ما
+
+- **سید احمد میرجلالیان** — معمار، توسعه‌دهنده و بنیان‌گذار
+- **زهرا خطیبی** — پژوهشگر، استراتژیست و همراه رشد برند
+
+---
+
+## تماس با ما
+
+- 📧 [info@az-arch.com](mailto:info@az-arch.com)
+- 🔗 linkedin.com/company/az-arch
+
+---
+
+> AZ10 بستری هوشمند برای معمارانی است که به دنبال انسجام، سادگی و ابزارهای کاربردی در یک فضای حرفه‌ای هستند.
+
+---
+
+# AZ10
+
+**A platform to unify all architectural needs**
+
+---
+
+## Introduction
+
+AZ10 is a professional, unified platform built for architects, designers, and professionals in the construction and creative industries.
+It is designed to comprehensively address their needs—from showcasing and documenting projects to accessing specialized resources like academic articles, published works, and architecture-related content.
+
+---
+
+## What Makes AZ10 Unique?
+
+- **All-in-One Tools**: Everything an architect needs in one integrated space
+- **Structured & Minimal Design**: Functionality with clarity and simplicity
+- **AI-Driven Development**: Platform features and content evolve intelligently through AI tools
+
+---
+
+## Our Team
+
+- **Seyed Ahmad Mirjalalian** — Architect, Developer & Founder
+- **Zahra Khatibi** — Researcher, Strategist & Brand Growth Partner
+
+---
+
+## Contact
+
+- 📧 [info@az-arch.com](mailto:info@az-arch.com)
+- 🔗 linkedin.com/company/az-arch
+
+---
+
+## آپدیت‌های اخیر
+
+### 🎨 بک گراند جدید
+
+بک گراند شبکه‌ای قدیمی حذف شده و بک گراند **Subtle Waves** (امواج ملایم) به عنوان بک گراند ثابت انتخاب شده است. این بک گراند طراحی طبیعی و آرام‌بخشی دارد که تجربه کاربری بهتری ارائه می‌دهد.
+
+---
+
+> AZ10 is a smart platform for architects seeking clarity, cohesion, and effective tools in a professional environment.

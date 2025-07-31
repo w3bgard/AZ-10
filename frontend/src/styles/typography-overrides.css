@@ -1,0 +1,45 @@
+/**
+ * Typography Overrides
+ * 
+ * This file allows designers to override typography variables
+ * without modifying the core variables.css file.
+ * 
+ * Any variable defined here will take precedence over the base variables.
+ * This file should be imported AFTER variables.css and BEFORE other CSS files.
+ */
+
+:root {
+  /* Typography overrides can be uncommented and modified as needed */
+  
+  /* Font Family Overrides */
+  /* --font-family-base: 'Open Sans', sans-serif; */
+  /* --font-family-heading: 'Montserrat', sans-serif; */
+  /* --font-family-mono: 'Fira Code', monospace; */
+
+  /* Font Size Overrides */
+  /* --font-size-base: 1.125rem; */
+  /* --font-size-lg: 1.375rem; */
+  
+  /* Font Weight Overrides */
+  /* --font-weight-normal: 500; */
+  /* --font-weight-bold: 800; */
+  
+  /* Line Height Overrides */
+  /* --line-height-normal: 1.6; */
+  
+  /* Main Menu Typography Overrides */
+  /* --main-menu-font-family: 'Montserrat', sans-serif; */
+  /* --main-menu-font-size: 1.125rem; */
+  /* --main-menu-font-weight: 600; */
+  /* --main-menu-line-height: 1.4; */
+  /* --main-menu-letter-spacing: 0.05em; */
+  /* --main-menu-text-transform: uppercase; */
+  /* --main-menu-padding: 0.75rem 1.5rem; */
+}
+
+/* Theme-specific typography overrides */
+body.dark-theme {
+  /* Dark theme specific typography overrides */
+  /* --font-weight-normal: 300; */
+  /* --main-menu-font-weight: 400; */
+} 

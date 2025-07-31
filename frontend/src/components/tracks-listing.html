@@ -1,0 +1,72 @@
+<!-- Tracks Listing Page Component -->
+<div class="tracks-listing-page">
+    <div class="page-header">
+        <div class="header-content">
+            <h1 id="tracks-page-title">All Tracks</h1>
+            <p id="tracks-page-description">Discover all tracks from our collection</p>
+        </div>
+
+        <!-- Search and Filter Controls -->
+        <div class="tracks-controls">
+            <div class="search-box">
+                <input type="text" id="tracks-search" placeholder="Search tracks..." />
+                <i class="fas fa-search"></i>
+            </div>
+
+            <div class="filter-controls">
+                <select id="tracks-sort" class="sort-select">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="title">Title A-Z</option>
+                    <option value="artist">Artist A-Z</option>
+                </select>
+
+                <select id="tracks-filter" class="filter-select">
+                    <option value="all">All Types</option>
+                    <option value="Single">Singles</option>
+                    <option value="Album">Albums</option>
+                    <option value="video">Music Videos</option>
+                </select>
+            </div>
+
+            <!-- View Mode Toggle -->
+            <div class="view-mode-controls">
+                <button class="view-mode-btn active" data-mode="large" title="Large View">
+                    <i class="fas fa-th-large"></i>
+                </button>
+                <button class="view-mode-btn" data-mode="small" title="Small View">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tracks Grid -->
+    <div class="tracks-listing-container">
+        <div class="tracks-grid" id="tracks-grid" data-view-mode="large">
+            <!-- Track cards will be populated by JavaScript -->
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="tracks-loading" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Loading tracks...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="tracks-empty" style="display: none;">
+            <div class="empty-icon">
+                <i class="fas fa-music"></i>
+            </div>
+            <h3>No tracks found</h3>
+            <p>Try adjusting your search or filter criteria</p>
+        </div>
+    </div>
+
+    <!-- Load More Button -->
+    <div class="load-more-container" id="load-more-container" style="display: none;">
+        <button class="load-more-btn" id="load-more-btn">
+            Load More Tracks
+        </button>
+    </div>
+</div>

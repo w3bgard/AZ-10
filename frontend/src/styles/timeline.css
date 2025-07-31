@@ -1,0 +1,376 @@
+/* Portfolio Timeline Styles */
+.timeline {
+  position: fixed;
+  /* top: var(--spacing-xl); */
+  bottom: var(--spacing-md);
+  width: 80%;
+  z-index: 9999;
+  /* background-color: var(--glass-bg); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.timeline.active {
+  transform: translateY(0);
+}
+
+.timeline-container {
+  width: 90%;
+  max-width: 100%;
+  position: relative;
+  height: var(--spacing-sm);
+}
+
+.timeline-track {
+  position: relative;
+  height: 1px;
+  background-color: var(--glass-bg);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.timeline-year {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 40px;
+  margin-left: -20px;
+}
+
+.timeline-year:before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-text-muted);
+  border-radius: 50%;
+  position: absolute;
+  top: -3px;
+}
+
+.timeline-year-label {
+  position: absolute;
+  top: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.timeline-indicator {
+  position: absolute;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-text);
+  transition: left 0.3s ease;
+  transform: translateX(-50%);
+}
+
+/* Active state for the current year */
+.timeline-year.active:before {
+  background-color: var(--color-text);
+  transform: scale(1.5);
+}
+
+.timeline-year.active .timeline-year-label {
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Portfolio Year Content Styles */
+.year-content {
+  padding: 20px 0;
+  width: 100%;
+}
+
+.portfolio-year-content {
+  margin-top: 20px;
+}
+
+.portfolio-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.portfolio-item {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(50, 50, 50, 0.1);
+  transition: all 0.3s ease;
+}
+
+.portfolio-item:hover {
+  transform: translateY(-5px);
+
+}
+
+.portfolio-item h3 {
+  margin-bottom: 10px;
+  color: var(--color-text);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .timeline {
+    width: 85%;
+  }
+  
+  .timeline-container {
+    width: 92%;
+  }
+  
+  .portfolio-items {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline {
+    width: 90%;
+    bottom: calc(var(--spacing-md) * 0.8);
+  }
+  
+  .timeline-container {
+    width: 95%;
+    height: calc(var(--spacing-sm) * 1.2);
+  }
+  
+  .timeline-year {
+    width: 50px;
+    margin-left: -25px;
+    /* Ensure minimum touch target */
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .timeline-year:before {
+    width: 10px;
+    height: 10px;
+    top: -5px;
+  }
+  
+  .timeline-year-label {
+    font-size: 11px;
+    top: 15px;
+  }
+  
+  .timeline-indicator {
+    width: 12px;
+    height: 12px;
+    top: -6px;
+  }
+  
+  .timeline-year.active .timeline-year-label {
+    font-size: 13px;
+  }
+  
+  .portfolio-items {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-top: 25px;
+  }
+  
+  .portfolio-item {
+    padding: 15px;
+    border-radius: 6px;
+  }
+  
+  .year-content {
+    padding: 15px 0;
+  }
+  
+  .portfolio-year-content {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline {
+    width: 95%;
+    bottom: calc(var(--spacing-md) * 0.6);
+  }
+  
+  .timeline-container {
+    width: 98%;
+    height: calc(var(--spacing-sm) * 1.4);
+  }
+  
+  .timeline-year {
+    width: 60px;
+    margin-left: -30px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .timeline-year:before {
+    width: 8px;
+    height: 8px;
+    top: -4px;
+  }
+  
+  .timeline-year-label {
+    font-size: 10px;
+    top: 18px;
+  }
+  
+  .timeline-indicator {
+    width: 10px;
+    height: 10px;
+    top: -5px;
+  }
+  
+  .timeline-year.active:before {
+    transform: scale(1.3);
+  }
+  
+  .timeline-year.active .timeline-year-label {
+    font-size: 12px;
+  }
+  
+  .portfolio-items {
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .portfolio-item {
+    padding: 12px;
+    border-radius: 5px;
+  }
+  
+  .portfolio-item h3 {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+  }
+  
+  .year-content {
+    padding: 12px 0;
+  }
+  
+  .portfolio-year-content {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .timeline {
+    width: 98%;
+    bottom: calc(var(--spacing-md) * 0.5);
+  }
+  
+  .timeline-container {
+    width: 100%;
+  }
+  
+  .timeline-year {
+    width: 50px;
+    margin-left: -25px;
+  }
+  
+  .timeline-year:before {
+    width: 6px;
+    height: 6px;
+    top: -3px;
+  }
+  
+  .timeline-year-label {
+    font-size: 9px;
+    top: 16px;
+  }
+  
+  .timeline-indicator {
+    width: 8px;
+    height: 8px;
+    top: -4px;
+  }
+  
+  .timeline-year.active .timeline-year-label {
+    font-size: 11px;
+  }
+  
+  .portfolio-items {
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .portfolio-item {
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .portfolio-item h3 {
+    margin-bottom: 6px;
+    font-size: 1rem;
+  }
+  
+  .year-content {
+    padding: 10px 0;
+  }
+  
+  .portfolio-year-content {
+    margin-top: 10px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .timeline-year {
+    /* Ensure touch targets are accessible */
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem;
+  }
+  
+  .timeline-year:before {
+    /* Make dots slightly larger on touch devices */
+    transform: scale(1.2);
+  }
+  
+  .portfolio-item:hover {
+    transform: none;
+  }
+  
+  .portfolio-item:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Improved accessibility */
+@media (max-width: 768px) {
+  .timeline-year {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .timeline-year-label {
+    pointer-events: none; /* Prevent accidental label taps */
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  .timeline {
+    will-change: transform;
+  }
+  
+  .timeline-indicator {
+    will-change: left;
+  }
+  
+  .portfolio-item {
+    will-change: transform;
+  }
+} 

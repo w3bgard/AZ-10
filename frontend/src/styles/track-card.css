@@ -1,0 +1,948 @@
+/* Track Cards Styles */
+
+/* ========================================
+   Section Headers
+   ======================================== */
+
+.persian-hiphop-tracks .section-header,
+.credits-contributors .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+  padding: var(--spacing-sm) 0;
+  position: relative;
+}
+
+.persian-hiphop-tracks .section-header .header-content,
+.credits-contributors .section-header .header-content {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.persian-hiphop-tracks .section-header h2,
+.credits-contributors .section-header h2 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+  letter-spacing: var(--letter-spacing-normal);
+  /* Remove gradient and keep simple */
+}
+
+.persian-hiphop-tracks .section-header p,
+.credits-contributors .section-header p {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: var(--line-height-relaxed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  padding: calc(var(--spacing-xs) * 0.5) var(--spacing-sm);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-md);
+  /* Remove glass background */
+  background: transparent;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.view-all-link:hover {
+  /* Remove glass background */
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ========================================
+   Carousel and Navigation
+   ======================================== */
+
+.tracks-carousel,
+.credits-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-nav {
+  position: relative;
+  /* Remove glass background */
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  border: 1px solid var(--glass-border);
+}
+
+.carousel-nav:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.carousel-nav.prev {
+ right: -19px;
+ top: 280px;
+}
+
+.carousel-nav.next {
+  left: -9px;
+  top: 280px;
+}
+
+.tracks-container,
+.credits-container {
+  max-width: 100%;
+  margin-left: var(--spacing-md);
+  margin-right: var(--spacing-md);
+  padding: .5rem;
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  /* Remove glass background and borders */
+  border-radius: var(--border-radius-xl);
+}
+
+.tracks-container::-webkit-scrollbar {
+  display: none;
+}
+
+.tracks-container.active-drag {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.tracks-container.active-drag .track-card {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* ========================================
+   Track Card Base Styles
+   ======================================== */
+
+.track-card {
+  flex: 0 0 300px;
+  padding: .5rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  /* Remove all backgrounds and borders */
+  background: transparent;
+  border: none;
+}
+
+/* Remove the overlay */
+.track-card::before {
+  display: none;
+}
+
+.track-card:hover {
+  transform: scale(1.02);
+}
+
+/* ========================================
+   Track Cover and Image Styles
+   ======================================== */
+
+.track-cover,
+.card-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  position: relative;
+  overflow: hidden;
+  /* Remove border */
+  border: 1px solid var(--glass-border-dark);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
+
+.track-card:hover .track-cover,
+.track-card:hover .card-image {
+  transform: scale(1.02);
+}
+
+.track-cover img,
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.track-card:hover .track-cover img,
+.track-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+/* ========================================
+   Track Information
+   ======================================== */
+
+.track-artist {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  position: relative;
+  z-index: 2;
+  align-items: right;
+}
+
+.track-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+  position: relative;
+  z-index: 2;
+}
+
+.track-producer {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+  position: relative;
+  z-index: 2;
+}
+
+.track-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  margin-top: 0.8rem;
+  position: relative;
+  z-index: 2;
+}
+
+.track-type i {
+  font-size: 0.9rem;
+}
+
+.track-date {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  position: relative;
+  z-index: 2;
+  line-height: 1.4;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.track-date .relative-time {
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-medium);
+  opacity: 1;
+  font-size: 0.72rem;
+}
+
+/* Release date styling for grid view */
+.release-date {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  opacity: 0.8;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.release-date .fa-calendar {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  margin-right: 0.2rem;
+}
+
+/* Date content wrapper to handle HTML content */
+.date-content {
+  display: inline;
+}
+
+/* Relative time styling */
+.relative-time {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  opacity: 1;
+  font-size: 0.72rem;
+}
+
+/* Gregorian date styling (for tracks listing page) */
+.gregorian-date {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-normal);
+  opacity: 0.7;
+  font-size: 0.68rem;
+  margin-top: 0.1rem;
+  display: block;
+}
+
+/* Release date styling for list view */
+.list-view-date {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  opacity: 0.8;
+  margin-left: auto;
+  white-space: nowrap;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.list-view-date .relative-time {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  opacity: 1;
+  font-size: 0.68rem;
+}
+
+
+/* ========================================
+   Credit Card Styles (for home page)
+   ======================================== */
+
+.credit-card {
+  flex: 0 0 300px;
+  padding: .5rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  /* Remove all backgrounds and borders */
+  background: transparent;
+  border: none;
+}
+
+.credit-card:hover {
+  transform: scale(1.02);
+}
+
+.credit-avatar {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
+
+.credit-card:hover .credit-avatar {
+  transform: scale(1.02);
+}
+
+.credit-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.credit-card:hover .credit-avatar img {
+  transform: scale(1.05);
+}
+
+.credit-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  position: relative;
+  z-index: 2;
+}
+
+.credit-role {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+  position: relative;
+  z-index: 2;
+}
+
+.credit-track-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  margin-top: 0.8rem;
+  position: relative;
+  z-index: 2;
+}
+
+.credit-track-count i {
+  font-size: 0.9rem;
+}
+
+.credit-roles-preview {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  position: relative;
+  z-index: 2;
+  line-height: 1.4;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ========================================
+   Featured Artists Section
+   ======================================== */
+
+.featured-artists .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.artists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.artist-card {
+  background: var(--track-glass-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  backdrop-filter: var(--track-glass-backdrop);
+  -webkit-backdrop-filter: var(--track-glass-backdrop);
+  border: 1px solid var(--track-glass-border);
+
+  position: relative;
+  overflow: hidden;
+}
+
+.artist-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.08) 0%, 
+    rgba(255, 255, 255, 0.04) 50%, 
+    rgba(255, 255, 255, 0.01) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.artist-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  background: var(--track-glass-bg-hover);
+  backdrop-filter: var(--track-glass-backdrop-hover);
+  -webkit-backdrop-filter: var(--track-glass-backdrop-hover);
+  border-color: var(--track-glass-border-hover);
+
+}
+
+.artist-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
+
+.artist-card:hover .artist-avatar {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+
+}
+
+.artist-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.artist-card:hover .artist-avatar img {
+  transform: scale(1.1);
+}
+
+.artist-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.3rem;
+  position: relative;
+  z-index: 2;
+}
+
+.artist-tracks-count {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  opacity: 0.8;
+  position: relative;
+  z-index: 2;
+}
+
+/* ========================================
+   Theme Support
+   ======================================== */
+
+body.dark-theme .track-card::before,
+body.dark-theme .artist-card::before {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0.02) 50%, 
+    rgba(255, 255, 255, 0.01) 100%);
+}
+
+/* Dark theme relative time styling */
+body.dark-theme .relative-time {
+  color: var(--color-secondary);
+}
+
+[data-theme="light"] .track-card::before,
+[data-theme="light"] .artist-card::before {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.15) 50%, 
+    rgba(255, 255, 255, 0.05) 100%);
+}
+
+/* Light theme relative time styling */
+[data-theme="light"] .relative-time {
+  color: #0066cc;
+  font-weight: var(--font-weight-semibold);
+}
+
+[data-theme="light"] .track-cover,
+[data-theme="light"] .card-image,
+[data-theme="light"] .artist-avatar {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .track-card:hover .track-cover,
+[data-theme="light"] .track-card:hover .card-image,
+[data-theme="light"] .artist-card:hover .artist-avatar {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+/* Tablet and below (768px) */
+@media (max-width: 768px) {
+  .persian-hiphop-tracks .section-header,
+  .credits-contributors .section-header {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  
+  .persian-hiphop-tracks .section-header h2,
+  .credits-contributors .section-header h2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+  
+  .persian-hiphop-tracks .section-header p,
+  .credits-contributors .section-header p {
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    gap: var(--spacing-xs);
+    padding: 0;
+  }
+  
+  .view-all-link {
+    font-size: calc(var(--font-size-xs) * 0.9);
+    padding: calc(var(--spacing-xs) * 0.4) calc(var(--spacing-xs) * 0.8);
+  }
+  
+  .track-card,
+  .credit-card {
+    flex: 0 0 220px;
+    padding: 0.8rem;
+    border-radius: 16px;
+  }
+  
+  .track-cover,
+  .card-image,
+  .credit-avatar {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 1rem;
+  }
+  
+  .track-artist {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .track-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .track-producer {
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .track-meta {
+    gap: 0.8rem;
+    margin-top: 0.6rem;
+    flex-wrap: wrap;
+  }
+  
+  .track-type {
+    font-size: 0.75rem;
+  }
+  
+  .track-date {
+    font-size: 0.7rem;
+  }
+  
+
+  
+  .carousel-nav {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+  
+  .carousel-nav.prev {
+    left: 10px;
+  }
+  
+  .carousel-nav.next {
+    right: 10px;
+  }
+  
+  .tracks-container {
+    gap: 0.8rem;
+    padding: 0 var(--spacing-xs);
+  }
+  
+  .artists-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  
+  .artist-card {
+    padding: 1.2rem;
+    border-radius: 12px;
+  }
+  
+  .artist-avatar {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .artist-name {
+    font-size: 0.95rem;
+  }
+  
+  .artist-tracks-count {
+    font-size: 0.75rem;
+  }
+}
+
+/* Mobile devices (480px and below) */
+@media (max-width: 480px) {
+  .persian-hiphop-tracks .section-header,
+  .credits-contributors .section-header {
+    padding: var(--spacing-xs);
+    gap: var(--spacing-xs);
+  }
+  
+  .persian-hiphop-tracks .section-header h2,
+  .credits-contributors .section-header h2 {
+    font-size: clamp(1.3rem, 6vw, 1.8rem);
+    margin-bottom: calc(var(--spacing-xs) * 0.5);
+  }
+  
+  .persian-hiphop-tracks .section-header p,
+  .credits-contributors .section-header p {
+    font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+    padding: 0;
+  }
+  
+  .carousel-nav.prev {
+    margin-right: calc(var(--spacing-xs) * 0.5);
+  }
+
+  .carousel-nav.next {
+    margin-left: calc(var(--spacing-xs) * 0.5);
+  }
+  
+  .view-all-link {
+    font-size: calc(var(--font-size-xs) * 0.85);
+    padding: calc(var(--spacing-xs) * 0.3) calc(var(--spacing-xs) * 0.6);
+    border-radius: var(--border-radius-sm);
+  }
+  
+  .track-card,
+  .credit-card {
+    flex: 0 0 180px;
+    padding: 0.6rem;
+    border-radius: 14px;
+  }
+  
+  .track-cover,
+  .card-image,
+  .credit-avatar {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 0.8rem;
+  }
+  
+  .track-artist {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+
+  }
+  
+  .track-title {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .track-producer {
+    font-size: 0.75rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .track-meta {
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+  
+  .track-type {
+    font-size: 0.7rem;
+  }
+  
+  .track-date {
+    font-size: 0.65rem;
+  }
+  
+
+  
+  .carousel-nav {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+  
+  .carousel-nav.prev {
+    left: 8px;
+  }
+  
+  .carousel-nav.next {
+    right: 8px;
+  }
+  
+  .tracks-container {
+    gap: 0.6rem;
+    padding: 0 var(--spacing-xs);
+  }
+  
+  .artists-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+  }
+  
+  .artist-card {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  
+  .artist-avatar {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 0.8rem;
+  }
+  
+  .artist-name {
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .artist-tracks-count {
+    font-size: 0.7rem;
+  }
+}
+
+/* Extra small devices (360px and below) */
+@media (max-width: 360px) {
+  .track-card,
+  .credit-card {
+    flex: 0 0 160px;
+    padding: 0.5rem;
+  }
+  
+  .track-cover,
+  .card-image,
+  .credit-avatar {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 0.6rem;
+  }
+  
+  .track-artist {
+    font-size: 0.85rem;
+  }
+  
+  .track-title {
+    font-size: 0.75rem;
+  }
+  
+  .track-producer {
+    font-size: 0.7rem;
+  }
+  
+  .track-meta {
+    gap: 0.4rem;
+    flex-direction: column;
+  }
+  
+  .track-type {
+    font-size: 0.65rem;
+  }
+  
+  .track-date {
+    font-size: 0.6rem;
+  }
+  
+
+  
+  .artists-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+  
+  .artist-card {
+    padding: 0.8rem;
+  }
+  
+  .artist-avatar {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .artist-name {
+    font-size: 0.8rem;
+  }
+  
+  .artist-tracks-count {
+    font-size: 0.65rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .track-card:hover {
+    transform: none;
+  }
+  
+  .track-card:active {
+    transform: scale(0.98);
+  }
+  
+  .artist-card:hover {
+    transform: none;
+  }
+  
+  .artist-card:active {
+    transform: scale(0.98);
+  }
+  
+
+  
+  /* Disable drag cursor on touch devices */
+  .tracks-container,
+  .credits-container {
+    cursor: default;
+    user-select: auto;
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+  }
+  
+  .tracks-container.active-drag,
+  .credits-container.active-drag {
+    cursor: default;
+  }
+} 

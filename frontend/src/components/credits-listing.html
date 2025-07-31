@@ -1,0 +1,79 @@
+<!-- Credits Listing Page Component -->
+<div class="credits-listing-page">
+    <div class="page-header">
+        <div class="header-content">
+            <h1 id="credits-page-title">Credits & Contributors</h1>
+            <p id="credits-page-description">Discover all the artists, producers, directors, and other contributors
+                behind the tracks</p>
+        </div>
+
+        <!-- Search and Filter Controls -->
+        <div class="credits-controls">
+            <div class="search-box">
+                <input type="text" id="credits-search" placeholder="Search contributors..." />
+                <i class="fas fa-search"></i>
+            </div>
+
+            <div class="filter-controls">
+                <select id="credits-sort" class="sort-select">
+                    <option value="name">Name A-Z</option>
+                    <option value="role">Role Type</option>
+                    <option value="track-count">Track Count</option>
+                </select>
+
+                <select id="credits-role-filter" class="filter-select">
+                    <option value="all">All Roles</option>
+                    <option value="artist">Artists</option>
+                    <option value="beatProducer">Beat Producers</option>
+                    <option value="soundEngineer">Sound Engineers</option>
+                    <option value="director">Directors</option>
+                    <option value="projectManager">Project Managers</option>
+                    <option value="artDirection">Art Directors</option>
+                    <option value="dop">DOP (Directors of Photography)</option>
+                    <option value="editor">Editors</option>
+                    <option value="executiveProducer">Executive Producers</option>
+                    <option value="visualEffects">Visual Effects</option>
+                </select>
+            </div>
+
+            <!-- View Mode Toggle -->
+            <div class="view-mode-controls">
+                <button class="view-mode-btn active" data-mode="grid" title="Grid View">
+                    <i class="fas fa-th"></i>
+                </button>
+                <button class="view-mode-btn" data-mode="list" title="List View">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Credits Grid -->
+    <div class="credits-listing-container">
+        <div class="credits-grid" id="credits-grid" data-view-mode="grid">
+            <!-- Credit cards will be populated by JavaScript -->
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="credits-loading" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Loading contributors...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="credits-empty" style="display: none;">
+            <div class="empty-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>No contributors found</h3>
+            <p>Try adjusting your search or filter criteria</p>
+        </div>
+    </div>
+
+    <!-- Load More Button -->
+    <div class="load-more-container" id="credits-load-more-container" style="display: none;">
+        <button class="load-more-btn" id="credits-load-more-btn">
+            Load More Contributors
+        </button>
+    </div>
+</div>

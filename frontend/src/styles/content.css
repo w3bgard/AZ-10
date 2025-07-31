@@ -1,0 +1,226 @@
+/* Content Layout Styles */
+
+/* ========================================
+   Main Content Containers
+   ======================================== */
+
+.main-content {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+}
+
+#app-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 120px);
+}
+
+.content-container {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.content-container h1,
+.content-container h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+/* Large screens (1200px and above) */
+@media (min-width: 1200px) {
+  .main-content {
+    width: 95%;
+    padding: 2rem;
+  }
+  
+  .content-container {
+    max-width: 1000px;
+    padding: 1rem;
+  }
+  
+  #app-content {
+    min-height: calc(100vh - 100px);
+  }
+}
+
+/* Medium to large screens (1024px to 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .main-content {
+    width: 96%;
+    padding: 1.8rem;
+  }
+  
+  .content-container {
+    max-width: 95%;
+    padding: 0.8rem;
+  }
+}
+
+/* Tablet and below (1024px) */
+@media (max-width: 1024px) {
+  .main-content {
+    width: 98%;
+    padding: 1.5rem;
+  }
+  
+  .content-container {
+    max-width: 95%;
+    padding: 0.8rem;
+  }
+  
+  #app-content {
+    min-height: calc(100vh - 110px);
+  }
+}
+
+/* Large mobile/small tablet (768px) */
+@media (max-width: 768px) {
+  .main-content {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 16px;
+  }
+  
+  .content-container {
+    max-width: 100%;
+    padding: 1rem;
+    margin-top: 20px;
+  }
+  
+  #app-content {
+    margin-top: 30px;
+    min-height: calc(100vh - 140px);
+    padding: 0.8rem;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .content-container h1,
+  .content-container h2 {
+    margin-bottom: 1.2rem;
+  }
+
+  /* Improved touch targets and spacing */
+  .content-container a,
+  .content-container button {
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .content-container p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  .content-container ul,
+  .content-container ol {
+    padding-left: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .content-container li {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Mobile devices (480px) */
+@media (max-width: 480px) {
+  .main-content {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 14px;
+  }
+  
+  .content-container {
+    padding: 0.8rem;
+    margin-top: 15px;
+  }
+  
+  #app-content {
+    margin-top: 20px;
+    min-height: calc(100vh - 160px);
+    padding: 0.6rem;
+    padding-bottom: calc(var(--mobile-nav-height, 70px) + 20px);
+  }
+  
+  .content-container h1,
+  .content-container h2 {
+    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+}
+
+/* Extra small devices (360px) */
+@media (max-width: 360px) {
+  .main-content {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 12px;
+  }
+  
+  .content-container {
+    padding: 0.6rem;
+    margin-top: 10px;
+  }
+  
+  #app-content {
+    margin-top: 15px;
+    min-height: calc(100vh - 180px);
+    padding: 0.5rem;
+    padding-bottom: calc(var(--mobile-nav-height, 70px) + 20px);
+  }
+  
+  .content-container h1,
+  .content-container h2 {
+    margin-bottom: 0.8rem;
+    font-size: clamp(1.3rem, 6vw, 1.8rem);
+  }
+}
+
+/* Ultra small devices (320px) */
+@media (max-width: 320px) {
+  .main-content {
+    padding: 0.5rem;
+    border-radius: 10px;
+  }
+  
+  .content-container {
+    padding: 0.5rem;
+    margin-top: 8px;
+  }
+  
+  #app-content {
+    margin-top: 12px;
+    min-height: calc(100vh - 200px);
+    padding: 0.4rem;
+    padding-bottom: calc(var(--mobile-nav-height, 70px) + 20px);
+  }
+  
+  .content-container h1,
+  .content-container h2 {
+    margin-bottom: 0.6rem;
+    font-size: clamp(1.2rem, 7vw, 1.6rem);
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  .main-content {
+    will-change: transform;
+  }
+  
+  #app-content {
+    contain: layout style;
+  }
+} 

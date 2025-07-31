@@ -1,0 +1,61 @@
+{
+  "global": {
+    "appTitle": "AZ10",
+    "loading": "Loading..."
+  },
+  "navigation": {
+    "discover": "Discover",
+    "blog": "Blog",
+    "home": "Home",
+    "joinus": "Profile",
+    "aboutus": "About Us"
+  },
+  "controls": {
+    "themeToggle": "Toggle Theme",
+    "profileButton": "Profile"
+  },
+  "profile": {
+    "title": "Profile"
+  },
+  "submenus": {
+    "discover": {
+      "projects": "Projects",
+      "community": "Community",
+      "contents": "Contents",
+      "events": "Events",
+      "competitions": "Competitions"
+    },
+    "blog": {
+      "posts": "Posts",
+      "videos": "Videos",
+      "az10": "AZ10",
+      "insights": "Insights"
+    },
+    "joinus": {
+      "signin": "Sign-Up/In"
+    },
+    "aboutus": {
+      "vision": "Vision",
+      "team": "Team",
+      "contact": "Contact"
+    }
+  },
+
+  "team": {
+    "title": "Our Team",
+    "subtitle": "Meet the passionate individuals behind AZ10"
+  },
+  "home": {
+    "blog": {
+      "title": "Blog",
+      "subtitle": "Latest insights and innovations in architecture and design",
+      "featured": "Featured",
+      "design": "Design",
+      "ai_title": "AI in Modern Architecture",
+      "ai_excerpt": "How artificial intelligence is revolutionizing architectural design...",
+      "sustainable_title": "Sustainable Design Trends",
+      "sustainable_excerpt": "Exploring eco-friendly architectural solutions...",
+      "read_more": "Read More →"
+    }
+  }
+} 

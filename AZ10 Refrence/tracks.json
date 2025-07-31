@@ -70,7 +70,7 @@
       },
       "streamingLinks": {
         "spotify": "https://spoti.fi/3o4r5r4",
-        "soundcloud": "https://soundcloud.com/dorcci/h2co3?in=dorcci/sets/young-morvarid&si=a2776efa8c4d4702915c51dc58acdd07&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
+        "soundcloud": "https://bit.ly/453bb0J",
         "tidal": "https://bit.ly/3C2T156",
         "appleMusic": "https://apple.co/43REzGW"
       },
@@ -147,7 +147,7 @@
       },
       "streamingLinks": {
         "spotify": "URL_TO_SPOTIFY",
-        "soundcloud": "https://soundcloud.com/saeed-dehghan/morvarid?si=dbc3d3bcd02141179e381912d2ba8cb4&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
+        "soundcloud": "URL_TO_SOUNDCLOUD",
         "appleMusic": "URL_TO_APPLE_MUSIC"
       },
       "media": {
@@ -494,177 +494,6 @@
       "metadata": {
         "explicit": false,
         "duration": "3:14"
-      }
-    },
-    {
-      "id": "nova-rising-star-20241115",
-      "basicInfo": {
-        "title": "City Lights",
-        "artist": "Nova",
-        "trackType": "Single",
-        "releaseDate": "2024-11-15",
-        "label": "Independent",
-        "category": "underground"
-      },
-      "stats": {
-        "communityRating": 7.8,
-        "numberOfVotes": 15
-      },
-      "productionCredits": {
-        "music": {
-          "beatProducer": "ShadowBeats",
-          "soundEngineer": "Nova",
-          "projectManager": "Independent"
-        }
-      },
-      "streamingLinks": {
-        "soundcloud": "URL_TO_SOUNDCLOUD",
-        "youtube": "URL_TO_YOUTUBE"
-      },
-      "media": {
-        "coverArt": "https://az-10-bucket.storage.iran.liara.space/artists/Dorcci/Track%20Covers/H2CO3%20-%20az10.jpg",
-        "hasVideo": false
-      },
-      "metadata": {
-        "explicit": false,
-        "duration": "3:45"
-      }
-    },
-    {
-      "id": "echo-underground-20241110",
-      "basicInfo": {
-        "title": "Street Dreams",
-        "artist": "Echo",
-        "trackType": "Single",
-        "releaseDate": "2024-11-10",
-        "label": "Underground Collective",
-        "category": "underground"
-      },
-      "stats": {
-        "communityRating": 8.2,
-        "numberOfVotes": 23
-      },
-      "productionCredits": {
-        "music": {
-          "beatProducer": "DarkVibes",
-          "soundEngineer": "MixMaster",
-          "projectManager": "Echo"
-        }
-      },
-      "streamingLinks": {
-        "soundcloud": "URL_TO_SOUNDCLOUD",
-        "bandcamp": "URL_TO_BANDCAMP"
-      },
-      "media": {
-        "coverArt": "https://az-10-bucket.storage.iran.liara.space/artists/Dorcci/Track%20Covers/KXSNNE%20-%20az10.jpg",
-        "hasVideo": true,
-        "videoUrl": "URL_TO_VIDEO"
-      },
-      "metadata": {
-        "explicit": true,
-        "duration": "4:12"
-      }
-    },
-    {
-      "id": "flux-emergence-20241105",
-      "basicInfo": {
-        "title": "Breakthrough",
-        "artist": "Flux",
-        "trackType": "Single",
-        "releaseDate": "2024-11-05",
-        "label": "Rising Records",
-        "category": "underground"
-      },
-      "stats": {
-        "communityRating": 7.5,
-        "numberOfVotes": 31
-      },
-      "productionCredits": {
-        "music": {
-          "beatProducer": "NextLevel",
-          "soundEngineer": "SonicBoom",
-          "projectManager": "Flux"
-        }
-      },
-      "streamingLinks": {
-        "spotify": "URL_TO_SPOTIFY",
-        "soundcloud": "URL_TO_SOUNDCLOUD"
-      },
-      "media": {
-        "coverArt": "https://az-10-bucket.storage.iran.liara.space/artists/Dorcci/Track%20Covers/Morvarid%20-%20AZ10.jpeg",
-        "hasVideo": false
-      },
-      "metadata": {
-        "explicit": false,
-        "duration": "3:28"
-      }
-    },
-    {
-      "id": "cipher-underground-20241101",
-      "basicInfo": {
-        "title": "Code Switch",
-        "artist": "Cipher",
-        "trackType": "Single",
-        "releaseDate": "2024-11-01",
-        "label": "Digital Underground",
-        "category": "underground"
-      },
-      "stats": {
-        "communityRating": 8.7,
-        "numberOfVotes": 42
-      },
-      "productionCredits": {
-        "music": {
-          "beatProducer": "ByteBeats",
-          "soundEngineer": "TechSound",
-          "projectManager": "Cipher"
-        }
-      },
-      "streamingLinks": {
-        "soundcloud": "URL_TO_SOUNDCLOUD",
-        "youtube": "URL_TO_YOUTUBE"
-      },
-      "media": {
-        "coverArt": "https://az-10-bucket.storage.iran.liara.space/artists/Dorcci/Track%20Covers/Album/Lost%20Tape%3A%20Unplugged%20Disk/Lost%20Tape%20-%20Unplugged%20Disk%20-%20AZ10.jpeg",
-        "hasVideo": true,
-        "videoUrl": "URL_TO_VIDEO"
-      },
-      "metadata": {
-        "explicit": false,
-        "duration": "3:56"
-      }
-    },
-    {
-      "id": "vibe-emerging-20241025",
-      "basicInfo": {
-        "title": "Raw Energy",
-        "artist": "Vibe",
-        "trackType": "Single",
-        "releaseDate": "2024-10-25",
-        "label": "Independent",
-        "category": "underground"
-      },
-      "stats": {
-        "communityRating": 7.9,
-        "numberOfVotes": 18
-      },
-      "productionCredits": {
-        "music": {
-          "beatProducer": "RawBeats",
-          "soundEngineer": "Vibe",
-          "projectManager": "Independent"
-        }
-      },
-      "streamingLinks": {
-        "soundcloud": "URL_TO_SOUNDCLOUD"
-      },
-      "media": {
-        "coverArt": "https://az-10-bucket.storage.iran.liara.space/artists/Dorcci/Track%20Covers/H2CO3%20-%20az10.jpg",
-        "hasVideo": false
-      },
-      "metadata": {
-        "explicit": true,
-        "duration": "3:33"
       }
     }
   ]

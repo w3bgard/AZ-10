@@ -1,0 +1,87 @@
+<!-- Track Details Page Component -->
+<div class="track-details-page">
+    <!-- Track Main Section -->
+    <div class="track-main-section">
+        <div class="track-main-content">
+            <!-- Left Side - Track Details and Buttons -->
+            <div class="track-left-section">
+                <!-- Streaming Links -->
+                <div class="streaming-links-compact" id="streaming-links-compact">
+                    <!-- Streaming links will be populated by JavaScript -->
+                </div>
+
+                <!-- Track Rating -->
+                <div class="track-rating">
+                    <div class="rating-display">
+                        <span class="rating-value" id="track-rating-value">0.0</span>
+                        <div class="stars" id="track-rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="rating-votes" id="track-rating-votes">(0 votes)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center - Cover Image -->
+            <div class="track-cover-section">
+                <div class="track-cover-container">
+                    <img id="track-cover" src="" alt="Track Cover" class="track-cover">
+                </div>
+                <!-- Removed track title and artist text -->
+                <div class="track-soundcloud-embed" id="track-soundcloud-embed">
+                    <!-- SoundCloud embed will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Right Side - Track Information -->
+            <div class="track-content-section">
+                <!-- Track Information and Metadata -->
+                <div class="track-info-section">
+                    <div class="track-metadata">
+                        <!-- Track Information -->
+                        <div class="meta-item">
+                            <span class="meta-label">Track Name:</span>
+                            <span class="meta-value" id="info-track-title">Track Title</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Artist:</span>
+                            <span class="meta-value" id="info-track-artist">Artist Name</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Duration:</span>
+                            <span class="meta-value" id="track-duration"></span>
+                        </div>
+                        <div class="meta-item" id="track-release-item" style="display: none;">
+                            <span class="meta-label">Released:</span>
+                            <span class="meta-value" id="track-release-date"></span>
+                        </div>
+                        <div class="meta-item" id="track-label-item" style="display: none;">
+                            <span class="meta-label">Label:</span>
+                            <span class="meta-value" id="track-label"></span>
+                        </div>
+                        <div class="meta-item" id="track-beat-producer-item" style="display: none;">
+                            <span class="meta-label">Beat Producer:</span>
+                            <span class="meta-value" id="track-beat-producer"></span>
+                        </div>
+                        <div class="meta-item" id="track-sound-engineer-item" style="display: none;">
+                            <span class="meta-label">Sound Engineer:</span>
+                            <span class="meta-value" id="track-sound-engineer"></span>
+                        </div>
+                        <div class="meta-item" id="track-project-manager-item" style="display: none;">
+                            <span class="meta-label">Project Manager:</span>
+                            <span class="meta-value" id="track-project-manager"></span>
+                        </div>
+                        <div class="meta-item" id="track-art-direction-item" style="display: none;">
+                            <span class="meta-label">Art Direction:</span>
+                            <span class="meta-value" id="track-art-direction"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
